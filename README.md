@@ -39,7 +39,3 @@ Columns     Name
 9           Preferred OS: Type and Distribution
 10          Adapter conection
 
-
-
-
-python -m pip install pivottablesjs
