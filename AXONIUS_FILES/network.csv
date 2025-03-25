@@ -1,0 +1,979 @@
+﻿"Aggregated: Adapter Connections","Aggregated: Asset Name","Aggregated: Host Name","Aggregated: Adapter Connection Label","Aggregated: Preferred Domain","Aggregated: Preferred Host Name","Aggregated: Domain","Aggregated: Last Seen","Aggregated: Network Interfaces: Manufacturer","Aggregated: Network Interfaces: MAC","Aggregated: Network Interfaces: IPs","Aggregated: Preferred IPv4","Aggregated: OS: Type","Aggregated: Preferred OS: Type","Aggregated: OS: Distribution","Aggregated: Preferred OS: Distribution","Aggregated: OS: Build","Aggregated: Preferred OS: Build","Aggregated: OS: Full OS String","Aggregated: Preferred Device Manufacturer","Aggregated: Preferred Device Model","Aggregated: Device Manufacturer Serial","Aggregated: Tags","Aggregated: Preferred User","Aggregated: Latest Used User","Aggregated: Latest Used User Email"
+"active_directory_adapter
+cisco_adapter
+paloalto_xdr_adapter","VDMG01B14ALMXCO","VDMG01B14ALMXCO","CARSO
+1","telcel.net","VDMG01B14ALMXCO","telcel.net","2025-03-24 06:06:02","(TP-Link Corporation Limited)","28:87:BA:F4:AE:C5","10.188.142.58","10.188.142.58","Windows","Windows","10","10","19045","19045","windows 10 enterprise 10.0 (19045)
+windows 10 agent_os_windows 10.0.19045","","","PF4YZDV5","","","ex512141.jorge.castillo@mail.telcel.com","EX512141.jorge.castillo@mail.telcel.com"
+"cisco_adapter
+paloalto_xdr_adapter","zabbix","ZABBIX","CARSO","","ZABBIX","","2025-03-24 06:06:31","(TP-Link Corporation Limited)","B4:B0:24:80:B2:DD","10.188.243.140","10.188.243.140","Linux","Linux","Debian 10.13","Debian 10.13","","","debian 10.13 agent_os_linux 10.13.0","","","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF10_1_ECARSO_A.SSHDatIP","9S_IDF10_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF10_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:11:C0","149.190.17.192
+10.188.1.218","10.188.1.218
+149.190.17.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF4_2_ECARSO_A.SSHDatIP","9S_IDF4_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF4_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:C3:61:C0","10.188.1.203
+29.195.97.192","10.188.1.203
+29.195.97.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF14_1_ECARSO_A.SSHDatIP","9S_IDF14_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF14_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:52:40","10.188.1.227","10.188.1.227","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF8_1_ECARSO_A.SSHDatIP","9S_IDF8_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF8_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:52:25:40","29.82.37.64
+10.188.1.213","10.188.1.213
+29.82.37.64","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF5_1_ECARSO_B.SSHDatIP","9S_IDF5_1_ECARSO_B.SSHDATIP","CARSO
+CARSO","","9S_IDF5_1_ECARSO_B.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:30:C0","10.188.1.205","10.188.1.205","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF5_1_ECARSO_A.SSHDatIP","9S_IDF5_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF5_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:27:AE:C0","10.188.1.204","10.188.1.204","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF5_2_ECARSO_A.SSHDatIP","9S_IDF5_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF5_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:83:40","10.188.1.206","10.188.1.206","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF10_2_ECARSO_B.SSHDatIP","9S_IDF10_2_ECARSO_B.SSHDATIP","CARSO
+CARSO","","9S_IDF10_2_ECARSO_B.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:C3:5A:40","10.188.1.220
+29.195.90.64","10.188.1.220
+29.195.90.64","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF13_1_ECARSO_A.SSHDatIP","9S_IDF13_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF13_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:56:C0","10.188.1.225
+149.190.86.192","10.188.1.225
+149.190.86.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF11_1_ECARSO_A.SSHDatIP","9S_IDF11_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF11_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A7:F8:C0","10.188.1.221","10.188.1.221","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF16_1_ECARSO_A.SSHDatIP","9S_IDF16_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF16_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","70:01:B5:D3:4E:C0","10.188.1.231","10.188.1.231","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF10_2_ECARSO_A.SSHDatIP","9S_IDF10_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF10_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:0F:C0","149.190.15.192
+10.188.1.219","10.188.1.219
+149.190.15.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF12_2_ECARSO_A.SSHDatIP","9S_IDF12_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF12_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:4E:C0","10.188.1.224","10.188.1.224","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF7_1_ECARSO_A.SSHDatIP","9S_IDF7_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF7_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:C3:62:C0","10.188.1.210
+29.195.98.192","10.188.1.210
+29.195.98.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF8_2_ECARSO_B.SSHDatIP","9S_IDF8_2_ECARSO_B.SSHDATIP","CARSO
+CARSO","","9S_IDF8_2_ECARSO_B.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:15:40","10.188.1.215
+149.190.21.64","10.188.1.215
+149.190.21.64","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF6_2_ECARSO_A.SSHDatIP","9S_IDF6_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF6_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:27:AE:40","10.188.1.208
+10.188.168.5
+10.188.64.5","10.188.1.208
+10.188.168.5
+10.188.64.5","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF14_2_ECARSO_A.SSHDatIP","9S_IDF14_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF14_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:98:C0","10.188.1.228","10.188.1.228","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF13_2_ECARSO_A.SSHDatIP","9S_IDF13_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF13_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:88:40","10.188.1.226","10.188.1.226","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF11_2_ECARSO_A.SSHDatIP","9S_IDF11_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF11_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:43:40","10.188.1.222","10.188.1.222","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF9_2_ECARSO_A.SSHDatIP","9S_IDF9_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF9_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:71:40","149.190.113.64
+10.188.1.217","10.188.1.217
+149.190.113.64","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF6_2_ECARSO_B.SSHDatIP","9S_IDF6_2_ECARSO_B.SSHDATIP","CARSO
+CARSO","","9S_IDF6_2_ECARSO_B.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A7:F9:C0","10.188.1.209","10.188.1.209","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF12_1_ECARSO_A.SSHDatIP","9S_IDF12_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF12_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:48:40","10.188.1.223","10.188.1.223","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF9_1_ECARSO_A.SSHDatIP","9S_IDF9_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF9_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:C3:42:C0","10.188.1.216
+29.195.66.192","10.188.1.216
+29.195.66.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF15_1_ECARSO_A.SSHDatIP","9S_IDF15_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF15_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:A6:72:C0","10.188.1.229","10.188.1.229","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF3_2_ECARSO_A.SSHDatIP","9S_IDF3_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF3_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:7B:D7:40","10.188.1.202
+149.123.215.64","10.188.1.202
+149.123.215.64","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF15_2_ECARSO_A.SSHDatIP","9S_IDF15_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF15_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:10:40","149.190.16.64
+10.188.1.230","10.188.1.230
+149.190.16.64","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF7_2_ECARSO_A.SSHDatIP","9S_IDF7_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF7_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:6A:C0","149.190.106.192
+10.188.1.212","10.188.1.212
+149.190.106.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF8_2_ECARSO_A.SSHDatIP","9S_IDF8_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF8_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:20:C0","10.188.1.214
+149.190.32.192","10.188.1.214
+149.190.32.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF16_2_ECARSO_A.SSHDatIP","9S_IDF16_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF16_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","84:8A:8D:26:1D:40","10.188.1.232","10.188.1.232","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF7_1_ECARSO_B.SSHDatIP","9S_IDF7_1_ECARSO_B.SSHDATIP","CARSO
+CARSO","","9S_IDF7_1_ECARSO_B.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:C3:5D:40","29.195.93.64
+10.188.1.211","10.188.1.211
+29.195.93.64","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF6_1_ECARSO_A.SSHDatIP","9S_IDF6_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF6_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:C3:38:C0","29.195.56.192
+10.188.1.207","10.188.1.207
+29.195.56.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDFS_2_ECARSO_A.SSHDatIP","9S_IDFS_2_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDFS_2_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:7E:95:BE:10:C0","149.190.16.192
+10.188.1.200","10.188.1.200
+149.190.16.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDFS_2_ECARSO_B.SSHDatIP","9S_IDFS_2_ECARSO_B.SSHDATIP","CARSO
+CARSO","","9S_IDFS_2_ECARSO_B.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:52:00:40","10.188.1.201
+29.82.0.64","10.188.1.201
+29.82.0.64","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter","9ACI_LO_EDCARSO_101(FDO25390GNV)","9ACI_LO_EDCARSO_101","CARSO","","9ACI_LO_EDCARSO_101","","","","","10.188.128.129
+10.188.166.241","10.188.128.129
+10.188.166.241","Cisco","Cisco","NX-OS","NX-OS","Cisco Nexus Operating System (NX-OS) Software, Version 16.0(3e)","Cisco Nexus Operating System (NX-OS) Software, Version 16.0(3e)","cisco nexus operating system (nx-os) software, version 16.0(3e) n9k-c93180yc-fx3","","N9K-C93180YC-FX3","","","","",""
+"cisco_adapter
+cisco_adapter","9S_IDF17_1_ECARSO_A.SSHDatIP","9S_IDF17_1_ECARSO_A.SSHDATIP","CARSO
+CARSO","","9S_IDF17_1_ECARSO_A.SSHDATIP","","","(Cisco Systems, Inc)","00:45:1D:53:D4:C0","29.83.212.192
+10.188.1.233","10.188.1.233
+29.83.212.192","Cisco","Cisco","IOS-XR","IOS-XR","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","Cisco IOS Software, C2960X Software (C2960X-UNIVERSALK9-M), Version 15.2(7)E4, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2021 by Cisco Systems, Inc.
+Compiled Mon 08-Mar-21 11:26 by prod_rel_team","cisco ios software, c2960x software (c2960x-universalk9-m), version 15.2(7)e4, release software (fc2)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2021 by cisco systems, inc.
+compiled mon 08-mar-21 11:26 by prod_rel_team cisco ws-c2960xr-48fpd-i","","cisco WS-C2960XR-48FPD-I","","","","",""
+"cisco_adapter","9ACI_LO_EDCARSO_102(FDO253906KN)","9ACI_LO_EDCARSO_102","CARSO","","9ACI_LO_EDCARSO_102","","","","","189.254.71.241
+10.188.166.241","10.188.166.241
+189.254.71.241","Cisco","Cisco","NX-OS","NX-OS","Cisco Nexus Operating System (NX-OS) Software, Version 16.0(3e)","Cisco Nexus Operating System (NX-OS) Software, Version 16.0(3e)","cisco nexus operating system (nx-os) software, version 16.0(3e) n9k-c93180yc-fx3","","N9K-C93180YC-FX3","","","","",""
+"cisco_adapter
+cisco_adapter","9S_MDF_ECARSO.SSHDatIP","9S_MDF_ECARSO.SSHDATIP","CARSO
+CARSO","","9S_MDF_ECARSO.SSHDATIP","","2025-03-24 06:00:20","","9C:66:97:58:84:FF
+9C:66:97:58:84:60
+9C:66:97:58:84:61
+9C:66:97:58:84:62
+9C:66:97:58:84:63
+9C:66:97:58:84:64
+9C:66:97:58:84:65
+9C:66:97:58:84:66
+9C:66:97:58:84:67
+9C:66:97:58:84:68
+9C:66:97:58:84:69
+9C:66:97:58:84:6A
+9C:66:97:58:84:6B
+9C:66:97:58:84:6C
+9C:66:97:58:84:6D
+9C:66:97:58:84:6E
+9C:66:97:58:84:6F
+9C:66:97:58:84:70
+9C:66:97:58:84:71
+9C:66:97:58:84:72
+9C:66:97:58:84:73
+9C:66:97:58:84:74
+9C:66:97:58:84:75
+9C:66:97:58:84:76
+9C:66:97:58:84:77
+9C:66:97:58:84:78
+9C:66:97:58:84:79
+9C:66:97:58:84:7A
+9C:66:97:58:84:7B
+9C:66:97:58:84:7C
+9C:66:97:58:84:7D
+9C:66:97:58:84:7E
+9C:66:97:58:84:7F
+9C:66:97:58:84:80
+9C:66:97:58:84:81
+9C:66:97:58:84:82
+9C:66:97:58:84:83
+9C:66:97:58:84:84
+9C:66:97:58:84:85
+9C:66:97:58:84:86
+9C:66:97:58:84:87
+9C:66:97:58:84:88
+9C:66:97:58:84:89
+9C:66:97:58:84:8A
+9C:66:97:58:84:8B
+9C:66:97:58:84:8C
+9C:66:97:58:84:8D
+9C:66:97:58:84:8E
+9C:66:97:58:84:8F
+9C:66:97:58:84:90
+9C:66:97:58:84:91
+9C:66:97:58:84:92
+9C:66:97:58:84:93
+9C:66:97:58:84:94
+9C:66:97:58:85:01
+9C:66:97:58:85:02
+9C:66:97:58:85:03
+9C:66:97:58:85:04
+9C:66:97:58:85:05
+9C:66:97:58:85:06
+9C:66:97:58:85:07
+9C:66:97:58:85:08
+9C:66:97:58:85:09
+9C:66:97:58:85:0A
+9C:66:97:58:85:0B
+9C:66:97:58:85:0C
+9C:66:97:58:85:0D
+9C:66:97:58:85:0E
+9C:66:97:58:85:0F
+9C:66:97:58:85:10
+9C:66:97:58:85:11
+9C:66:97:58:85:12
+9C:66:97:58:85:13
+9C:66:97:58:85:14
+9C:66:97:58:85:15
+9C:66:97:58:85:16
+9C:66:97:58:85:17
+9C:66:97:58:85:18
+9C:66:97:58:85:19
+9C:66:97:58:85:1A
+9C:66:97:58:85:1B
+9C:66:97:58:85:1C
+9C:66:97:58:85:1D
+9C:66:97:58:85:1E
+9C:66:97:58:85:1F
+9C:66:97:58:85:20
+9C:66:97:58:85:21
+9C:66:97:58:85:22
+9C:66:97:58:85:23
+9C:66:97:58:85:24
+9C:66:97:58:85:25
+9C:66:97:58:85:26
+9C:66:97:58:85:27
+9C:66:97:58:85:28
+9C:66:97:58:85:29
+9C:66:97:58:85:2A
+9C:66:97:58:85:2B
+9C:66:97:58:85:2C
+9C:66:97:58:85:2D
+9C:66:97:58:85:2E
+9C:66:97:58:85:2F
+9C:66:97:58:85:30
+9C:66:97:58:85:31
+9C:66:97:58:85:32
+9C:66:97:58:85:33
+9C:66:97:58:85:34","10.188.182.137
+10.188.6.1
+10.188.93.1
+10.188.245.33
+10.188.208.1
+10.188.101.1
+10.188.121.1
+10.188.152.1
+10.188.128.65
+10.188.2.1
+10.188.30.1
+10.188.182.89
+10.188.6.209
+10.188.105.1
+10.188.236.1
+10.188.182.105
+10.188.151.1
+10.188.124.1
+10.188.202.209
+10.188.254.121
+10.188.243.1
+10.188.82.1
+10.188.130.1
+10.188.238.1
+10.188.40.1
+10.188.16.193
+10.188.6.65
+10.188.52.1
+10.188.163.1
+10.188.115.1
+10.188.132.1
+10.188.155.1
+10.188.112.1
+10.188.6.193
+10.188.158.17
+10.188.106.1
+10.188.1.10
+10.188.173.1
+10.188.108.1
+10.188.245.57
+10.188.133.1
+10.188.84.1
+10.188.128.161
+10.188.20.1
+10.188.90.1
+10.188.157.1
+10.188.254.3
+10.188.170.1
+10.188.202.193
+10.188.174.1
+10.188.171.1
+10.0.1.254
+10.188.172.1
+10.188.202.81
+10.188.72.1
+10.188.78.1
+10.188.110.1
+10.188.61.1
+10.188.64.1
+10.188.144.1
+10.188.241.1
+10.188.113.1
+10.188.158.65
+10.188.168.1
+10.188.142.1
+10.188.83.1
+10.188.139.1
+10.188.150.1
+10.188.92.1
+10.188.118.1
+10.188.103.1
+10.188.161.1
+10.188.122.1
+10.188.239.1
+10.188.8.1
+10.188.17.161
+10.188.158.97
+10.188.4.1
+10.188.162.1
+10.188.233.38
+10.188.180.65
+10.188.18.65
+10.188.128.193
+10.188.36.1
+10.188.44.1
+10.188.117.1
+10.188.120.1
+10.188.31.1
+10.188.70.1
+10.188.182.241
+10.188.74.1
+10.188.53.1
+10.188.16.129
+10.188.158.177
+10.188.253.1
+10.188.102.1
+10.188.95.1
+10.188.54.1
+10.188.252.1
+10.188.143.1
+10.188.91.1
+10.188.34.1
+10.188.60.1
+10.188.75.1
+10.255.90.97
+10.188.164.1
+10.188.41.1
+10.188.43.1
+10.188.94.1
+10.188.134.1
+10.188.111.1
+10.188.7.1
+10.188.56.129
+10.188.123.1
+10.188.182.57
+10.205.84.49
+10.188.140.1
+10.188.6.129
+10.188.6.225
+10.188.245.153
+10.188.156.1
+10.188.200.129
+10.188.62.1
+10.188.89.1
+10.188.63.1
+10.188.32.1
+10.188.33.1
+10.188.45.1
+10.188.58.1
+10.188.234.1
+10.188.197.1
+10.188.160.1
+10.188.190.1
+10.188.46.1
+10.188.107.1
+10.188.138.1
+10.188.203.1
+10.188.100.1
+10.188.216.1
+2.1.1.3
+10.188.66.1
+10.188.26.1
+10.188.85.1
+10.188.73.1
+10.188.81.1
+10.188.240.1
+10.188.76.1
+10.188.80.1
+10.188.96.1
+10.188.202.1
+10.188.182.73
+10.188.233.46
+10.188.104.1
+10.188.154.1
+10.188.175.1
+10.188.51.1
+10.188.86.1
+10.188.87.1
+10.188.114.1
+10.188.71.1
+10.188.88.1
+10.188.48.1
+10.188.158.131
+10.188.224.1
+10.188.136.1
+10.188.202.225
+10.188.19.1
+10.188.201.1
+192.168.4.254
+10.188.68.1
+10.188.182.129
+10.188.141.1
+10.188.116.1
+10.188.128.17
+10.188.131.1
+10.188.158.193
+10.188.35.1
+10.188.42.1
+10.188.204.1
+10.188.200.1
+10.188.65.1
+10.188.153.1
+10.188.6.161
+10.188.16.1
+10.188.166.233
+10.0.0.254
+10.188.50.1
+192.168.3.254
+10.188.1.1
+10.205.80.49
+10.188.184.1
+10.188.55.1
+10.188.56.1
+10.188.245.9
+10.188.77.1
+10.188.135.2
+10.188.182.49
+10.188.203.3
+2.1.1.11
+10.188.6.66","10.0.0.254
+10.0.1.254
+10.188.1.1
+10.188.1.10
+10.188.100.1
+10.188.101.1
+10.188.102.1
+10.188.103.1
+10.188.104.1
+10.188.105.1
+10.188.106.1
+10.188.107.1
+10.188.108.1
+10.188.110.1
+10.188.111.1
+10.188.112.1
+10.188.113.1
+10.188.114.1
+10.188.115.1
+10.188.116.1
+10.188.117.1
+10.188.118.1
+10.188.120.1
+10.188.121.1
+10.188.122.1
+10.188.123.1
+10.188.124.1
+10.188.128.161
+10.188.128.17
+10.188.128.193
+10.188.128.65
+10.188.130.1
+10.188.131.1
+10.188.132.1
+10.188.133.1
+10.188.134.1
+10.188.135.2
+10.188.136.1
+10.188.138.1
+10.188.139.1
+10.188.140.1
+10.188.141.1
+10.188.142.1
+10.188.143.1
+10.188.144.1
+10.188.150.1
+10.188.151.1
+10.188.152.1
+10.188.153.1
+10.188.154.1
+10.188.155.1
+10.188.156.1
+10.188.157.1
+10.188.158.131
+10.188.158.17
+10.188.158.177
+10.188.158.193
+10.188.158.65
+10.188.158.97
+10.188.16.1
+10.188.16.129
+10.188.16.193
+10.188.160.1
+10.188.161.1
+10.188.162.1
+10.188.163.1
+10.188.164.1
+10.188.166.233
+10.188.168.1
+10.188.17.161
+10.188.170.1
+10.188.171.1
+10.188.172.1
+10.188.173.1
+10.188.174.1
+10.188.175.1
+10.188.18.65
+10.188.180.65
+10.188.182.105
+10.188.182.129
+10.188.182.137
+10.188.182.241
+10.188.182.49
+10.188.182.57
+10.188.182.73
+10.188.182.89
+10.188.184.1
+10.188.19.1
+10.188.190.1
+10.188.197.1
+10.188.2.1
+10.188.20.1
+10.188.200.1
+10.188.200.129
+10.188.201.1
+10.188.202.1
+10.188.202.193
+10.188.202.209
+10.188.202.225
+10.188.202.81
+10.188.203.1
+10.188.203.3
+10.188.204.1
+10.188.208.1
+10.188.216.1
+10.188.224.1
+10.188.233.38
+10.188.233.46
+10.188.234.1
+10.188.236.1
+10.188.238.1
+10.188.239.1
+10.188.240.1
+10.188.241.1
+10.188.243.1
+10.188.245.153
+10.188.245.33
+10.188.245.57
+10.188.245.9
+10.188.252.1
+10.188.253.1
+10.188.254.121
+10.188.254.3
+10.188.26.1
+10.188.30.1
+10.188.31.1
+10.188.32.1
+10.188.33.1
+10.188.34.1
+10.188.35.1
+10.188.36.1
+10.188.4.1
+10.188.40.1
+10.188.41.1
+10.188.42.1
+10.188.43.1
+10.188.44.1
+10.188.45.1
+10.188.46.1
+10.188.48.1
+10.188.50.1
+10.188.51.1
+10.188.52.1
+10.188.53.1
+10.188.54.1
+10.188.55.1
+10.188.56.1
+10.188.56.129
+10.188.58.1
+10.188.6.1
+10.188.6.129
+10.188.6.161
+10.188.6.193
+10.188.6.209
+10.188.6.225
+10.188.6.65
+10.188.6.66
+10.188.60.1
+10.188.61.1
+10.188.62.1
+10.188.63.1
+10.188.64.1
+10.188.65.1
+10.188.66.1
+10.188.68.1
+10.188.7.1
+10.188.70.1
+10.188.71.1
+10.188.72.1
+10.188.73.1
+10.188.74.1
+10.188.75.1
+10.188.76.1
+10.188.77.1
+10.188.78.1
+10.188.8.1
+10.188.80.1
+10.188.81.1
+10.188.82.1
+10.188.83.1
+10.188.84.1
+10.188.85.1
+10.188.86.1
+10.188.87.1
+10.188.88.1
+10.188.89.1
+10.188.90.1
+10.188.91.1
+10.188.92.1
+10.188.93.1
+10.188.94.1
+10.188.95.1
+10.188.96.1
+10.205.80.49
+10.205.84.49
+10.255.90.97
+192.168.3.254
+192.168.4.254
+2.1.1.11
+2.1.1.3","Cisco","Cisco","IOS-XE","IOS-XE","Cisco IOS Software [Dublin], Catalyst L3 Switch Software (CAT9K_IOSXE), Version 17.12.4, RELEASE SOFTWARE (fc3)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2024 by Cisco Systems, Inc.
+Compiled Tue 23-Jul-24 09:40 by mcpre","Cisco IOS Software [Dublin], Catalyst L3 Switch Software (CAT9K_IOSXE), Version 17.12.4, RELEASE SOFTWARE (fc3)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2024 by Cisco Systems, Inc.
+Compiled Tue 23-Jul-24 09:40 by mcpre","cisco cisco ios software [dublin], catalyst l3 switch software (cat9k_iosxe), version 17.12.4, release software (fc3)
+technical support: http://www.cisco.com/techsupport
+copyright (c) 1986-2024 by cisco systems, inc.
+compiled tue 23-jul-24 09:40 by mcpre c9500-48y4c","","C9500-48Y4C","FDO2831095H","","","",""

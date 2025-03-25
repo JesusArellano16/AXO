@@ -1,0 +1,171 @@
+﻿"Aggregated: Adapter Connections","Aggregated: Preferred Host Name","Aggregated: Preferred IPs","Aggregated: Preferred MAC Address","Aggregated: Preferred OS: Type and Distribution"
+"cisco_adapter
+nagios_xi_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9VM-MDF2-ECAR-GRABACION","10.188.17.170","00:0C:29:F7:DE:D7","Windows Server 2016"
+"cisco_adapter
+nagios_xi_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9VM-MDF2-ECAR-VERINT","10.188.17.166","00:0C:29:BC:54:54","Windows Server 2016"
+"cisco_adapter
+nagios_xi_adapter
+paloalto_xdr_adapter","CAFIPPCAAPS001","10.188.7.223","9C:8E:99:56:98:72","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-CSB","10.188.16.209
+172.9.9.7","00:0C:29:2C:E6:92
+00:0C:29:2C:E6:9C","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","PCCE12-ADB","10.188.16.199","00:0C:29:06:29:0C","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-CVPCS2B","10.188.16.214","00:0C:29:EA:AB:A6","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-DSB","10.188.16.210
+172.9.9.8","00:0C:29:CC:E1:43
+00:0C:29:CC:E1:4D","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-CVPCS1B","10.188.16.212","00:0C:29:8B:B2:8E","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","PCCE12-ADA","10.188.16.198","00:0C:29:DA:20:AA","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-DSA","10.188.16.208
+172.9.9.6","00:0C:29:2E:FA:45
+00:0C:29:2E:FA:4F","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-CVPCS2A","10.188.16.213","00:0C:29:74:32:86","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-CVPCS1A","10.188.16.211","00:0C:29:27:52:47","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-CSA","10.188.16.207
+172.9.9.5","00:0C:29:42:87:82
+00:0C:29:42:87:8C","Windows Server 2016"
+"cisco_adapter
+paloalto_xdr_adapter
+vmware_vrops_adapter","9PCCE-CVPOAMP","10.188.16.215","00:0C:29:12:8D:02","Windows Server 2016"
+"cisco_adapter
+deep_security_adapter
+paloalto_xdr_adapter","RADIOMOV-O1IFZ1","10.188.252.13","B8:CA:3A:F6:87:58","Windows Server 2008 R2"
+"active_directory_adapter
+cisco_adapter
+paloalto_xdr_adapter","CARFNKSIRWDAP08","10.188.71.90","54:AB:3A:51:98:65","Windows Server 2019"
+"active_directory_adapter
+cisco_adapter
+paloalto_xdr_adapter","CARFNKSIRWDAP10","10.188.71.62","54:AB:3A:51:96:06","Windows Server 2019"
+"active_directory_adapter
+cisco_adapter
+paloalto_xdr_adapter","DRESCUERH","10.188.40.254","74:46:A0:9D:B2:B1","Windows Server 2012 R2"
+"active_directory_adapter
+cisco_adapter
+paloalto_xdr_adapter","DDATARH","10.188.40.253","88:51:FB:6C:FD:FD","Windows Server 2008 R2"
+"active_directory_adapter
+cisco_adapter
+paloalto_xdr_adapter","RLPEOSS01","10.188.71.175","2C:44:FD:20:2E:E3","Windows Server 2008 R2"
+"active_directory_adapter
+cisco_adapter
+paloalto_xdr_adapter","CARFNKSIRWDAP03","10.188.71.82","54:AB:3A:51:97:CF","Windows Server 2019"
+"active_directory_adapter
+cisco_adapter
+paloalto_xdr_adapter","CARFNKSIRWDAP04","10.188.71.83","54:AB:3A:61:ED:A5","Windows Server 2019"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-IMP","10.188.16.206","00:0C:29:C0:7D:3B","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-MOH2","10.188.16.236","00:0C:29:D4:4C:42","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-SUB1","10.188.16.225","00:0C:29:80:3E:8F","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-TFTP1","10.188.16.229","00:0C:29:3B:8D:44","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-TFTP2","10.188.16.230","00:0C:29:3C:2B:0F","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-MOH1","10.188.16.235","00:0C:29:A5:1E:8C","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-PUB","10.188.16.224","00:0C:29:3B:DD:1B","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-SUB2","10.188.16.226","00:0C:29:7D:6F:8C","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","9PCUCM-CAR-MR1","10.188.16.231","00:0C:29:E5:D7:E4","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-CARSO-SUB3","10.188.202.229","00:0C:29:60:B0:E5","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-MDF2-CARSO","10.188.202.246","00:0C:29:2E:AE:47","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-CARSO-TFTP2","10.188.202.237","00:0C:29:EC:D4:4F","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-CARSO-SUB5","10.188.202.231","00:0C:29:8A:52:80","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-CARSO-MR5","10.188.202.240","00:0C:29:DA:76:70","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-CARSO-SUB4","10.188.202.230","00:0C:29:18:25:7A","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-CARSO-MR4","10.188.202.239","00:0C:29:EB:A3:3B","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-CARSO-MOH2","10.188.202.243","00:0C:29:41:EE:B7","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","VM-CUCM-CARSO-MR6","10.188.202.241","00:0C:29:DC:1E:27","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","CSOFCIPRVLAP02","10.188.180.69","00:50:56:A9:D3:78","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","CSOFCIASSLAP01","10.188.180.68","00:50:56:A9:54:F3","Linux Centos"
+"cisco_adapter
+nagios_xi_adapter
+vmware_vrops_adapter","CSOFCIAUXLAP03","10.188.180.70","00:50:56:A9:5C:E4","Linux Centos 7"
+"cisco_adapter
+nagios_xi_adapter
+redhat_satellite_adapter","UXF1NAGP02","10.188.6.78","E4:11:5B:B8:96:3E","Linux Red Hat 7.4"
+"cisco_adapter
+paloalto_xdr_adapter","FACTELMEXINTERC","10.188.50.60","90:B1:1C:2D:32:C8","Windows Server 2008 R2"
+"cisco_adapter
+paloalto_xdr_adapter","SQLSERVER","10.188.252.100","B8:CA:3A:F6:84:28","Windows Server 2008 R2"
+"cisco_adapter
+paloalto_xdr_adapter","OIDSHARE","10.188.91.112
+10.253.192.75","E4:A4:71:A6:BA:7B
+EC:8E:B5:9D:2B:3F","Linux Ubuntu 24.04.2"
+"cisco_adapter
+paloalto_xdr_adapter","LOCALHOST.LOCALDOMAIN","10.188.90.112","EC:8E:B5:75:CD:D8","Linux Red Hat 7.5"
+"cisco_adapter
+vmware_vrops_adapter","9PCCE-FINESSEB","10.188.16.217","00:0C:29:2E:59:A6","Linux Red Hat 6"
+"cisco_adapter
+vmware_vrops_adapter","9PCCE-CUICA","10.188.16.218","00:0C:29:DA:20:7A","Linux Centos"
+"cisco_adapter
+vmware_vrops_adapter","9PCCE-CUICB","10.188.16.219","00:0C:29:1E:BA:31","Linux Centos"
+"cisco_adapter
+vmware_vrops_adapter","9PCCE-FINESSEA","10.188.16.216","00:0C:29:B8:54:D0","Linux Red Hat 6"
+"cisco_adapter
+vmware_vrops_adapter","9VM-CARSO-SSM-CCE","10.188.16.239","00:0C:29:11:72:4F","Linux Centos 7"
+"cisco_adapter
+vmware_vrops_adapter","9CUCM-CAR-MR2","10.188.16.232","00:0C:29:37:0B:59","Linux Centos"
+"cisco_adapter
+vmware_vrops_adapter","9PCCE-VVBA","10.188.16.220","00:0C:29:7E:31:8B","Linux Red Hat 6"
+"cisco_adapter
+vmware_vrops_adapter","9PCCE-VVBB","10.188.16.221","00:0C:29:40:93:6E","Linux Red Hat 6"
+"cisco_adapter
+paloalto_xdr_adapter","ZABBIX","10.188.243.140","B4:B0:24:80:B2:DD","Linux Debian 10.13"
