@@ -11,20 +11,10 @@ For install all the requirements - "pip install -r requirements.txt"
 
 Run the project with -"python scripts/main.py"
 
-We need the following Files
-
- + NETWORK_DEVICES_<CENTRAL>_20032025.csv
- + PCs_<CENTRAL>_20032025.xlsx
- + TOTAL_ASSETS_<CENTRAL>_20032025.csv
- + SERVERS_<CENTRAL>_20032025.xlsx
-
--------- FOR SERVERS & PCs ------
-Columns     Name
-1           Adapters
-2           Hostname
-3           IPs
-4           MAC
-5           OS
+Create file ".env" with following data:
+    AXONIUS_URL="https://<ip>"
+    AXONIUS_KEY="<key>"
+    AXONIUS_SECRET="<secret>"
 
 -------- FOR SEVERITIES ------
 Columns     Name
@@ -38,4 +28,3 @@ Columns     Name
 8           Preferred MAC Address
 9           Preferred OS: Type and Distribution
 10          Adapter conection
-
