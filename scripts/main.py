@@ -1,6 +1,6 @@
 from axonius_retreive_data import axonius_retreive_data
 import datetime as dt
-from critical import critical
+#from critical import critical
 from dotenv import load_dotenv
 import os
 from pathlib import Path
