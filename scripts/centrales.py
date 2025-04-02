@@ -4,18 +4,6 @@ class Central:
         self.queries = queries
         self.file_name = file_name
 
-"""centrales = [
-    Central(
-        "IXTLA",
-        [
-            "NETWORK DEVICES IXTLAHUACA"
-        ],
-        [
-            "NET_DEV"
-        ]
-    )
-]
-"""
 centrales = [
     Central(
         "IXTLA",

@@ -5,13 +5,13 @@ import pandas as pd
 import urllib3
 import os
 import openpyxl
-import os
 from openpyxl.styles import Alignment
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 warnings.simplefilter("ignore",category=Warning)  # Ignorar advertencias para evitar mensajes innecesarios en la consola
 
 
 def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,central,current_date_and_time):
+    print(f'🚀 Working in {saved_query_name} ')
     path = r'./ARCHIVOS_REPORTES/'+central
     if not os.path.exists(path):
         os.mkdir(path)
@@ -107,9 +107,9 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
     wb = openpyxl.load_workbook(archivo)
     ws = wb.active  # Seleccionar la hoja activa
     columnas = [cell.value for cell in ws[1]]
-    print(columnas)
+    #print(columnas)
     if "MAC" in columnas:
-        print("TRUE")
+        #print("TRUE")
         # Definir las columnas objetivo (A, C y D corresponden a índices 1, 3 y 4 en openpyxl)
         columnas_objetivo = [1, 3, 4]
         columnas_ancho = {
@@ -160,3 +160,4 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
     os.remove('archivo_modificado.xlsx')
     os.remove('datos.xlsx')
     os.remove(remo)
+    print(f'✅{name} created')
