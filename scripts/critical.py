@@ -5,9 +5,27 @@ import os
 import openpyxl
 from openpyxl.styles import Alignment
 
+def verificar_archivo(vuln,central):
+    # Ruta de la carpeta donde debe estar
+    ruta_base = "AXONIUS_FILES"
+    ruta_completa = os.path.join(ruta_base, central)
+
+    # Verificar si la carpeta central existe
+    if not os.path.isdir(ruta_completa):
+        return False  # La carpeta no existe
+
+    # Verificar si el archivo "vuln.csv" está dentro de central
+    return f"{vuln}.csv" in os.listdir(ruta_completa)
+
+
 def critical(central, current_date_and_time, severidad):
-    print(f'🚀 Iniciando proceso para {severidad} en {central}')
     
+    if not verificar_archivo(vuln=severidad.lower(),central=central):
+        print(f'🚀 {central} has no {severidad} vulnerabilities')
+        exit()
+    print(f'🚀 Iniciando proceso para {severidad} en {central}')
+
+
     # Copiar el archivo CSV a la carpeta de reportes
     src_path = f'./AXONIUS_FILES/{central}/{severidad}.csv'
     dest_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/{severidad}.csv'

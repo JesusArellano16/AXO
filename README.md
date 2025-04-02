@@ -28,3 +28,10 @@ Columns     Name
 8           Preferred MAC Address
 9           Preferred OS: Type and Distribution
 10          Adapter conection
+
+-------- FOR EOL ------
+    Export CSV
+
+-File name: <eol>
+-Split by field values: <Installed Software>
+-Don't split complex objects into columns: <check>

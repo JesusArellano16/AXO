@@ -27,7 +27,7 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
 
     # Obtener los dispositivos de la consulta guardada
     devices = apiobj.get_by_saved_query(saved_query_name)
-
+    
     # Lista donde se almacenarán los dispositivos con datos filtrados
     clean_devices = []
 

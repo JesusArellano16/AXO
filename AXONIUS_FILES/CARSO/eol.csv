@@ -1,0 +1,28 @@
+﻿"Aggregated: Asset Unique ID","Aggregated: Adapter Connections","Aggregated: Preferred Host Name","Aggregated: Installed Software: Software Name","Aggregated: Installed Software: Software Version","Aggregated: Installed Software: End of Life","Aggregated: Installed Software: End Of Support Date","Aggregated: Preferred IPs","Aggregated: Preferred MAC Address","Aggregated: Preferred OS: Type and Distribution"
+"9f3e08ecfa097f0958300e4ec81b57a7","cisco_adapter
+nagios_xi_adapter
+redhat_satellite_adapter","UXF1NAGP02","python","2.7.5","2020-01-01 00:00:00","","10.188.6.78","E4:11:5B:B8:96:3E","Linux Red Hat 7.4"
+"9f3e08ecfa097f0958300e4ec81b57a7","cisco_adapter
+nagios_xi_adapter
+redhat_satellite_adapter","UXF1NAGP02","postfix","2.10.1","2017-02-28 00:00:00","","10.188.6.78","E4:11:5B:B8:96:3E","Linux Red Hat 7.4"
+"9f3e08ecfa097f0958300e4ec81b57a7","cisco_adapter
+nagios_xi_adapter
+redhat_satellite_adapter","UXF1NAGP02","php","5.4.16","2015-09-14 00:00:00","2014-09-14 00:00:00","10.188.6.78","E4:11:5B:B8:96:3E","Linux Red Hat 7.4"
+"9f3e08ecfa097f0958300e4ec81b57a7","cisco_adapter
+nagios_xi_adapter
+redhat_satellite_adapter","UXF1NAGP02","mariadb","5.5.56","2020-04-11 00:00:00","","10.188.6.78","E4:11:5B:B8:96:3E","Linux Red Hat 7.4"
+"9f3e08ecfa097f0958300e4ec81b57a7","cisco_adapter
+nagios_xi_adapter
+redhat_satellite_adapter","UXF1NAGP02","postgresql","9.2.23","2017-11-09 00:00:00","","10.188.6.78","E4:11:5B:B8:96:3E","Linux Red Hat 7.4"
+"9f3e08ecfa097f0958300e4ec81b57a7","cisco_adapter
+nagios_xi_adapter
+redhat_satellite_adapter","UXF1NAGP02","postgresql10","10.17","2022-11-10 00:00:00","","10.188.6.78","E4:11:5B:B8:96:3E","Linux Red Hat 7.4"
+"04a9c5193f4ec3e40fa9bcd82c4579c5","cisco_adapter
+paloalto_xdr_adapter","ZABBIX","openssl","1.1.1","2023-09-11 00:00:00","","10.188.243.140","B4:B0:24:80:B2:DD","Linux Debian 10.13"
+"04a9c5193f4ec3e40fa9bcd82c4579c5","cisco_adapter
+paloalto_xdr_adapter","ZABBIX","perl","5.28.1","2021-06-23 00:00:00","2020-06-20 00:00:00","10.188.243.140","B4:B0:24:80:B2:DD","Linux Debian 10.13"
+"04a9c5193f4ec3e40fa9bcd82c4579c5","cisco_adapter
+paloalto_xdr_adapter","ZABBIX","php","7.3","2021-12-06 00:00:00","2020-12-06 00:00:00","10.188.243.140","B4:B0:24:80:B2:DD","Linux Debian 10.13"
+"04a9c5193f4ec3e40fa9bcd82c4579c5","cisco_adapter
+paloalto_xdr_adapter","ZABBIX","python3.7
+python3","3.7.3","2023-06-27 00:00:00","2020-06-27 00:00:00","10.188.243.140","B4:B0:24:80:B2:DD","Linux Debian 10.13"

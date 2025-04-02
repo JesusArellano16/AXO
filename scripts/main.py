@@ -2,6 +2,7 @@ from axonius_retreive_data import axonius_retreive_data
 import datetime as dt
 from critical import critical
 from dotenv import load_dotenv
+from eol import Eol
 import os
 from pathlib import Path
 from centrales import centrales
@@ -20,23 +21,58 @@ connect_args = {
 
 current_date_and_time = str(dt.date.today())
 
-def verificar_archivo(vuln,central):
-    # Ruta de la carpeta donde debe estar
-    ruta_base = "AXONIUS_FILES"
-    ruta_completa = os.path.join(ruta_base, central)
-
-    # Verificar si la carpeta central existe
-    if not os.path.isdir(ruta_completa):
-        return False  # La carpeta no existe
-
-    # Verificar si el archivo "vuln.csv" está dentro de central
-    return f"{vuln}.csv" in os.listdir(ruta_completa)
 
 
 
+def run_axonius(central):
+    #Ejecuta todas las consultas de Axonius en paralelo
+    processes = []
+    for x in range(len(central.queries)):
+        p = multiprocessing.Process(target=axonius_retreive_data, kwargs={
+            "connect_args": connect_args,
+            "saved_query_name": central.queries[x],
+            "saved_query_name_clean": central.file_name[x],
+            "central": central.nombre,
+            "current_date_and_time": current_date_and_time,
+        })
+        processes.append(p)
+        p.start()
+
+    for p in processes:
+        p.join()
 
 
-def run_queries(centrales):
+
+def run_critical(central):
+    #Ejecuta la función critical en paralelo para las severidades CRITICAL y HIGH
+    processes = []
+    for severity in ["CRITICAL", "HIGH"]:
+        p = multiprocessing.Process(target=critical, kwargs={
+            "central": central.nombre,
+            "current_date_and_time": current_date_and_time,
+            "severidad": severity,
+        })
+        processes.append(p)
+        p.start()
+
+    for p in processes:
+        p.join()
+
+def run_eol(central):
+    #Ejecuta la función critical en paralelo para las severidades CRITICAL y HIGH
+    processes = []
+    p = multiprocessing.Process(target=Eol, kwargs={
+        "central": central.nombre,
+        "current_date_and_time": current_date_and_time,
+    })
+    processes.append(p)
+    p.start()
+
+    for p in processes:
+        p.join()
+
+
+if __name__ == '__main__':
     processes = []
     for central in centrales:
         path = r'./ARCHIVOS_REPORTES/'+central.nombre
@@ -46,40 +82,21 @@ def run_queries(centrales):
         if not os.path.exists(path):
             os.mkdir(path)
         print(f'🚀 WORKING WITH {central.nombre}')
-        for x in range (0,len(central.queries)):
-            #Aquí meteremos los networks y assets
-            p = multiprocessing.Process(target=axonius_retreive_data, kwargs={
-                "connect_args": connect_args,
-                "saved_query_name": central.queries[x],
-                "saved_query_name_clean": central.file_name[x],
-                "central": central.nombre,
-                "current_date_and_time": current_date_and_time,
-            })
-            processes.append(p)
-            p.start()
 
-        for p in processes:
-            p.join()
-        """if verificar_archivo(vuln="critical",central=central.nombre):
-            print(f'🚀 {central.nombre} has critical vulnerabilities')
-            critical(central=central.nombre,current_date_and_time=current_date_and_time,severidad="CRITICAL")
+        # Crear procesos para ejecutar Axonius y Critical en paralelo
+        p1 = multiprocessing.Process(target=run_axonius, args=(central,))
+        p2 = multiprocessing.Process(target=run_critical, args=(central,))
+        p3 = multiprocessing.Process(target=run_eol,args=(central,))
 
-        if verificar_archivo(vuln="high",central=central.nombre):
-            print(f'🚀 {central.nombre} has high vulnerabilities')
-            critical(central=central.nombre,current_date_and_time=current_date_and_time,severidad="HIGH")
-        print(f'✅{central.nombre} created')
-            """
+        processes.extend([p1, p2, p3])
 
+        # Iniciar ambos procesos
+        p1.start()
+        p2.start()
+        p3.start()
 
+    # Esperar a que todos los procesos terminen
+    for p in processes:
+        p.join()
 
-    print("------------------------------------------")
-    print("------------------------------------------")
-    print("------------------------------------------")
-    print("-------RECUERDA LLENAR EL REPORTE---------")
-    print("------------------------------------------")
-    print("------------------------------------------")
-    print("------------------------------------------")
-
-
-if __name__ == '__main__':
-    run_queries(centrales)
+    print("✅ Todas las consultas y análisis han finalizado.")

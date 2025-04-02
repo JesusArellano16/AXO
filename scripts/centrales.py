@@ -11,7 +11,7 @@ centrales = [
             "ASSETS IN IXTLAHUACA",
             "SERVERS IN IXTLAHUACA 2",
             "NETWORK DEVICES IXTLAHUACA",
-            "PCs IN IXTLAHUACA"
+            "PCs IN IXTLAHUACA",
         ],
         [
             "TOTAL_ASSETS",
