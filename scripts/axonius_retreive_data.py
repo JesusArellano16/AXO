@@ -4,6 +4,7 @@ import warnings  # Importar warnings para manejar advertencias
 import pandas as pd
 import urllib3
 import os
+import numpy as np
 import openpyxl
 from openpyxl.styles import Alignment
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -66,9 +67,9 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
         data = json.load(file)
 
     df = pd.DataFrame(data)
-    df.to_excel("datos.xlsx",index=False, engine="openpyxl")
+    df.to_excel(f'{saved_query_name}.xlsx',index=False, engine="openpyxl")
 
-    df1 = pd.read_excel("datos.xlsx")
+    df1 = pd.read_excel(f'{saved_query_name}.xlsx')
     headers = {
         "adapters": "Adapter", 
         "specific_data.data.hostname_preferred": "Hostname", 
@@ -83,7 +84,7 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
         except:
             pass
     #df1[headers_old[0]] = df1[headers_old[0]].astype(str).str.replace(headers_old[0], headers_new[0])
-    df1.to_excel("archivo_modificado.xlsx", index=False, engine="openpyxl")
+    df1.to_excel(f'{saved_query_name}_modified.xlsx', index=False, engine="openpyxl")
     #print(not_in_headers)
     changes = {
         "[": "",
@@ -92,18 +93,18 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
         ",": "\n"
     }
 
-    df2 = pd.read_excel("archivo_modificado.xlsx")
+    df2 = pd.read_excel(f'{saved_query_name}_modified.xlsx')
     for key, value in headers.items():
         for k, v in changes.items():
             try:
                 df2[value] = df2[value].astype(str).str.replace(k,v)
             except:
                 pass
-    df2.to_excel("archivo_modificado.xlsx", index=False, engine="openpyxl")
+    df2.to_excel(f'{saved_query_name}_modified.xlsx', index=False, engine="openpyxl")
 
 
 
-    archivo = "archivo_modificado.xlsx"
+    archivo = f'{saved_query_name}_modified.xlsx'
     wb = openpyxl.load_workbook(archivo)
     ws = wb.active  # Seleccionar la hoja activa
     columnas = [cell.value for cell in ws[1]]
@@ -157,7 +158,15 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
     ss_sheet.title = namew
     ss.save(name)
     remo = saved_query_name_clean + '.json'
-    os.remove('archivo_modificado.xlsx')
-    os.remove('datos.xlsx')
+    os.remove(f'{saved_query_name}_modified.xlsx')
+    os.remove(f'{saved_query_name}.xlsx')
     os.remove(remo)
+    wb = openpyxl.load_workbook(name)
+    ws = wb[namew]
+    for row in ws.iter_rows():
+        for cell in row:
+            if cell.value in ["nan", ""]:  
+                cell.value = None  # Vaciar la celda
+    wb.save(name)
+    wb.close()  
     print(f'✅{name} created')
