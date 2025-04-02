@@ -7,7 +7,9 @@ import os
 from pathlib import Path
 from centrales import centrales
 import multiprocessing
+import time
 
+start_time = time.time()
 dotenv_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=dotenv_path)
 
@@ -99,4 +101,9 @@ if __name__ == '__main__':
     for p in processes:
         p.join()
 
+
     print("✅ Todas las consultas y análisis han finalizado.")
+    end_time = time.time()  # Captura el tiempo de finalización
+    elapsed_time = (end_time - start_time) / 60  # Calcula el tiempo transcurrido
+
+    print(f"⏳ Tiempo de ejecución: {elapsed_time:.2f} minutos")
