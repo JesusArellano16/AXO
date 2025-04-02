@@ -3,6 +3,7 @@ import shutil
 import csv
 import os
 import openpyxl
+from openpyxl.styles import Alignment
 
 def critical(central, current_date_and_time, severidad):
     print(f'🚀 Iniciando proceso para {severidad} en {central}')
@@ -88,5 +89,100 @@ def critical(central, current_date_and_time, severidad):
         de.to_excel(writer, sheet_name="RESUMEN")
     
     os.remove(csv_file_path)
-    
+
+    # Cargar el archivo de Excel
+    wb = openpyxl.load_workbook(name)
+
+    # Seleccionar la hoja llamada "HOJA1"
+    ws = wb[namew]  # Aquí especificamos que trabajaremos con la hoja llamada "HOJA1"
+
+    # Columnas objetivo y anchos
+    columnas_objetivo = [1,2,3,4,5,6,7,8,9,10]
+    columnas_ancho = {
+        "A": 30,
+        "B": 20,
+        "C": 20,
+        "D": 10,
+        "E": 40,
+        "F": 50,
+        "G": 15,
+        "H": 20,
+        "I": 25,
+        "J": 10
+    }
+
+    # Filtro para las celdas que quieres modificar
+    fil = "A1:J1"
+
+    # Iterar sobre las columnas objetivo y aplicar el ajuste de alineación "wrap_text"
+    for col in columnas_objetivo:
+        for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=col, max_col=col):
+            for cell in row:
+                cell.alignment = Alignment(wrap_text=True)  # Activar "Wrap Text"
+
+    # Cambiar los anchos de las columnas
+    for col, width in columnas_ancho.items():
+        ws.column_dimensions[col].width = width
+
+    # Aplicar el filtro a las celdas A1:G1
+    ws.auto_filter.ref = fil
+
+
+
+    ws = wb["RESUMEN"]  # Aquí especificamos que trabajaremos con la hoja llamada "HOJA1"
+
+    # Columnas objetivo y anchos
+    columnas_objetivo = [1,2]
+    columnas_ancho = {
+        "A": 20,
+        "B": 20
+    }
+
+    # Filtro para las celdas que quieres modificar
+    fil = "A1:B1"
+
+    # Cambiar los anchos de las columnas
+    for col, width in columnas_ancho.items():
+        ws.column_dimensions[col].width = width
+
+    # Aplicar el filtro a las celdas A1:G1
+    ws.auto_filter.ref = fil
+
+
+
+
+
+    ws = wb["CVE"]  # Aquí especificamos que trabajaremos con la hoja llamada "HOJA1"
+
+    # Columnas objetivo y anchos
+    columnas_objetivo = [1,2,3,4,5,6]
+    columnas_ancho = {
+        "A": 30,
+        "B": 20,
+        "C": 20,
+        "D": 10,
+        "E": 40,
+        "F": 30
+    }
+
+    # Filtro para las celdas que quieres modificar
+    fil = "A1:F1"
+
+    # Iterar sobre las columnas objetivo y aplicar el ajuste de alineación "wrap_text"
+    for col in columnas_objetivo:
+        for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=col, max_col=col):
+            for cell in row:
+                cell.alignment = Alignment(wrap_text=True)  # Activar "Wrap Text"
+
+    # Cambiar los anchos de las columnas
+    for col, width in columnas_ancho.items():
+        ws.column_dimensions[col].width = width
+
+    # Aplicar el filtro a las celdas A1:G1
+    ws.auto_filter.ref = fil
+
+
+    # Guardar el archivo modificado
+    wb.save(name)
+
     print(f'✅ Proceso finalizado: {name} creado exitosamente')
