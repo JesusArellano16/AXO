@@ -209,7 +209,6 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
                         x[3] = "SI"
                         ws[f'F{x[4]}'].value = "SI"
                     wb.save(name)
-        print(ws[f'F2274'].value)
         wb.save(name)
         wb.close()
     print(f'✅{name} created')
