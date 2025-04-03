@@ -169,4 +169,47 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
                 cell.value = None  # Vaciar la celda
     wb.save(name)
     wb.close()  
+
+    if 'PC' in saved_query_name_clean :
+        noCortex = []
+        wb = openpyxl.load_workbook(name)
+        for fila in range(1, ws.max_row+1):
+            celda = ws[f"F{fila}"]
+            if celda.value and "NO" in str(celda.value):  # Verificar si el valor está en la celda
+                deviceNo = []
+                deviceNo.append(ws[f'B{fila}'].value)
+                deviceNo.append(ws[f'C{fila}'].value)
+                deviceNo.append(ws[f'D{fila}'].value)
+                deviceNo.append("NO")
+                deviceNo.append(fila)
+                noCortex.append(deviceNo)
+        for x in noCortex:
+            x[2] = x[2].split("\n")
+            #print(x[2])
+            if len(x[2]) > 1: pass
+            query = f'specific_data.data.network_interfaces.mac == "{x[2][0]}"'
+            # Ejecutar la consulta
+            assets = client.devices.get(query=query)
+            ws = wb[namew]
+            for asset in assets:
+                if len(asset["specific_data.data.network_interfaces.ips"]) > 1 : pass
+                if asset["specific_data.data.network_interfaces.ips"][0] == x[1] and asset["specific_data.data.network_interfaces.mac"][0] == x[2][0] and asset['specific_data.data.hostname'][0] != x[0]:
+                    x[0] = x[0] + f"({asset['specific_data.data.hostname'][0]})"
+                    ws[f'B{x[4]}'].value = x[0]
+                    print(ws[f'B{x[4]}'].value)
+                    if "paloalto_xdr_adapter" in asset['adapters']:
+                        x[3] = "SI"
+                        ws[f'F{x[4]}'].value = "SI"
+                    wb.save(name)
+                elif (asset["specific_data.data.network_interfaces.ips"][0] == x[1] and asset["specific_data.data.network_interfaces.mac"][0] == x[2][0] and asset['specific_data.data.hostname'][0] != x[0]):
+                    x[0] = x[0] + f"({asset['specific_data.data.hostname'][0]})"
+                    ws[f'B{x[4]}'].value = x[0]
+                    print(ws[f'B{x[4]}'].value)
+                    if "paloalto_xdr_adapter" in asset['adapters']:
+                        x[3] = "SI"
+                        ws[f'F{x[4]}'].value = "SI"
+                    wb.save(name)
+        print(ws[f'F2274'].value)
+        wb.save(name)
+        wb.close()
     print(f'✅{name} created')
