@@ -8,6 +8,9 @@ from pathlib import Path
 from centrales import centrales
 import multiprocessing
 import time
+from report import Report
+import openpyxl
+
 
 start_time = time.time()
 dotenv_path = Path(__file__).parent / ".env"
@@ -103,7 +106,23 @@ if __name__ == '__main__':
 
 
     print("✅ Todas las consultas y análisis han finalizado.")
+
+
+
+    print("📊 Generando reportes!")
+    for central in centrales:
+        Report(central=central.nombre)
+        path_rep = r'./ARCHIVOS_REPORTES/'+central.nombre+ r'/'+current_date_and_time
+        path_rep = path_rep + r'/' + f'Reporte_Discovery_{central.nombre}_{current_date_and_time}.xlsx'
+        wb = openpyxl.load_workbook(path_rep)
+        sheet_reporte = wb[f'Resumen - {central.nombre}']
+        sheet_reporte['A17'].value = f'Servidores {central.nombre} - Vulnerabilidades'
+        sheet_reporte['E18'].value = f"=COUNTIF('Inventario - {central.nombre}'!H6:H1048576,\">0\")"
+        sheet_reporte['E19'].value = f"=COUNTIF('Inventario - {central.nombre}'!I6:I1048576,\">0\")"
+        wb.save(path_rep)
+        wb.close()
+        
+
     end_time = time.time()  # Captura el tiempo de finalización
     elapsed_time = (end_time - start_time) / 60  # Calcula el tiempo transcurrido
-
     print(f"⏳ Tiempo de ejecución: {elapsed_time:.2f} minutos")

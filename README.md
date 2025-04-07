@@ -22,12 +22,11 @@ Columns     Name
 2           Vuln ID
 3           Device Count
 4           CVE Description
-5           OS
-6           Preferred Host Name
-7           Preferred IPs
-8           Preferred MAC Address
-9           Preferred OS: Type and Distribution
-10          Adapter conection
+5           Preferred Host Name
+6           Preferred IPs
+7           Preferred MAC Address
+8           Preferred OS: Type and Distribution
+9          Adapter conection
 
 -------- FOR EOL ------
     Export CSV

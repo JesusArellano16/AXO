@@ -69,12 +69,29 @@ def critical(central, current_date_and_time, severidad):
         vul.insert(3, severidad.upper())
         vul.append(vul[0])
         ws.append(vul)
-    
+    columnas_objetivo = [1, 5, 6]
+    columnas_ancho = {
+            "A": 30,
+            "B": 20,
+            "C": 15,
+            "D": 10,
+            "E": 40,
+            "F": 30
+        }
+    fil = "A1:F1"
+    for col in columnas_objetivo:
+        for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=col, max_col=col):
+            for cell in row:
+                cell.alignment = Alignment(wrap_text=True)  # Activar "Wrap Text"
+
+    for col, width in columnas_ancho.items():
+        ws.column_dimensions[col].width = width
+    ws.auto_filter.ref = fil
     print('🖥️ Creando hoja de dispositivos... 6/9')
     wb.remove(wb[namew])
     wb.create_sheet(namew)
     ws = wb[namew]
-    ws.append(["Adaptadores", "CVE", "Numero de Dispositivos", "Severidad", "Descripcion", "Hostname", "IPs", "MAC", "Tipo y distribución OS", "Cortex"])
+    ws.append(["Adaptadores", "CVE", "Numero de Dispositivos", "Severidad", "Descripcion", "Hostname", "IPs", "MAC", "Tipo y distribución OS", "Cortex", "Virtual Patching"])
     
     for dev in devices:
         dev.insert(0, dev[5])
@@ -87,7 +104,32 @@ def critical(central, current_date_and_time, severidad):
                 dev.insert(3, vul[3])
                 dev.insert(4, vul[4])
         dev.append("SI" if 'paloalto' in dev[0] else "NO")
+        dev.append("SI" if 'deep_security_adapter' in dev[0] else "NO")
         ws.append(dev)
+
+    columnas_objetivo = [1, 5, 7,8]
+    columnas_ancho = {
+            "A": 30,
+            "B": 20,
+            "C": 15,
+            "D": 10,
+            "E": 40,
+            "F": 50,
+            "G": 20,
+            "H": 20,
+            "I": 25,
+            "J": 8,
+            "K": 15
+        }
+    fil = "A1:K1"
+    for col in columnas_objetivo:
+        for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=col, max_col=col):
+            for cell in row:
+                cell.alignment = Alignment(wrap_text=True)  # Activar "Wrap Text"
+
+    for col, width in columnas_ancho.items():
+        ws.column_dimensions[col].width = width
+    ws.auto_filter.ref = fil
     
     wb.save(name)
     
@@ -95,7 +137,7 @@ def critical(central, current_date_and_time, severidad):
     csv_file_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/example.csv'
     with open(csv_file_path, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Adaptadores", "CVE", "Numero de Dispositivos", "Severidad", "Descripcion", "Hostname", "IPs", "MAC", "Tipo y distribución OS", "Cortex"])
+        writer.writerow(["Adaptadores", "CVE", "Numero de Dispositivos", "Severidad", "Descripcion", "Hostname", "IPs", "MAC", "Tipo y distribución OS", "Cortex","Virtual Patching"])
         writer.writerows(devices)
     
     df_devides = pd.read_csv(csv_file_path, encoding='utf-8', delimiter=',')
@@ -108,12 +150,23 @@ def critical(central, current_date_and_time, severidad):
     
     print('✍️ Aplicando formato en el Excel... 8/9')
     wb = openpyxl.load_workbook(name)
-    
+    """
     for sheet_name in [namew, "RESUMEN", "CVE"]:
         ws = wb[sheet_name]
         for col in ws.columns:
             for cell in col:
                 cell.alignment = Alignment(wrap_text=True)
+    """
+    ws = wb['RESUMEN']
+    columnas_ancho = {
+            "A": 30,
+            "B": 20
+        }
+    fil = "A1:B1"
+
+    for col, width in columnas_ancho.items():
+        ws.column_dimensions[col].width = width
+    ws.auto_filter.ref = fil
         
     wb.save(name)
     

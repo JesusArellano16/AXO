@@ -27,7 +27,7 @@ def Eol(central, current_date_and_time):
         exit()
     print(f'🚀 Iniciando proceso para EOL en {central}')
 
-    headers = ["Adaptadores", "Preferred Host Name", "Installed Software", "Software Version", "End of Life", "End Of Support", "IPs", "MAC", "Tipo y distribución OS", "Cortex"]
+    headers = ["Adaptadores", "Preferred Host Name", "Installed Software", "Software Version", "End of Life", "End Of Support", "IPs", "MAC", "Tipo y distribución OS", "Cortex", "Virtual Patching"]
 
     # Copiar el archivo CSV a la carpeta de reportes
     src_path = f'./AXONIUS_FILES/{central}/eol.csv'
@@ -52,8 +52,12 @@ def Eol(central, current_date_and_time):
         value_a = str(ws[f"A{row}"].value).lower()  # Leer y convertir a minúsculas
         if "paloalto" in value_a:
             ws[f"J{row}"] = "SI"
-        else:
+        elif "paloalto" not in value_a:
             ws[f"J{row}"] = "NO"
+        if "deep_security_adapter" in value_a:
+            ws[f"K{row}"] = "SI"
+        elif "deep_security_adapter" not in value_a:
+            ws[f"K{row}"] = "NO"
     if ws["I1"].has_style:
         ws["J1"].font = copy(ws["I1"].font)
         ws["J1"].border = copy(ws["I1"].border)
@@ -61,6 +65,12 @@ def Eol(central, current_date_and_time):
         ws["J1"].alignment = copy(ws["I1"].alignment)
         ws["J1"].number_format = copy(ws["I1"].number_format)
         ws["J1"].protection = copy(ws["I1"].protection)
+        ws["K1"].font = copy(ws["I1"].font)
+        ws["K1"].border = copy(ws["I1"].border)
+        ws["K1"].fill = copy(ws["I1"].fill)
+        ws["K1"].alignment = copy(ws["I1"].alignment)
+        ws["K1"].number_format = copy(ws["I1"].number_format)
+        ws["K1"].protection = copy(ws["I1"].protection)
 
 
     # Columnas objetivo y anchos
@@ -75,11 +85,12 @@ def Eol(central, current_date_and_time):
         "G": 25,
         "H": 20,
         "I": 25,
-        "J": 10
+        "J": 10,
+        "K": 20
     }
 
     # Filtro para las celdas que quieres modificar
-    fil = "A1:J1"
+    fil = "A1:K1"
 
     # Iterar sobre las columnas objetivo y aplicar el ajuste de alineación "wrap_text"
     for col in columnas_objetivo:

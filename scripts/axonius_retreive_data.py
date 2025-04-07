@@ -52,11 +52,11 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
         if "paloalto_xdr_adapter" in clean_devices_dict["adapters"]:
             clean_devices_dict["CORTEX"] = "SI"
         if 'deep_security_adapter' in clean_devices_dict["adapters"]:
-            clean_devices_dict["DEEP SECURITY"] = "SI"
+            clean_devices_dict["VIRTUAL PATCHING"] = "SI"
         if "paloalto_xdr_adapter" not in clean_devices_dict["adapters"]:
             clean_devices_dict["CORTEX"] = "NO"
         if 'deep_security_adapter' not in clean_devices_dict["adapters"]:
-            clean_devices_dict["DEEP SECURITY"] = "NO"
+            clean_devices_dict["VIRTUAL PATCHING"] = "NO"
         clean_devices.append(clean_devices_dict)  # Agregar el diccionario con los datos filtrados a la lista
 
     # Guardar los datos filtrados en un archivo JSON
@@ -196,7 +196,7 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
                 if asset["specific_data.data.network_interfaces.ips"][0] == x[1] and asset["specific_data.data.network_interfaces.mac"][0] == x[2][0] and asset['specific_data.data.hostname'][0] != x[0]:
                     x[0] = x[0] + f"({asset['specific_data.data.hostname'][0]})"
                     ws[f'B{x[4]}'].value = x[0]
-                    print(ws[f'B{x[4]}'].value)
+                    #print(ws[f'B{x[4]}'].value)
                     if "paloalto_xdr_adapter" in asset['adapters']:
                         x[3] = "SI"
                         ws[f'F{x[4]}'].value = "SI"
@@ -204,7 +204,7 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
                 elif (asset["specific_data.data.network_interfaces.ips"][0] == x[1] and asset["specific_data.data.network_interfaces.mac"][0] == x[2][0] and asset['specific_data.data.hostname'][0] != x[0]):
                     x[0] = x[0] + f"({asset['specific_data.data.hostname'][0]})"
                     ws[f'B{x[4]}'].value = x[0]
-                    print(ws[f'B{x[4]}'].value)
+                    #print(ws[f'B{x[4]}'].value)
                     if "paloalto_xdr_adapter" in asset['adapters']:
                         x[3] = "SI"
                         ws[f'F{x[4]}'].value = "SI"
