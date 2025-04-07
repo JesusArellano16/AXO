@@ -24,13 +24,13 @@ def critical(central, current_date_and_time, severidad):
         return
 
     # Copiar archivo CSV a la carpeta de reportes
-    print(f'📂 Copiando archivo {severidad}.csv 1/9')
+    print(f'📂 Copiando archivo {severidad}.csv 1/9 en {central}')
     src_path = f'./AXONIUS_FILES/{central}/{severidad}.csv'
     dest_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/{severidad}.csv'
     shutil.copy(src_path, dest_path)
     
     # Leer el archivo CSV
-    print('📖 Leyendo archivo CSV... 2/9')
+    print(f'📖 Leyendo archivo CSV... 2/9 en {central}')
     with open(src_path, encoding="utf-8") as file:
         csv_reader = csv.reader(file, delimiter=',')
         vulnerabilities = []
@@ -41,7 +41,7 @@ def critical(central, current_date_and_time, severidad):
             elif row[0] == "Vulnerability":
                 vulnerabilities.append(row)
     
-    print('✂️ Procesando datos de vulnerabilidades y dispositivos... 3/9')
+    print(f'✂️ Procesando datos de vulnerabilidades y dispositivos... 3/9 en {central}')
     for col in vulnerabilities:
         del col[5:]
         del col[0]
@@ -49,7 +49,7 @@ def critical(central, current_date_and_time, severidad):
         del col[:5]
     
     # Crear archivo Excel
-    print('📊 Creando archivo Excel... 4/9')
+    print(f'📊 Creando archivo Excel... 4/9 en {central}')
     namew = f'{severidad.upper()}_SEV_{central}_{current_date_and_time}'
     name = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/{namew}.xlsx'
     
@@ -61,7 +61,7 @@ def critical(central, current_date_and_time, severidad):
     ws = wb['Sheet1']
     ws.title = namew
     
-    print('📑 Creando hoja CVE... 5/9')
+    print(f'📑 Creando hoja CVE... 5/9 en {central}')
     wb.create_sheet('CVE')
     ws = wb['CVE']
     ws.append(["Adaptadores", "CVE", "Device Count", "Severity", "Description", "Adaptadores"])
@@ -87,7 +87,7 @@ def critical(central, current_date_and_time, severidad):
     for col, width in columnas_ancho.items():
         ws.column_dimensions[col].width = width
     ws.auto_filter.ref = fil
-    print('🖥️ Creando hoja de dispositivos... 6/9')
+    print(f'🖥️ Creando hoja de dispositivos... 6/9 en {central}')
     wb.remove(wb[namew])
     wb.create_sheet(namew)
     ws = wb[namew]
@@ -133,7 +133,7 @@ def critical(central, current_date_and_time, severidad):
     
     wb.save(name)
     
-    print('📄 Generando resumen en CSV... 7/9')
+    print(f'📄 Generando resumen en CSV... 7/9 en {central}')
     csv_file_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/example.csv'
     with open(csv_file_path, mode='w', newline='') as file:
         writer = csv.writer(file)
@@ -148,15 +148,9 @@ def critical(central, current_date_and_time, severidad):
     
     os.remove(csv_file_path)
     
-    print('✍️ Aplicando formato en el Excel... 8/9')
+    print(f'✍️ Aplicando formato en el Excel... 8/9 en {central}')
     wb = openpyxl.load_workbook(name)
-    """
-    for sheet_name in [namew, "RESUMEN", "CVE"]:
-        ws = wb[sheet_name]
-        for col in ws.columns:
-            for cell in col:
-                cell.alignment = Alignment(wrap_text=True)
-    """
+
     ws = wb['RESUMEN']
     columnas_ancho = {
             "A": 30,
