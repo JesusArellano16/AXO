@@ -5,6 +5,8 @@ import openpyxl
 from copy import copy
 from collections import Counter
 from time import sleep
+from openpyxl.utils import get_column_letter
+
 
 name = 'Reporte_Discovery'
 origin_path = f'./src/{name}.xlsx'
@@ -108,7 +110,7 @@ def pcs_Inv(central,file, sheet):
     path_rep = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
     des_path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
     wb_rep = openpyxl.load_workbook(des_path_rep)
-    ws_rep = wb_rep[f'{sheet} {central}']
+    ws_rep = wb_rep[f'{sheet}']
     
     path = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
     des_path = path + r'/' + f'{file}_{central}_{current_date_and_time}.xlsx'
@@ -163,15 +165,15 @@ def vuln(vulnerabilitie,central,path_rep):
     if not os.path.exists(des_path):
         path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
         wb = openpyxl.load_workbook(path_rep)
-        ws = wb[f'Inventario - {central}']
+        ws = wb[f'Inventario']
         for row in range(6, ws.max_row+1):
             ws[f'H{row}'].value = 0
             ws[f'I{row}'].value = 0
         if vulnerabilitie == 'CRITICAL':
-            sheet_reporte = wb[f'Resumen - {central}']
+            sheet_reporte = wb[f'Resumen']
             sheet_reporte['E18'].value = 0
         elif vulnerabilitie == 'HIGH':
-            sheet_reporte = wb[f'Resumen - {central}']
+            sheet_reporte = wb[f'Resumen']
             sheet_reporte['E19'].value = 0
 
         wb.save(path_rep)
@@ -179,7 +181,7 @@ def vuln(vulnerabilitie,central,path_rep):
         return
     path_reporte = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
     file_reporte = openpyxl.load_workbook(path_reporte)
-    sheet_reporte = file_reporte[f'Inventario - {central}']
+    sheet_reporte = file_reporte[f'Inventario']
 
     counter = get_strictly_unique_combinations_vuln(central=central, vuln=vulnerabilitie)
     
@@ -217,28 +219,43 @@ def Report(central):
     shutil.copy(origin_path, des_path)
 
     wb = openpyxl.load_workbook(des_path)
-    ws = wb['Resumen -']
-    ws.title = f'Resumen - {central}'
-    ws = wb['Inventario - PC']
-    ws.title = f'Inventario - PC {central}'
-    ws = wb['Inventario -']
-    ws.title = f'Inventario - {central}'
-    ws = wb['MAC Address -']
-    ws.title = f'MAC Address - {central}'
+    ws = wb['Inventario - Red']
+    path_aux = path + r'/' + f'NET_DEV_{central}_{current_date_and_time}.xlsx'
+    wb_aux = openpyxl.load_workbook(path_aux)
+    ws_aux = wb_aux.active
+
+    # Recorrer filas y columnas
+    for row in ws_aux.iter_rows():
+        for cell in row:
+            # Copiar valor
+            new_cell = ws.cell(row=cell.row, column=cell.column, value=cell.value)
+
+            # Copiar estilo básico
+            if cell.has_style:
+                new_cell.font = copy(cell.font)
+                new_cell.border = copy(cell.border)
+                new_cell.fill = copy(cell.fill)
+                new_cell.number_format = copy(cell.number_format)
+                new_cell.protection = copy(cell.protection)
+                new_cell.alignment = copy(cell.alignment)
+
+    # Ajustar anchos de columna (opcional)
+    for col in ws_aux.columns:
+        col_letter = get_column_letter(col[0].column)
+        ws.column_dimensions[col_letter].width = ws_aux.column_dimensions[col_letter].width
     wb.save(des_path)
 
-    wb = openpyxl.load_workbook(des_path)
-    ws = wb[f'Resumen - {central}']
+    ws = wb[f'Resumen']
     ws['A2'].value = f'Inventario {central} - Resumen'
-    ws = wb[f'Inventario - PC {central}']
+    ws = wb[f'Inventario - PC']
     ws['A3'].value = f'PCs {central} - Inventario'
-    ws = wb[f'Inventario - {central}']
+    ws = wb[f'Inventario']
     ws['A3'].value = f'Servidores {central} - Inventario'
     ws = wb[f'Inventario - EOL']
     ws['A1'].value = f'Servidores EOL {central} - Inventario'
 
     t_assets,cortex,vp = totalAssets(central=central,file='TOTAL_ASSETS',serv=False)
-    ws = wb[f'Resumen - {central}']
+    ws = wb[f'Resumen']
     ws['E3'].value = t_assets
     t_serv,cortex,vp = totalAssets(central=central,file='SERVERS', serv=True)
     ws['E5'].value = t_serv
@@ -254,11 +271,11 @@ def Report(central):
     wb.save(des_path)
     wb.close()
     pcs_Inv(central=central,file='PCs',sheet='Inventario - PC')
-    pcs_Inv(central=central,file='SERVERS',sheet='Inventario -')
+    pcs_Inv(central=central,file='SERVERS',sheet='Inventario')
     eol_total = eol(central=central)
 
     wb = openpyxl.load_workbook(des_path)
-    ws = wb[f'Resumen - {central}']
+    ws = wb[f'Resumen']
     ws['E20'].value = eol_total
     wb.save(des_path)
     wb.close()

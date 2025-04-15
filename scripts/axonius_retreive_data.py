@@ -7,6 +7,7 @@ import os
 import numpy as np
 import openpyxl
 from openpyxl.styles import Alignment
+from copy import copy
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 warnings.simplefilter("ignore",category=Warning)  # Ignorar advertencias para evitar mensajes innecesarios en la consola
 
@@ -31,14 +32,24 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
     # Lista donde se almacenarán los dispositivos con datos filtrados
     clean_devices = []
 
-    # Definir los campos específicos que se desean extraer de cada dispositivo
-    clean_data = [
+    if saved_query_name_clean == "NET_DEV":
+        clean_data = [
         "adapters",  # Adaptadores conectados al dispositivo
         "specific_data.data.hostname_preferred",  # Nombre de host preferido
         "specific_data.data.network_interfaces.ips_preferred",  # Dirección IP preferida
         "specific_data.data.network_interfaces.mac_preferred",  # Dirección MAC preferida
         "specific_data.data.os.type_distribution_preferred",  # Tipo de sistema operativo preferido
-    ]
+        "specific_data.data.network_interfaces.manufacturer"
+        ]   
+    # Definir los campos específicos que se desean extraer de cada dispositivo
+    else:
+        clean_data = [
+            "adapters",  # Adaptadores conectados al dispositivo
+            "specific_data.data.hostname_preferred",  # Nombre de host preferido
+            "specific_data.data.network_interfaces.ips_preferred",  # Dirección IP preferida
+            "specific_data.data.network_interfaces.mac_preferred",  # Dirección MAC preferida
+            "specific_data.data.os.type_distribution_preferred",  # Tipo de sistema operativo preferido
+        ]
 
     # Recorrer la lista de dispositivos obtenidos de la consulta guardada
     for device in devices:
@@ -48,15 +59,17 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
                 clean_devices_dict[data] = device[data]  # Intentar obtener el valor del campo especificado
             except:
                 pass  # Si el campo no existe en el dispositivo, ignorarlo
-
-        if "paloalto_xdr_adapter" in clean_devices_dict["adapters"]:
-            clean_devices_dict["CORTEX"] = "SI"
-        if 'deep_security_adapter' in clean_devices_dict["adapters"]:
-            clean_devices_dict["VIRTUAL PATCHING"] = "SI"
-        if "paloalto_xdr_adapter" not in clean_devices_dict["adapters"]:
-            clean_devices_dict["CORTEX"] = "NO"
-        if 'deep_security_adapter' not in clean_devices_dict["adapters"]:
-            clean_devices_dict["VIRTUAL PATCHING"] = "NO"
+        if saved_query_name_clean == "NET_DEV":
+            pass
+        else:  
+            if "paloalto_xdr_adapter" in clean_devices_dict["adapters"]:
+                clean_devices_dict["CORTEX"] = "SI"
+            if 'deep_security_adapter' in clean_devices_dict["adapters"]:
+                clean_devices_dict["VIRTUAL PATCHING"] = "SI"
+            if "paloalto_xdr_adapter" not in clean_devices_dict["adapters"]:
+                clean_devices_dict["CORTEX"] = "NO"
+            if 'deep_security_adapter' not in clean_devices_dict["adapters"]:
+                clean_devices_dict["VIRTUAL PATCHING"] = "NO"
         clean_devices.append(clean_devices_dict)  # Agregar el diccionario con los datos filtrados a la lista
 
     # Guardar los datos filtrados en un archivo JSON
@@ -70,13 +83,23 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
     df.to_excel(f'{saved_query_name}.xlsx',index=False, engine="openpyxl")
 
     df1 = pd.read_excel(f'{saved_query_name}.xlsx')
-    headers = {
-        "adapters": "Adapter", 
-        "specific_data.data.hostname_preferred": "Hostname", 
-        "specific_data.data.network_interfaces.ips_preferred": "IPs", 
-        "specific_data.data.network_interfaces.mac_preferred": "MAC",
-        "specific_data.data.os.type_distribution_preferred": "OS"
-    }
+    if saved_query_name_clean == "NET_DEV":
+        headers = {
+            "adapters": "Adapter", 
+            "specific_data.data.hostname_preferred": "Hostname", 
+            "specific_data.data.network_interfaces.ips_preferred": "IPs", 
+            "specific_data.data.network_interfaces.mac_preferred": "MAC",
+            "specific_data.data.os.type_distribution_preferred": "OS",
+            "specific_data.data.network_interfaces.manufacturer": "Manufacturer"
+        }
+    else:
+        headers = {
+            "adapters": "Adapter", 
+            "specific_data.data.hostname_preferred": "Hostname", 
+            "specific_data.data.network_interfaces.ips_preferred": "IPs", 
+            "specific_data.data.network_interfaces.mac_preferred": "MAC",
+            "specific_data.data.os.type_distribution_preferred": "OS"
+        }
     #not_in_headers = False
     for key, value in headers.items():
         try:
@@ -107,6 +130,26 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
     archivo = f'{saved_query_name}_modified.xlsx'
     wb = openpyxl.load_workbook(archivo)
     ws = wb.active  # Seleccionar la hoja activa
+    if saved_query_name_clean == "NET_DEV" and central == "IXTLA":
+        # Paso 1: Copiar los valores de la columna E
+        col_e_values = [ws.cell(row=i, column=5).value for i in range(1, ws.max_row + 1)]
+
+        # Paso 2: Insertar una nueva columna en la posición 2 (entre A y B)
+        ws.insert_cols(2)
+
+        # Paso 3: Pegar los valores de la columna E en esa nueva columna B
+        for i, value in enumerate(col_e_values, start=1):
+            ws.cell(row=i, column=2, value=value)
+
+        ws["B1"].font = copy(ws["E1"].font)
+        ws["B1"].fill = copy(ws["E1"].fill)
+        ws["B1"].border = copy(ws["E1"].border)
+        ws["B1"].alignment = copy(ws["E1"].alignment)
+        ws["B1"].number_format = copy(ws["E1"].number_format)
+
+        # Paso 4: Eliminar la columna E original (ahora desplazada a F)
+        ws.delete_cols(6)
+
     columnas = [cell.value for cell in ws[1]]
     #print(columnas)
     if "MAC" in columnas:
@@ -123,6 +166,12 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
             "G": 17
         }
         fil = "A1:G1"
+        if saved_query_name_clean == "NET_DEV" and central == "IXTLA":
+            columnas_ancho["E"]=70
+            fil = "A1:E1"
+        if saved_query_name_clean == "NET_DEV" and central == "CARSO":
+            columnas_ancho["F"]=70
+            fil = "A1:F1"
         
     else:
         # Definir las columnas objetivo (A, C y D corresponden a índices 1, 3 y 4 en openpyxl)

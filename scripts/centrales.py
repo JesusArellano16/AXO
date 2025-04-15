@@ -10,7 +10,7 @@ centrales = [
         [
             "ASSETS IN IXTLAHUACA",
             "SERVERS IN IXTLAHUACA 2",
-            "NETWORK DEVICES IXTLAHUACA",
+            "ALL NETWORK DEVICES IXTLAHUACA",
             "PCs IN IXTLAHUACA",
         ],
         [

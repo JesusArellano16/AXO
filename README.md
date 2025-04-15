@@ -26,7 +26,7 @@ Columns     Name
 6           Preferred IPs
 7           Preferred MAC Address
 8           Preferred OS: Type and Distribution
-9          Adapter conection
+9           Adapter conection
 
 -------- FOR EOL ------
     Export CSV
