@@ -10,6 +10,7 @@ import multiprocessing
 import time
 from report import Report
 import openpyxl
+from new_queries import new_queries
 
 
 start_time = time.time()
@@ -121,6 +122,7 @@ if __name__ == '__main__':
         sheet_reporte['E19'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
         wb.save(path_rep)
         wb.close()
+        new_queries(central=central.nombre)
         
 
     end_time = time.time()  # Captura el tiempo de finalización
