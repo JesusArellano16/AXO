@@ -73,10 +73,10 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
         clean_devices.append(clean_devices_dict)  # Agregar el diccionario con los datos filtrados a la lista
 
     # Guardar los datos filtrados en un archivo JSON
-    with open(f"{saved_query_name_clean}.json", "w") as final:
+    with open(f"{saved_query_name_clean}_{central}.json", "w") as final:
         json.dump(clean_devices, final, indent=4)  # Guardar los datos con formato JSON legible
     
-    with open(f"{saved_query_name_clean}.json", "r") as file:
+    with open(f"{saved_query_name_clean}_{central}.json", "r") as file:
         data = json.load(file)
 
     df = pd.DataFrame(data)
@@ -206,7 +206,7 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
     ss_sheet = ss['Sheet1']
     ss_sheet.title = namew
     ss.save(name)
-    remo = saved_query_name_clean + '.json'
+    remo = saved_query_name_clean + f'_{central}'+ '.json'
     os.remove(f'{saved_query_name}_modified.xlsx')
     os.remove(f'{saved_query_name}.xlsx')
     os.remove(remo)

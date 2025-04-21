@@ -15,7 +15,6 @@ subClassification = {
         "(Wistron Infocomm (Zhongshan) Corporation)",
         "(Microsoft Corporation)",
         "(Inventec Corporation)",
-        "(Hon Hai Precision Ind. Co.,Ltd.)",
         "(Hitachi,Ltd.)",
         "(LCFC(HeFei) Electronics Technology co., ltd)",
         "(Elitegroup Computer Systems Co.,Ltd.)",
@@ -23,7 +22,7 @@ subClassification = {
         "(Nexcom International Co., Ltd.)",
         "(Wistron InfoComm(Kunshan)Co.,Ltd.)",
         "(Wistron Infocomm (Zhongshan) Corporation)",
-        "(JUMP INDUSTRIELLE COMPUTERTECHNIK GmbH)"
+        "(JUMP INDUSTRIELLE COMPUTERTECHNIK GmbH)",
         "(ASUSTek COMPUTER INC.)",
         "(Portwell, Inc.)",
         "(Iomega Corporation)",
@@ -81,6 +80,7 @@ subClassification = {
         "(Celestica Inc.)",
         "(B&R Industrial Automation GmbH)",
         "(QLogic Corporation)",
+        "(Hon Hai Precision Ind. Co.,Ltd.)",
         "(LINX Data Terminals, Inc.)"
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES

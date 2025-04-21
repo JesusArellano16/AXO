@@ -117,9 +117,9 @@ if __name__ == '__main__':
         path_rep = path_rep + r'/' + f'Reporte_Discovery_{central.nombre}_{current_date_and_time}.xlsx'
         wb = openpyxl.load_workbook(path_rep)
         sheet_reporte = wb[f'Resumen']
-        sheet_reporte['A17'].value = f'Servidores {central.nombre} - Vulnerabilidades'
-        sheet_reporte['E18'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
-        sheet_reporte['E19'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
+        sheet_reporte['A18'].value = f'Servidores {central.nombre} - Vulnerabilidades'
+        sheet_reporte['E19'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
+        sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
         wb.save(path_rep)
         wb.close()
         new_queries(central=central.nombre)

@@ -6,9 +6,11 @@ import warnings  # Importar warnings para manejar advertencias
 from dotenv import load_dotenv
 from pathlib import Path
 from openpyxl import load_workbook
+from openpyxl import styles
 import datetime as dt
 from classifications import subClassification
 from openpyxl.styles import Alignment
+from copy import copy
 
 dotenv_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=dotenv_path)
@@ -32,6 +34,21 @@ columns = [
 ]
 #central = "IXTLA"
 
+def copy_style_from_row(ws, source_row, start_row, end_row):
+    for row in range(start_row, end_row + 1):
+        for col in range(1, ws.max_column + 1):
+            source_cell = ws.cell(row=source_row, column=col)
+            target_cell = ws.cell(row=row, column=col)
+
+            # Copiar estilos individuales
+            target_cell.font = copy(source_cell.font)
+            target_cell.border = copy(source_cell.border)
+            target_cell.fill = copy(source_cell.fill)
+            target_cell.number_format = copy(source_cell.number_format)
+            target_cell.protection = copy(source_cell.protection)
+            target_cell.alignment = copy(source_cell.alignment)
+
+
 def formater(ws):
     # Definir las columnas objetivo (A, B y C corresponden a índices 1, 2 y 3 en openpyxl)
     columnas_objetivo = [1, 2, 3]
@@ -42,7 +59,8 @@ def formater(ws):
         "D": 50,
         "E": 70
     }
-    fil = "A1:E1"
+    fil = "A2:E2"
+
 
     # Aplicar ajuste de texto en las columnas A, C y D (desde la fila 2 en adelante)
     for col in columnas_objetivo:
@@ -95,15 +113,24 @@ def new_queries(central):
         path = r'./ARCHIVOS_REPORTES/' + central + r'/' + current_date_and_time + r'/' + f'REPORTE_DISCOVERY_{central}_{current_date_and_time}.xlsx'
         wb = load_workbook(path)
         ws = wb[sheet_name]
+
+
+        # Limpiar el contenido anterior (desde la fila 2 en adelante)
+        for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=1, max_col=5):
+            for cell in row:
+                cell.value = None
+
+        fil = "A2:F2"
+        ws.auto_filter.ref = fil
+
         # Escribir encabezados si es necesario
+        ws['A2'].value = headers[0]
+        ws['B2'].value = headers[1]
+        ws['C2'].value = headers[2]
+        ws['D2'].value = headers[3]
+        ws['E2'].value = headers[4]
 
-        ws['A1'].value = headers[0]
-        ws['B1'].value = headers[1]
-        ws['C1'].value = headers[2]
-        ws['D1'].value = headers[3]
-        ws['E1'].value = headers[4]
-
-        row_num = 2
+        row_num = 3
         # Escribir filas
         print(f"Escribiendo {len(devices)} dispositivos en la hoja '{sheet_name}'...")
         for device in devices:
@@ -116,6 +143,9 @@ def new_queries(central):
                 cell = ws.cell(row=row_num, column=col_num, value=value)
             row_num += 1
            # Guardar cambios
+        copy_style_from_row(ws, source_row=3, start_row=2, end_row=row_num - 1)
+        for col in ['A', 'B', 'C', 'D', 'E', 'F']:
+            ws[f"{col}2"].font = styles.Font(bold=True)
         formater(ws=ws)
         wb.save(path)
         wb.close()

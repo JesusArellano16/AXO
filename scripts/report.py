@@ -5,6 +5,7 @@ import openpyxl
 from copy import copy
 from collections import Counter
 from time import sleep
+import openpyxl.styles
 from openpyxl.utils import get_column_letter
 
 
@@ -12,6 +13,20 @@ name = 'Reporte_Discovery'
 origin_path = f'./src/{name}.xlsx'
 #central = 'IXTLA'
 current_date_and_time = str(dt.date.today())
+
+def copy_style_from_row(ws, source_row, start_row, end_row):
+    for row in range(start_row, end_row + 1):
+        for col in range(1, ws.max_column + 1):
+            source_cell = ws.cell(row=source_row, column=col)
+            target_cell = ws.cell(row=row, column=col)
+
+            # Copiar estilos individuales
+            target_cell.font = copy(source_cell.font)
+            target_cell.border = copy(source_cell.border)
+            target_cell.fill = copy(source_cell.fill)
+            target_cell.number_format = copy(source_cell.number_format)
+            target_cell.protection = copy(source_cell.protection)
+            target_cell.alignment = copy(source_cell.alignment)
 
 
 def get_strictly_unique_combinations(central):
@@ -171,10 +186,10 @@ def vuln(vulnerabilitie,central,path_rep):
             ws[f'I{row}'].value = 0
         if vulnerabilitie == 'CRITICAL':
             sheet_reporte = wb[f'Resumen']
-            sheet_reporte['E18'].value = 0
+            sheet_reporte['E19'].value = 0
         elif vulnerabilitie == 'HIGH':
             sheet_reporte = wb[f'Resumen']
-            sheet_reporte['E19'].value = 0
+            sheet_reporte['E20'].value = 0
 
         wb.save(path_rep)
         wb.close()
@@ -224,20 +239,27 @@ def Report(central):
     wb_aux = openpyxl.load_workbook(path_aux)
     ws_aux = wb_aux.active
 
-    # Recorrer filas y columnas
-    for row in ws_aux.iter_rows():
+    # Limpia de la fila 2 hacia abajo
+    for row in ws.iter_rows(min_row=3, max_row=ws.max_row):
         for cell in row:
-            # Copiar valor
-            new_cell = ws.cell(row=cell.row, column=cell.column, value=cell.value)
+            cell.value = None
+    # Recorrer filas y columnas
+    for row in ws_aux.iter_rows(min_row=1):
+        for cell in row:
+            # Ajustar fila de destino para que empiece también desde la fila 2
+            target_row = cell.row + 1 # ya empieza desde 2, no hay que ajustar nada más
+            ws.cell(row=target_row, column=cell.column, value=cell.value)
 
-            # Copiar estilo básico
-            if cell.has_style:
-                new_cell.font = copy(cell.font)
-                new_cell.border = copy(cell.border)
-                new_cell.fill = copy(cell.fill)
-                new_cell.number_format = copy(cell.number_format)
-                new_cell.protection = copy(cell.protection)
-                new_cell.alignment = copy(cell.alignment)
+    # Determinar la última fila pegada
+    last_row_written = ws_aux.max_row + 1  # porque comenzamos desde fila 1 y pegamos desde fila 2
+
+    # Aplicar estilo de la fila 3 a todas las filas copiadas
+    copy_style_from_row(ws, source_row=3, start_row=2, end_row=last_row_written)
+    for col in ['A', 'B', 'C', 'D', 'E', 'F']:
+        ws[f"{col}2"].font = openpyxl.styles.Font(bold=True)
+    fil = "A2:F2"
+    ws.auto_filter.ref = fil
+    ws['A1'].value = f"Network Devices {central} - Inventario "
 
     # Ajustar anchos de columna (opcional)
     for col in ws_aux.columns:
@@ -276,7 +298,7 @@ def Report(central):
 
     wb = openpyxl.load_workbook(des_path)
     ws = wb[f'Resumen']
-    ws['E20'].value = eol_total
+    ws['E21'].value = eol_total
     wb.save(des_path)
     wb.close()
     vuln(vulnerabilitie = 'CRITICAL', central = central, path_rep = des_path)
