@@ -66,19 +66,16 @@ def eol(central):
     ws_rep = wb_rep[f'Inventario - EOL']
     aux = 1
     for combo, count in counter.items():
-        ws_rep[f'A{aux+3}'].value = aux
-        ws_rep[f'B{aux+3}'].value = combo[0]
-        ws_rep[f'C{aux+3}'].value = combo[1]
-        ws_rep[f'D{aux+3}'].value = combo[2]
-        ws_rep[f'E{aux+3}'].value = combo[3]
-        ws_rep[f'F{aux+3}'].value = combo[4]
-        ws_rep[f'G{aux+3}'].value = combo[5]
-        ws_rep[f'H{aux+3}'].value = count
+        ws_rep[f'A{aux+5}'].value = aux
+        ws_rep[f'B{aux+5}'].value = combo[0]
+        ws_rep[f'C{aux+5}'].value = combo[1]
+        ws_rep[f'D{aux+5}'].value = combo[2]
+        ws_rep[f'E{aux+5}'].value = combo[3]
+        ws_rep[f'F{aux+5}'].value = combo[4]
+        ws_rep[f'G{aux+5}'].value = combo[5]
+        ws_rep[f'H{aux+5}'].value = count
         aux += 1
-
-    for row in range(2, len(counter) + 1):
-        for col in ['A', 'B', 'C', 'D', 'E', 'F','G', 'H']:
-            getFormat(ws_rep, col, row , beg=2)
+    copy_style_from_row(ws=ws_rep,source_row=6,start_row=7,end_row=len(counter)+5)
 
     temp_path = des_path_rep.replace(".xlsx", "_temp.xlsx")
     wb_rep.save(temp_path)
@@ -115,8 +112,8 @@ def totalAssets(central,file,serv):
     return aux-1,cortex,vp
 
 def getFormat(ws_rep, col, row,beg):
-        prev_cell = ws_rep[f'{col}{row+beg}']  # Ej: B7 cuando row=2
-        new_cell = ws_rep[f'{col}{row+beg+1}']   # Ej: B8 cuando row=2
+        prev_cell = ws_rep[f'{col}{row+beg}'] 
+        new_cell = ws_rep[f'{col}{row+beg+1}']
 
         new_cell.font = copy(prev_cell.font)
         new_cell.fill = copy(prev_cell.fill)
@@ -264,26 +261,26 @@ def Report(central2):
     ws_aux = wb_aux.active
 
     # Limpia de la fila 2 hacia abajo
-    for row in ws.iter_rows(min_row=3, max_row=ws.max_row):
+    for row in ws.iter_rows(min_row=4, max_row=ws.max_row):
         for cell in row:
             cell.value = None
     # Recorrer filas y columnas
     for row in ws_aux.iter_rows(min_row=1):
         for cell in row:
             # Ajustar fila de destino para que empiece también desde la fila 2
-            target_row = cell.row + 1 # ya empieza desde 2, no hay que ajustar nada más
+            target_row = cell.row + 3 # ya empieza desde 2, no hay que ajustar nada más
             ws.cell(row=target_row, column=cell.column, value=cell.value)
 
     # Determinar la última fila pegada
-    last_row_written = ws_aux.max_row + 1  # porque comenzamos desde fila 1 y pegamos desde fila 2
+    last_row_written = ws_aux.max_row + 3  # porque comenzamos desde fila 1 y pegamos desde fila 2
 
     # Aplicar estilo de la fila 3 a todas las filas copiadas
-    copy_style_from_row(ws, source_row=3, start_row=2, end_row=last_row_written)
+    copy_style_from_row(ws, source_row=5, start_row=4, end_row=last_row_written)
     for col in ['A', 'B', 'C', 'D', 'E', 'F']:
-        ws[f"{col}2"].font = openpyxl.styles.Font(bold=True)
-    fil = "A2:F2"
+        ws[f"{col}4"].font = openpyxl.styles.Font(bold=True)
+    fil = "A4:F4"
     ws.auto_filter.ref = fil
-    ws['A1'].value = f"Network Devices {central} - Inventario "
+    ws['A3'].value = f"Network Devices {central} - Inventario "
 
     # Ajustar anchos de columna (opcional)
     for col in ws_aux.columns:
@@ -298,7 +295,7 @@ def Report(central2):
     ws = wb[f'Inventario']
     ws['A3'].value = f'Servidores {central} - Inventario'
     ws = wb[f'Inventario - EOL']
-    ws['A1'].value = f'Servidores EOL {central} - Inventario'
+    ws['A3'].value = f'Servidores EOL {central} - Inventario'
 
     t_assets,cortex,vp = totalAssets(central=central,file='TOTAL_ASSETS',serv=False)
     ws = wb[f'Resumen']

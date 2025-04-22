@@ -59,12 +59,12 @@ def formater(ws):
         "D": 50,
         "E": 70
     }
-    fil = "A2:E2"
+    fil = "A4:E4"
 
 
     # Aplicar ajuste de texto en las columnas A, C y D (desde la fila 2 en adelante)
     for col in columnas_objetivo:
-        for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=col, max_col=col):
+        for row in ws.iter_rows(min_row=4, max_row=ws.max_row, min_col=col, max_col=col):
             for cell in row:
                 cell.alignment = Alignment(wrap_text=True)  # Activar "Wrap Text"
 
@@ -116,21 +116,21 @@ def new_queries(central):
 
 
         # Limpiar el contenido anterior (desde la fila 2 en adelante)
-        for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=1, max_col=5):
+        for row in ws.iter_rows(min_row=4, max_row=ws.max_row, min_col=1, max_col=5):
             for cell in row:
                 cell.value = None
 
-        fil = "A2:F2"
+        fil = "A4:F4"
         ws.auto_filter.ref = fil
 
         # Escribir encabezados si es necesario
-        ws['A2'].value = headers[0]
-        ws['B2'].value = headers[1]
-        ws['C2'].value = headers[2]
-        ws['D2'].value = headers[3]
-        ws['E2'].value = headers[4]
+        ws['A4'].value = headers[0]
+        ws['B4'].value = headers[1]
+        ws['C4'].value = headers[2]
+        ws['D4'].value = headers[3]
+        ws['E4'].value = headers[4]
 
-        row_num = 3
+        row_num = 5
         # Escribir filas
         #print(f"Escribiendo {len(devices)} dispositivos en la hoja '{sheet_name}'...")
         for device in devices:
@@ -143,9 +143,9 @@ def new_queries(central):
                 cell = ws.cell(row=row_num, column=col_num, value=value)
             row_num += 1
            # Guardar cambios
-        copy_style_from_row(ws, source_row=3, start_row=2, end_row=row_num - 1)
+        copy_style_from_row(ws, source_row=5, start_row=4, end_row=row_num - 1)
         for col in ['A', 'B', 'C', 'D', 'E', 'F']:
-            ws[f"{col}2"].font = styles.Font(bold=True)
+            ws[f"{col}4"].font = styles.Font(bold=True)
         formater(ws=ws)
         wb.save(path)
         wb.close()
