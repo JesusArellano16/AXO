@@ -107,7 +107,7 @@ def new_queries(central):
             "IPs",
             "MACs",
             "Manufacturer",
-            "Clasificación"
+            "Clasificacion"
         ]
         current_date_and_time = str(dt.date.today())
         path = r'./ARCHIVOS_REPORTES/' + central + r'/' + current_date_and_time + r'/' + f'REPORTE_DISCOVERY_{central}_{current_date_and_time}.xlsx'
