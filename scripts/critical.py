@@ -153,7 +153,10 @@ def critical(central, current_date_and_time, severidad):
     with pd.ExcelWriter(name, engine="openpyxl", mode='a') as writer:
         de.to_excel(writer, sheet_name="RESUMEN")
     
-    os.remove(csv_file_path)
+    try:
+        os.remove(csv_file_path)
+    except:
+        pass
     
     #print(f'✍️ Aplicando formato en el Excel... 8/9 en {central}')
     wb = openpyxl.load_workbook(name)
