@@ -9,8 +9,8 @@ from centrales import centrales
 import multiprocessing
 import time
 from report import Report
-import openpyxl
-from new_queries import new_queries
+import shutil
+
 
 
 start_time = time.time()
@@ -78,6 +78,17 @@ def run_eol(central):
         p.join()
 
 
+def run_reporte(central):
+    processes = []
+    p = multiprocessing.Process(target=Report, args=(central,))
+    processes.append(p)
+    p.start()
+
+    for p in processes:
+        p.join()
+
+
+
 if __name__ == '__main__':
     processes = []
     for central in centrales:
@@ -87,44 +98,33 @@ if __name__ == '__main__':
         path = path + r'/'+current_date_and_time
         if not os.path.exists(path):
             os.mkdir(path)
-        print(f'🚀 WORKING WITH {central.nombre}')
+        path_done = path + r'/done'
+        if not os.path.exists(path_done):
+            os.mkdir(path_done)
 
         # Crear procesos para ejecutar Axonius y Critical en paralelo
         p1 = multiprocessing.Process(target=run_axonius, args=(central,))
         p2 = multiprocessing.Process(target=run_critical, args=(central,))
         p3 = multiprocessing.Process(target=run_eol,args=(central,))
+        p4 = multiprocessing.Process(target=run_reporte,args=(central,))
+        processes.extend([p1, p2, p3, p4])
 
-        processes.extend([p1, p2, p3])
 
         # Iniciar ambos procesos
         p1.start()
         p2.start()
         p3.start()
+        p4.start()
 
     # Esperar a que todos los procesos terminen
     for p in processes:
         p.join()
-
-
-    print("✅ Todas las consultas y análisis han finalizado.")
-
-
-
-    print("📊 Generando reportes!")
+    time.sleep(5)
     for central in centrales:
-        Report(central=central.nombre)
-        path_rep = r'./ARCHIVOS_REPORTES/'+central.nombre+ r'/'+current_date_and_time
-        path_rep = path_rep + r'/' + f'Reporte_Discovery_{central.nombre}_{current_date_and_time}.xlsx'
-        wb = openpyxl.load_workbook(path_rep)
-        sheet_reporte = wb[f'Resumen']
-        sheet_reporte['A18'].value = f'Servidores {central.nombre} - Vulnerabilidades'
-        sheet_reporte['E19'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
-        sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
-        wb.save(path_rep)
-        wb.close()
-        new_queries(central=central.nombre)
-        
-
+        try:
+            shutil.rmtree(f'./ARCHIVOS_REPORTES/{central.nombre}/{current_date_and_time}/done')
+        except Exception as e:
+            print(f"⚠️ Error al eliminar {path}: {e}")
     end_time = time.time()  # Captura el tiempo de finalización
     elapsed_time = (end_time - start_time) / 60  # Calcula el tiempo transcurrido
     print(f"⏳ Tiempo de ejecución: {elapsed_time:.2f} minutos")

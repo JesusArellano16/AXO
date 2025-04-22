@@ -132,7 +132,7 @@ def new_queries(central):
 
         row_num = 3
         # Escribir filas
-        print(f"Escribiendo {len(devices)} dispositivos en la hoja '{sheet_name}'...")
+        #print(f"Escribiendo {len(devices)} dispositivos en la hoja '{sheet_name}'...")
         for device in devices:
             #row_num = ws.max_row + 1
             for col_num, key in enumerate(columns, 1):
@@ -149,4 +149,4 @@ def new_queries(central):
         formater(ws=ws)
         wb.save(path)
         wb.close()
-
+        os.remove(f"devices{central}.json")

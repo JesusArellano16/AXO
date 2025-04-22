@@ -7,6 +7,9 @@ from collections import Counter
 from time import sleep
 import openpyxl.styles
 from openpyxl.utils import get_column_letter
+from new_queries import new_queries
+import time
+import shutil
 
 
 name = 'Reporte_Discovery'
@@ -220,10 +223,31 @@ def vuln(vulnerabilitie,central,path_rep):
     file_reporte.save(path_reporte)
     file_reporte.close()
 
+def esperar_archivos(central, fecha, carpeta_base="./ARCHIVOS_REPORTES"):
+    flag_path = [
+        f'./ARCHIVOS_REPORTES/{central}/{fecha}/done/critical_{central}.done',
+        f'./ARCHIVOS_REPORTES/{central}/{fecha}/done/high_{central}.done',
+        f'./ARCHIVOS_REPORTES/{central}/{fecha}/done/eol_{central}.done',
+        f'./ARCHIVOS_REPORTES/{central}/{fecha}/done/NET_DEV_{central}.done',
+        f'./ARCHIVOS_REPORTES/{central}/{fecha}/done/SERVERS_{central}.done',
+        f'./ARCHIVOS_REPORTES/{central}/{fecha}/done/TOTAL_ASSETS_{central}.done',
+        f'./ARCHIVOS_REPORTES/{central}/{fecha}/done/PCs_{central}.done',
+    ]
+    while True:
+        if all(os.path.exists(path) for path in flag_path):
+            break
+        time.sleep(1)  # Esperar 1 segundo antes de volver a revisar
 
 
-
-def Report(central):
+def Report(central2):
+    central = central2.nombre
+    from table import mostrar_tabla
+    from centrales  import centrales
+    mostrar_tabla(centrales, current_date_and_time)
+    esperar_archivos(
+        central=central,
+        fecha=current_date_and_time,
+    )
     path = r'./ARCHIVOS_REPORTES/'+central
     if not os.path.exists(path):
         os.mkdir(path)
@@ -303,3 +327,19 @@ def Report(central):
     wb.close()
     vuln(vulnerabilitie = 'CRITICAL', central = central, path_rep = des_path)
     vuln(vulnerabilitie = 'HIGH', central = central, path_rep = des_path)
+    path_rep = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
+    path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
+    wb = openpyxl.load_workbook(path_rep)
+    sheet_reporte = wb[f'Resumen']
+    sheet_reporte['A18'].value = f'Servidores {central} - Vulnerabilidades'
+    sheet_reporte['E19'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
+    sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
+    wb.save(path_rep)
+    wb.close()
+    new_queries(central)
+    done_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/done/Reporte_{central}.done'
+    with open(done_path, 'w') as f:
+        f.write("done")
+    from table import mostrar_tabla
+    from centrales  import centrales
+    mostrar_tabla(centrales, current_date_and_time)

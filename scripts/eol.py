@@ -23,9 +23,9 @@ def verificar_archivo(central):
 def Eol(central, current_date_and_time):
     
     if not verificar_archivo(central=central):
-        print(f'🚀 {central} has no servers in EOL')
+        #print(f'🚀 {central} has no servers in EOL')
         exit()
-    print(f'🚀 Iniciando proceso para EOL en {central}')
+    #print(f'🚀 Iniciando proceso para EOL en {central}')
 
     headers = ["Adaptadores", "Preferred Host Name", "Installed Software", "Software Version", "End of Life", "End Of Support", "IPs", "MAC", "Tipo y distribución OS", "Cortex", "Virtual Patching"]
 
@@ -108,4 +108,7 @@ def Eol(central, current_date_and_time):
 
     wb.save(name)
     wb.close()
-    print(f'✅ Proceso finalizado: {name} creado exitosamente')
+    done_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/done/eol_{central}.done'
+    with open(done_path, 'w') as f:
+        f.write("done")
+    #print(f'✅ Proceso finalizado: {name} creado exitosamente')

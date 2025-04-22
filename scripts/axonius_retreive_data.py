@@ -1,26 +1,37 @@
+import warnings
+import urllib3
+import requests
+
+
+# Desactivar advertencias de solicitudes inseguras a nivel global
+warnings.simplefilter('ignore', urllib3.exceptions.InsecureRequestWarning)
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
 import axonius_api_client as axonapi  # Importar la librería de Axonius API Client
 import json  # Importar la librería JSON para manejar datos en formato JSON
-import warnings  # Importar warnings para manejar advertencias
 import pandas as pd
-import urllib3
 import os
 import numpy as np
 import openpyxl
 from openpyxl.styles import Alignment
 from copy import copy
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-warnings.simplefilter("ignore",category=Warning)  # Ignorar advertencias para evitar mensajes innecesarios en la consola
+
+
+
 
 
 def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,central,current_date_and_time):
-    print(f'🚀 Working in {saved_query_name} ')
+   #print(f'🚀 Working in {saved_query_name} ')
     path = r'./ARCHIVOS_REPORTES/'+central
     if not os.path.exists(path):
         os.mkdir(path)
     path = path + r'/'+current_date_and_time
     if not os.path.exists(path):
         os.mkdir(path)
-    # Crear una instancia del cliente de Axonius
+
+
+    
     client = axonapi.Connect(**connect_args)
 
     # Seleccionar el objeto API para dispositivos
@@ -31,6 +42,9 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
     
     # Lista donde se almacenarán los dispositivos con datos filtrados
     clean_devices = []
+    from table import mostrar_tabla
+    from centrales  import centrales
+    mostrar_tabla(centrales, current_date_and_time)
 
     if saved_query_name_clean == "NET_DEV":
         clean_data = [
@@ -125,7 +139,7 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
                 pass
     df2.to_excel(f'{saved_query_name}_modified.xlsx', index=False, engine="openpyxl")
 
-
+    mostrar_tabla(centrales, current_date_and_time)
 
     archivo = f'{saved_query_name}_modified.xlsx'
     wb = openpyxl.load_workbook(archivo)
@@ -260,4 +274,9 @@ def axonius_retreive_data(connect_args,saved_query_name,saved_query_name_clean,c
                     wb.save(name)
         wb.save(name)
         wb.close()
-    print(f'✅{name} created')
+
+    
+    done_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/done/{saved_query_name_clean}_{central}.done'
+    with open(done_path, 'w') as f:
+        f.write("done")
+    mostrar_tabla(centrales, current_date_and_time)

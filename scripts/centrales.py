@@ -18,7 +18,7 @@ centrales = [
             "SERVERS",
             "NET_DEV",
             "PCs"
-        ]
+        ],
     ),
     Central(
         "CARSO",
@@ -33,6 +33,6 @@ centrales = [
             "SERVERS",
             "NET_DEV",
             "PCs"
-        ]
+        ],
     )
 ]
