@@ -90,6 +90,11 @@ def run_reporte(central):
 
 
 if __name__ == '__main__':
+    try:
+        os.nice(-20)
+    except PermissionError:
+        print("⚠️ No tienes permisos para aumentar la prioridad del proceso (os.nice). Ejecuta como sudo si es necesario.")
+
     processes = []
     for central in centrales:
         path = r'./ARCHIVOS_REPORTES/'+central.nombre
