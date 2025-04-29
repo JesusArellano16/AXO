@@ -337,6 +337,15 @@ def Report(central2):
     done_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/done/Reporte_{central}.done'
     with open(done_path, 'w') as f:
         f.write("done")
+
+    if central != 'IXTLA':
+        try:
+            wb = openpyxl.load_workbook(path_rep)
+            del wb['Adaptadores integrados']
+        except:
+            pass
+
+
     from table import mostrar_tabla
     from centrales  import centrales
     mostrar_tabla(centrales, current_date_and_time)
