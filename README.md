@@ -11,6 +11,12 @@ For install all the requirements - "pip install -r requirements.txt"
 
 Run the project with -"python scripts/main.py"
 
+
+git fetch origin
+git reset --hard origin/main
+
+
+
 Create file ".env" with following data:
     AXONIUS_URL="https://<ip>"
     AXONIUS_KEY="<key>"
