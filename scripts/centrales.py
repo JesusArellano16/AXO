@@ -10,7 +10,7 @@ centrales = [
         [
             "ASSETS IN IXTLAHUACA",
             "SERVERS IN IXTLAHUACA 2",
-            "ALL NETWORK DEVICES IXTLAHUACA",
+            "ALL NETWORK DEVICES IN IXTLAHUACA",
             "PCs IN IXTLAHUACA",
         ],
         [
@@ -25,8 +25,23 @@ centrales = [
         [
             "ASSETS IN CARSO LEGACY",
             "SERVERS IN CARSO",
-            "NETWORK DEVICES IN CARSO LEGACY",
+            "ALL NETWORK DEVICES IN CARSO",
             "PCs IN CARSO LEGACY"
+        ],
+        [
+            "TOTAL_ASSETS",
+            "SERVERS",
+            "NET_DEV",
+            "PCs"
+        ],
+    ),
+    Central(
+        "L_ALB",
+        [
+            "ASSETS IN LAGO ALBERTO",
+            "SERVERS IN LAGO ALBERTO",
+            "ALL NETWORK DEVICES IN LAGO ALBERTO",
+            "PCs IN LAGO ALBERTO"
         ],
         [
             "TOTAL_ASSETS",

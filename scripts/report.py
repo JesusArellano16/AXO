@@ -280,7 +280,10 @@ def Report(central2):
         ws[f"{col}4"].font = openpyxl.styles.Font(bold=True)
     fil = "A4:F4"
     ws.auto_filter.ref = fil
-    ws['A3'].value = f"Network Devices {central} - Inventario "
+    if central == 'L_ALB':
+        ws['A3'].value = f"Network Devices LAGO ALBERTO - Inventario "
+    else:
+        ws['A3'].value = f"Network Devices {central} - Inventario "
 
     # Ajustar anchos de columna (opcional)
     for col in ws_aux.columns:
@@ -289,13 +292,22 @@ def Report(central2):
     wb.save(des_path)
 
     ws = wb[f'Resumen']
-    ws['A2'].value = f'Inventario {central} - Resumen'
-    ws = wb[f'Inventario - PC']
-    ws['A3'].value = f'PCs {central} - Inventario'
-    ws = wb[f'Inventario']
-    ws['A3'].value = f'Servidores {central} - Inventario'
-    ws = wb[f'Inventario - EOL']
-    ws['A3'].value = f'Servidores EOL {central} - Inventario'
+    if central == 'L_ALB':
+        ws['A2'].value = f'Inventario LAGO ALBERTO - Resumen'
+        ws = wb[f'Inventario - PC']
+        ws['A3'].value = f'PCs LAGO ALBERTO - Inventario'
+        ws = wb[f'Inventario']
+        ws['A3'].value = f'Servidores LAGO ALBERTO - Inventario'
+        ws = wb[f'Inventario - EOL']
+        ws['A3'].value = f'Servidores EOL LAGO ALBERTO - Inventario'
+    else:
+        ws['A2'].value = f'Inventario {central} - Resumen'
+        ws = wb[f'Inventario - PC']
+        ws['A3'].value = f'PCs {central} - Inventario'
+        ws = wb[f'Inventario']
+        ws['A3'].value = f'Servidores {central} - Inventario'
+        ws = wb[f'Inventario - EOL']
+        ws['A3'].value = f'Servidores EOL {central} - Inventario'
 
     t_assets,cortex,vp = totalAssets(central=central,file='TOTAL_ASSETS',serv=False)
     ws = wb[f'Resumen']
@@ -328,7 +340,10 @@ def Report(central2):
     path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
     wb = openpyxl.load_workbook(path_rep)
     sheet_reporte = wb[f'Resumen']
-    sheet_reporte['A18'].value = f'Servidores {central} - Vulnerabilidades'
+    if central == 'L_ALB':
+        sheet_reporte['A18'].value = f'Servidores LAGO ALBERTO - Vulnerabilidades'
+    else:
+        sheet_reporte['A18'].value = f'Servidores {central} - Vulnerabilidades'
     sheet_reporte['E19'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
     sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
     wb.save(path_rep)
@@ -338,7 +353,9 @@ def Report(central2):
     with open(done_path, 'w') as f:
         f.write("done")
 
-    if central != 'IXTLA':
+    if central == 'IXTLA':
+        pass
+    else:
         try:
             wb = openpyxl.load_workbook(path_rep)
             del wb['Adaptadores integrados']
