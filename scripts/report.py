@@ -359,6 +359,9 @@ def Report(central2):
         try:
             wb = openpyxl.load_workbook(path_rep)
             del wb['Adaptadores integrados']
+            ## Se agrega guardado de eliminación de hoja de responsables
+            wb.save(path_rep)
+            wb.close()
         except:
             pass
 
