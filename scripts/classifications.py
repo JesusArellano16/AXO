@@ -71,7 +71,8 @@ subClassification = {
         "(Extreme Networks Headquarters)",
         "(AVM Audiovisuelles Marketing und Computersysteme GmbH)",
         "(Netscout Systems Inc)",
-        "(Broadcom)"
+        "(Broadcom)",
+        "(3onedata Technology Co. Ltd.)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Fabricantes de Componentes Electrónicos y Hardware Especializado":[
@@ -81,7 +82,9 @@ subClassification = {
         "(B&R Industrial Automation GmbH)",
         "(QLogic Corporation)",
         "(Hon Hai Precision Ind. Co.,Ltd.)",
-        "(LINX Data Terminals, Inc.)"
+        "(LINX Data Terminals, Inc.)",
+        "(Sitek)",
+        "(Imci Technologies)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Almacenamiento":[
