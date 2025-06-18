@@ -10,6 +10,7 @@ import multiprocessing
 import time
 from report import Report
 import shutil
+import charts
 
 
 
@@ -130,6 +131,13 @@ if __name__ == '__main__':
             shutil.rmtree(f'./ARCHIVOS_REPORTES/{central.nombre}/{current_date_and_time}/done')
         except Exception as e:
             print(f"⚠️ Error al eliminar {path}: {e}")
+    for central in centrales:
+        try:
+            charts.servers(central.nombre)
+            charts.servers_cortex(central.nombre)
+            charts.agregar_hojas_graficas(central.nombre)
+        except Exception as e:
+            print(f"Error : {e}")
     end_time = time.time()  # Captura el tiempo de finalización
     elapsed_time = (end_time - start_time) / 60  # Calcula el tiempo transcurrido
     print(f"⏳ Tiempo de ejecución: {elapsed_time:.2f} minutos")

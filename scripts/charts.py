@@ -7,6 +7,43 @@ from centrales import centrales
 from openpyxl.chart import LineChart, Reference
 from openpyxl.utils import get_column_letter
 
+def sobrescribir_registro_csv(ruta_csv, fila_nueva):
+    fecha_hoy = fila_nueva[0]
+    registros = []
+    encabezado = None
+
+    if os.path.exists(ruta_csv):
+        with open(ruta_csv, mode="r", newline="") as file:
+            reader = csv.reader(file)
+            registros = list(reader)
+
+        if registros:
+            encabezado = registros[0]
+            datos = registros[1:]
+        else:
+            datos = []
+    else:
+        datos = []
+
+    # Filtrar registros duplicados
+    datos_filtrados = [fila for fila in datos if fila and fila[0] != fecha_hoy]
+
+    # Agregar nuevo registro
+    datos_filtrados.append(fila_nueva)
+
+    # Si no hay encabezado, lo inferimos del tamaño de fila_nueva
+    if not encabezado:
+        encabezado = ["Date"] + [f"Value{i+1}" for i in range(len(fila_nueva)-1)]
+
+    # Reescribir archivo
+    with open(ruta_csv, mode="w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(encabezado)
+        writer.writerows(datos_filtrados)
+
+
+
+
 def servers(central):
     ruta_base = "ARCHIVOS_REPORTES"
     current_date_and_time = str(dt.date.today())
@@ -42,12 +79,10 @@ def servers(central):
         archivo_existe = os.path.exists(ruta_csv)
 
         try:
-            with open(ruta_csv, mode="a", newline="") as file:
-                writer = csv.writer(file)
-                if not archivo_existe:
-                    writer.writerow(["Fecha", "Valor E5"])
-                fecha_formateada = dt.date.today().strftime("%d/%m/%y")
-                writer.writerow([fecha_formateada, valor])
+            fecha_formateada = dt.date.today().strftime("%d/%m/%y")
+            #encabezados = ["Fecha", "Valor E5"]
+            fila_nueva = [fecha_formateada, valor]
+            sobrescribir_registro_csv(ruta_csv, fila_nueva)
         except Exception as e:
             print(f"Error al escribir en el CSV: {e}")
     else:
@@ -91,12 +126,10 @@ def servers_cortex(central):
         archivo_existe = os.path.exists(ruta_csv)
 
         try:
-            with open(ruta_csv, mode="a", newline="") as file:
-                writer = csv.writer(file)
-                if not archivo_existe:
-                    writer.writerow(["Fecha", "Valor E5"])
-                fecha_formateada = dt.date.today().strftime("%d/%m/%y")
-                writer.writerow([fecha_formateada, servers_c,servers_num-servers_c])
+            fecha_formateada = dt.date.today().strftime("%d/%m/%y")
+            #encabezados = ["Fecha", "Valor E5", "Valor E6"]
+            fila_nueva = [fecha_formateada, servers_c, servers_num - servers_c]
+            sobrescribir_registro_csv(ruta_csv, fila_nueva)
         except Exception as e:
             print(f"Error al escribir en el CSV: {e}")
     else:
@@ -151,6 +184,33 @@ def agregar_hojas_graficas(central):
             chart.style = 2
             chart.y_axis.title = "Cantidad"
             chart.x_axis.title = "Fecha"
+
+            if central == "IXTLA" :
+                if nombre_hoja == "Grafica_Servers":
+                    increments = 1000
+                    min_val = 5000
+                if nombre_hoja == "Grafica_Cortex":
+                    increments = 500
+                    min_val = 2500
+            elif central == "L_ALB" :
+                if nombre_hoja == "Grafica_Servers":
+                    increments = 20
+                    min_val = 70
+                if nombre_hoja == "Grafica_Cortex":
+                    increments = 10
+                    min_val = 10
+            elif central == "CARSO" :
+                if nombre_hoja == "Grafica_Servers":
+                    increments = 5
+                    min_val = 20
+                if nombre_hoja == "Grafica_Cortex":
+                    increments = 2
+                    min_val = 20
+                    
+            # ← Esta línea fuerza el eje Y a usar incrementos de 10
+            chart.y_axis.majorUnit = increments
+            chart.y_axis.scaling.min = min_val
+
 
             max_row = ws.max_row
             for col_idx in columnas_numericas:
