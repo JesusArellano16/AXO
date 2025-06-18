@@ -10,6 +10,7 @@ For MAC users #Activate a virtual environment - "source reportes/bin/activate"
 For install all the requirements - "pip install -r requirements.txt"
 
 Run the project with -"python scripts/main.py"
+Create charts with -"python scripts/charts.py"
 
 
 git fetch origin
