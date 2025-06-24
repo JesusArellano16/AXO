@@ -118,21 +118,9 @@ def agregar_hojas_graficas(central):
             chart.y_axis.title = "Cantidad"
             chart.x_axis.title = "Fecha"
 
-            """ if central == "IXTLA":
-                increments = 500
-                min_val = 2500
-            elif central == "L_ALB":
-                increments = 10
-                min_val = 10
-            elif central == "CARSO":
-                increments = 2
-                min_val = 20
-            else:
-                increments = 10
-                min_val = 0
-
-            chart.y_axis.majorUnit = increments
-            chart.y_axis.scaling.min = min_val """
+            # Ampliar tamaño visual
+            chart.width = 38
+            chart.height = 20
 
             max_row = ws.max_row
             for col_idx in columnas_numericas:
