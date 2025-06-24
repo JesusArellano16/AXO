@@ -60,6 +60,7 @@ def data_central(central):
                 hoja = wb_origen["Resumen"]
                 assets = hoja["E3"].value
                 identified_dev = hoja["E4"].value
+                servers_t = hoja["E5"].value
                 servers_c = hoja["E6"].value
                 servers_noc = hoja["E8"].value
                 unidentified_serv = hoja["E14"].value
@@ -74,7 +75,7 @@ def data_central(central):
 
         try:
             fecha_formateada = dt.date.today().strftime("%d/%m/%y")
-            fila_nueva = [fecha_formateada, assets, identified_dev, servers_c, servers_noc, unidentified_serv, unmanagged]
+            fila_nueva = [fecha_formateada, assets, identified_dev, servers_c, servers_noc, unidentified_serv, unmanagged,servers_t]
             sobrescribir_registro_csv(ruta_csv, fila_nueva)
         except Exception as e:
             print(f"Error al escribir en el CSV: {e}")
@@ -133,7 +134,7 @@ def agregar_hojas_graficas(central):
             col_chart = get_column_letter(max(columnas_numericas) + 2)
             ws.add_chart(chart, f"{col_chart}2")
 
-        crear_hoja_con_grafica(wb, f"Data_{central}", ruta_csv, [2,3,4,5,6,7])
+        crear_hoja_con_grafica(wb, f"Data_{central}", ruta_csv, [2,3,4,5,6,7,8])
         wb.save(ruta_reporte)
     except Exception as e:
         print(f"Error al crear hojas con gráficas: {e}")
