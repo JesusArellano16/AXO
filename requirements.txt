@@ -5,3 +5,4 @@ axonius_api_client
 python-dotenv
 rich
 urllib3==1.26.15
+xlwings
