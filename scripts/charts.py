@@ -114,7 +114,7 @@ def agregar_hojas_graficas(central):
                         ws.cell(row=row_idx, column=col_idx).value = valor
 
             chart = LineChart()
-            chart.title = f"{nombre_hoja}"
+            chart.title = f"Resumen {central}"
             chart.style = 2
             chart.y_axis.title = "Cantidad"
             chart.x_axis.title = "Fecha"
