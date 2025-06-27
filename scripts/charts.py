@@ -62,7 +62,7 @@ def data_central(central):
                 identified_dev = hoja["E4"].value
                 servers_t = hoja["E5"].value
                 servers_c = hoja["E6"].value
-                servers_noc = hoja["E8"].value
+                servers_noc = hoja["E8"].value + hoja["E7"].value
                 unidentified_serv = hoja["E14"].value
                 unmanagged = hoja["E15"].value
                 wb_origen.close()
