@@ -23,16 +23,22 @@ Create file ".env" with following data:
     AXONIUS_SECRET="<secret>"
 
 -------- FOR SEVERITIES ------
-Columns     Name
-1           Adapters
-2           Vuln ID
-3           Device Count
-4           CVE Description
-5           Preferred Host Name
-6           Preferred IPs
-7           Preferred MAC Address
-8           Preferred OS: Type and Distribution
-9           Adapter conection
+
+Edit Table
+    Edit Columns
+        Select All 
+            Unselect <"Adapater Connections">, <"Vuln ID">, <"Device Count">, <"CVE Description">
+Export CSV
+    -File name: <critical>
+    -Exclude parent complex objects columns
+    -Include associated devices
+                   Preferred Host Name
+                   Preferred IPs
+                   Preferred MAC Address
+                   Preferred OS: Type and Distribution
+                   Adapter conection
+
+
 
 -------- FOR EOL ------
     Export CSV
