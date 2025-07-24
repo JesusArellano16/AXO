@@ -1,7 +1,9 @@
 ﻿"Aggregated: Asset Unique ID","Aggregated: Adapter Connections","Aggregated: Preferred Host Name","Aggregated: Installed Software: Software Name","Aggregated: Installed Software: Software Version","Aggregated: Installed Software: End of Life","Aggregated: Installed Software: End Of Support Date","Aggregated: Preferred IPs","Aggregated: Preferred MAC Address","Aggregated: Preferred OS: Type and Distribution"
 "28df641e356e3c6698c333d5dcd03881","cisco_adapter
 nagios_xi_adapter
+paloalto_xdr_adapter
 redhat_satellite_adapter","SFF1SRMP12","postfix","2.6.6","2013-02-11 00:00:00","","10.202.140.119","3C:A8:2A:12:36:A4","Linux Red Hat 6.6"
 "28df641e356e3c6698c333d5dcd03881","cisco_adapter
 nagios_xi_adapter
+paloalto_xdr_adapter
 redhat_satellite_adapter","SFF1SRMP12","python","2.6.6","2013-10-29 00:00:00","","10.202.140.119","3C:A8:2A:12:36:A4","Linux Red Hat 6.6"

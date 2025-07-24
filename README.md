@@ -31,6 +31,7 @@ Edit Table
 Export CSV
     -File name: <critical>
     -Exclude parent complex objects columns
+    -Don't split complex objects into columns
     -Include associated devices
                    Preferred Host Name
                    Preferred IPs
