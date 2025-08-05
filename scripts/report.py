@@ -109,7 +109,8 @@ def totalAssets(central,file,serv):
         if cell.value not in (None,""):
             aux += 1
     wb.close()
-    return aux-1,cortex,vp
+    if aux == 0:    return 0,cortex,vp
+    else:   return aux-1,cortex,vp
 
 def getFormat(ws_rep, col, row,beg):
         prev_cell = ws_rep[f'{col}{row+beg}'] 

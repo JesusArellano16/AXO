@@ -49,5 +49,20 @@ centrales = [
             "NET_DEV",
             "PCs"
         ],
+    ),
+    Central(
+        "SOTELO",
+        [
+            "ASSETS IN SOTELO",
+            "SERVERS IN SOTELO",
+            "ALL NETWORK DEVICES IN SOTELO",
+            "PCs IN SOTELO"
+        ],
+        [
+            "TOTAL_ASSETS",
+            "SERVERS",
+            "NET_DEV",
+            "PCs"
+        ],
     )
 ]
