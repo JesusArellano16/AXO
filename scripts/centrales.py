@@ -6,6 +6,21 @@ class Central:
 
 centrales = [
     Central(
+        "IXTLA",
+        [
+            "ASSETS IN IXTLAHUACA",
+            "SERVERS IN IXTLAHUACA 2",
+            "ALL NETWORK DEVICES IN IXTLAHUACA",
+            "PCs IN IXTLAHUACA",
+        ],
+        [
+            "TOTAL_ASSETS",
+            "SERVERS",
+            "NET_DEV",
+            "PCs"
+        ],
+    ),
+    Central(
         "CARSO",
         [
             "ASSETS IN CARSO LEGACY",
