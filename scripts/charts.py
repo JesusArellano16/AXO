@@ -58,13 +58,13 @@ def data_central(central):
             wb_origen = load_workbook(ruta_completa, data_only=True)
             if "Resumen" in wb_origen.sheetnames:
                 hoja = wb_origen["Resumen"]
-                assets = hoja["E3"].value
-                identified_dev = hoja["E4"].value
-                servers_t = hoja["E5"].value
-                servers_c = hoja["E6"].value
-                servers_noc = str(int(hoja["E8"].value) + int(hoja["E7"].value))
-                unidentified_serv = hoja["E14"].value
-                unmanagged = hoja["E15"].value
+                assets = hoja["F3"].value
+                identified_dev = hoja["F4"].value
+                servers_t = hoja["F5"].value
+                servers_c = hoja["F6"].value
+                servers_noc = str(int(hoja["F7"].value))
+                unidentified_serv = hoja["F15"].value
+                unmanagged = hoja["F16"].value
                 wb_origen.close()
             else:
                 print("La hoja 'Resumen' no existe.")

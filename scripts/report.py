@@ -187,10 +187,10 @@ def vuln(vulnerabilitie,central,path_rep):
             ws[f'I{row}'].value = 0
         if vulnerabilitie == 'CRITICAL':
             sheet_reporte = wb[f'Resumen']
-            sheet_reporte['E19'].value = 0
+            sheet_reporte['E20'].value = 0
         elif vulnerabilitie == 'HIGH':
             sheet_reporte = wb[f'Resumen']
-            sheet_reporte['E20'].value = 0
+            sheet_reporte['E21'].value = 0
 
         wb.save(path_rep)
         wb.close()
@@ -312,18 +312,19 @@ def Report(central2):
 
     t_assets,cortex,vp = totalAssets(central=central,file='TOTAL_ASSETS',serv=False)
     ws = wb[f'Resumen']
-    ws['E3'].value = t_assets
+    ws['F3'].value = t_assets
     t_serv,cortex,vp = totalAssets(central=central,file='SERVERS', serv=True)
-    ws['E5'].value = t_serv
-    ws['E6'].value = cortex
-    ws['E7'].value = vp
-    ws['E8'].value = t_serv - cortex - vp
+    ws['F5'].value = t_serv
+    ws['F6'].value = cortex
+    #ws['F7'].value = vp #VIRTUAL PATCHING
+    #ws['F8'].value = t_serv - cortex - vp #NO PROTEGIDOS
+    ws['F7'].value = t_serv - cortex
     t_pcs,cortex,vp = totalAssets(central=central,file='PCs', serv=True)
-    ws['E9'].value = t_pcs
-    ws['E10'].value = cortex
-    ws['E11'].value = t_pcs - cortex
+    ws['F10'].value = t_pcs
+    ws['F11'].value = cortex
+    ws['F12'].value = t_pcs - cortex
     t_net,cortex,vp = totalAssets(central=central,file='NET_DEV', serv=False)
-    ws['E12'].value = t_net
+    ws['F13'].value = t_net
     wb.save(des_path)
     wb.close()
     pcs_Inv(central=central,file='PCs',sheet='Inventario - PC')
@@ -332,7 +333,7 @@ def Report(central2):
 
     wb = openpyxl.load_workbook(des_path)
     ws = wb[f'Resumen']
-    ws['E21'].value = eol_total
+    ws['E22'].value = eol_total
     wb.save(des_path)
     wb.close()
     vuln(vulnerabilitie = 'CRITICAL', central = central, path_rep = des_path)
@@ -342,11 +343,11 @@ def Report(central2):
     wb = openpyxl.load_workbook(path_rep)
     sheet_reporte = wb[f'Resumen']
     if central == 'L_ALB':
-        sheet_reporte['A18'].value = f'Servidores LAGO ALBERTO - Vulnerabilidades'
+        sheet_reporte['A19'].value = f'Servidores LAGO ALBERTO - Vulnerabilidades'
     else:
-        sheet_reporte['A18'].value = f'Servidores {central} - Vulnerabilidades'
-    sheet_reporte['E19'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
-    sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
+        sheet_reporte['A19'].value = f'Servidores {central} - Vulnerabilidades'
+    sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
+    sheet_reporte['E21'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
     wb.save(path_rep)
     wb.close()
     new_queries(central)
