@@ -75,6 +75,7 @@ def formater(ws):
 def new_queries(central):
     if central == "IXTLA": central2 = "IXTLAHUACA"
     elif central == "L_ALB": central2 = "LAGO ALBERTO"
+    elif central == "L_ARA": central2 = "LAGO ARAGON"
     else: central2 = central
 
     client = axonapi.Connect(**connect_args)
