@@ -125,9 +125,11 @@ def getFormat(ws_rep, col, row,beg):
 
 def pcs_Inv(central,file, sheet):   
     unsupported_oses = [
-    "SunOS 10", "SunOS 11.1", "SunOS 11.2", "SunOS 11.3", "AIX 6.1", "AIX 7.1",
-    "AIX 7.2", "AIX 5.3", "SunOS 9", "SunOS 11.4.23.69.3", "SunOS 11.0", 
-    "SunOS 11.4", "SunOS 11.4.0.15.0"
+    "Oracle Solaris","Windows Server 2008 R2",
+    "Windows Server 2003 R2","SunOS 10","SunOS 11.1",
+    "SunOS 11.2","SunOS 11.3","IBM AIX 6.1","IBM AIX 7.1",
+    "IBM AIX 7.2","IBM AIX 5.3","SunOS 9","SunOS 11.4.23.69.3",
+    "SunOS 11.0","SunOS 11.4","SunOS 11.4.0.15.0"
     ] 
     path_rep = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
     des_path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
