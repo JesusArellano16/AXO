@@ -153,7 +153,11 @@ def pcs_Inv(central,file, sheet):
         ws_rep[f'F{row+4}'].value = ws[f'F{row}'].value
         ws_rep[f'G{row+4}'].value = ws[f'G{row}'].value
         conditions = ', '.join([f'E{row+4}="{os}"' for os in unsupported_oses])
-        formula = f'=IF(OR({conditions}), "Cortex not supported", "NA")'
+        #formula = f'=IF(OR({conditions}), "Cortex not supported", "NA")'
+        formula = (
+            f'=IF(F{row+4}="SI", "NA", '
+            f'IF(OR({conditions}), "Cortex not supported", "NA"))'
+        )
         if file == 'SERVERS':
             ws_rep[f'J{row+4}'].value = formula
 
