@@ -297,6 +297,8 @@ def Report(central2):
     ws.auto_filter.ref = fil
     if central == 'L_ALB':
         ws['A3'].value = f"Network Devices LAGO ALBERTO - Inventario "
+    elif central == 'L_ARA':
+        ws['A3'].value = f"Network Devices LAGO ARAGON - Inventario "
     else:
         ws['A3'].value = f"Network Devices {central} - Inventario "
 
@@ -315,6 +317,14 @@ def Report(central2):
         ws['A3'].value = f'Servidores LAGO ALBERTO - Inventario'
         ws = wb[f'Inventario - EOL']
         ws['A3'].value = f'Servidores EOL LAGO ALBERTO - Inventario'
+    elif central == 'L_ARA':
+        ws['A2'].value = f'Inventario LAGO ARAGON - Resumen'
+        ws = wb[f'Inventario - PC']
+        ws['A3'].value = f'PCs LAGO ARAGON - Inventario'
+        ws = wb[f'Inventario']
+        ws['A3'].value = f'Servidores LAGO ARAGON - Inventario'
+        ws = wb[f'Inventario - EOL']
+        ws['A3'].value = f'Servidores EOL LAGO ARAGON - Inventario'
     else:
         ws['A2'].value = f'Inventario {central} - Resumen'
         ws = wb[f'Inventario - PC']
@@ -358,6 +368,8 @@ def Report(central2):
     sheet_reporte = wb[f'Resumen']
     if central == 'L_ALB':
         sheet_reporte['A19'].value = f'Servidores LAGO ALBERTO - Vulnerabilidades'
+    elif central == 'L_ARA':
+        sheet_reporte['A19'].value = f'Servidores LAGO ARAGON - Vulnerabilidades'
     else:
         sheet_reporte['A19'].value = f'Servidores {central} - Vulnerabilidades'
     sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
