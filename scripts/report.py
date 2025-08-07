@@ -10,6 +10,7 @@ from openpyxl.utils import get_column_letter
 from new_queries import new_queries
 import time
 import shutil
+from openpyxl.utils import quote_sheetname
 
 
 name = 'Reporte_Discovery'
@@ -122,7 +123,12 @@ def getFormat(ws_rep, col, row,beg):
         new_cell.alignment = copy(prev_cell.alignment)
         new_cell.number_format = copy(prev_cell.number_format)
 
-def pcs_Inv(central,file, sheet):    
+def pcs_Inv(central,file, sheet):   
+    unsupported_oses = [
+    "SunOS 10", "SunOS 11.1", "SunOS 11.2", "SunOS 11.3", "AIX 6.1", "AIX 7.1",
+    "AIX 7.2", "AIX 5.3", "SunOS 9", "SunOS 11.4.23.69.3", "SunOS 11.0", 
+    "SunOS 11.4", "SunOS 11.4.0.15.0"
+    ] 
     path_rep = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
     des_path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
     wb_rep = openpyxl.load_workbook(des_path_rep)
@@ -144,8 +150,10 @@ def pcs_Inv(central,file, sheet):
         ws_rep[f'E{row+4}'].value = ws[f'E{row}'].value
         ws_rep[f'F{row+4}'].value = ws[f'F{row}'].value
         ws_rep[f'G{row+4}'].value = ws[f'G{row}'].value
+        conditions = ', '.join([f'E{row+4}="{os}"' for os in unsupported_oses])
+        formula = f'=IF(OR({conditions}), "Cortex not supported", "NA")'
         if file == 'SERVERS':
-            ws_rep[f'J{row+4}'].value = 'NA'
+            ws_rep[f'J{row+4}'].value = formula
 
         aux = True
     temp_path = des_path_rep.replace(".xlsx", "_temp.xlsx")
