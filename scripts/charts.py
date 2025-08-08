@@ -6,6 +6,8 @@ import xlwings as xw
 from centrales import centrales
 from openpyxl.chart import LineChart, Reference
 from openpyxl.utils import get_column_letter
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.drawing.colors import ColorChoice
 
 
 def sobrescribir_registro_csv(ruta_csv, fila_nueva):
@@ -78,6 +80,7 @@ def data_central(central):
             fila_nueva = [fecha_formateada, assets, identified_dev, servers_c, servers_noc, unidentified_serv, unmanagged,servers_t]
             sobrescribir_registro_csv(ruta_csv, fila_nueva)
         except Exception as e:
+            print(ruta_completa)
             print(f"Error al escribir en el CSV: {e}")
     else:
         print(f"El archivo origen no existe: {ruta_completa}")
@@ -127,6 +130,10 @@ def agregar_hojas_graficas(central):
             for col_idx in columnas_numericas:
                 data = Reference(ws, min_col=col_idx, min_row=1, max_row=max_row)
                 chart.add_data(data, titles_from_data=True)
+            colors = ["FF0000", "0000FF", "00AA00", "FFA500", "800080", "008080", "808000"]  
+            for serie, color in zip(chart.series, colors):
+                serie.graphicalProperties.line.solidFill = color
+                serie.graphicalProperties.line.width = 35000  
 
             cats = Reference(ws, min_col=1, min_row=2, max_row=max_row)
             chart.set_categories(cats)

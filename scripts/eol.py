@@ -1,6 +1,5 @@
 import pandas as pd
 import shutil
-import csv
 import os
 import openpyxl
 from openpyxl.styles import Alignment
@@ -23,8 +22,13 @@ def verificar_archivo(central):
 def Eol(central, current_date_and_time):
     
     if not verificar_archivo(central=central):
-        #print(f'🚀 {central} has no servers in EOL')
-        exit()
+        # Crear el archivo .done aunque no exista el eol.csv
+        done_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/done/eol_{central}.done'
+        os.makedirs(os.path.dirname(done_path), exist_ok=True)  # Crea la carpeta si no existe
+        with open(done_path, 'w') as f:
+            f.write("done")
+        return  # Terminar la función sin error
+        #exit()
     #print(f'🚀 Iniciando proceso para EOL en {central}')
 
     headers = ["Adaptadores", "Preferred Host Name", "Installed Software", "Software Version", "End of Life", "End Of Support", "IPs", "MAC", "Tipo y distribución OS", "Cortex", "Virtual Patching"]
