@@ -296,13 +296,6 @@ def Report(central2):
         ws[f"{col}4"].font = openpyxl.styles.Font(bold=True)
     fil = "A4:F4"
     ws.auto_filter.ref = fil
-
-    #if central == 'L_ALB':
-    #    ws['A3'].value = f"Network Devices LAGO ALBERTO - Inventario "
-    #elif central == 'L_ARA':
-    #    ws['A3'].value = f"Network Devices LAGO ARAGON - Inventario "
-    #else:
-    #    ws['A3'].value = f"Network Devices {central} - Inventario "
     
     ws['A3'].value = f"Network Devices {full_Name} - Inventario "
 
@@ -313,31 +306,6 @@ def Report(central2):
     wb.save(des_path)
 
     ws = wb[f'Resumen']
-    """if central == 'L_ALB':
-        ws['A2'].value = f'Inventario LAGO ALBERTO - Resumen'
-        ws = wb[f'Inventario - PC']
-        ws['A3'].value = f'PCs LAGO ALBERTO - Inventario'
-        ws = wb[f'Inventario']
-        ws['A3'].value = f'Servidores LAGO ALBERTO - Inventario'
-        ws = wb[f'Inventario - EOL']
-        ws['A3'].value = f'Servidores EOL LAGO ALBERTO - Inventario'
-    elif central == 'L_ARA':
-        ws['A2'].value = f'Inventario LAGO ARAGON - Resumen'
-        ws = wb[f'Inventario - PC']
-        ws['A3'].value = f'PCs LAGO ARAGON - Inventario'
-        ws = wb[f'Inventario']
-        ws['A3'].value = f'Servidores LAGO ARAGON - Inventario'
-        ws = wb[f'Inventario - EOL']
-        ws['A3'].value = f'Servidores EOL LAGO ARAGON - Inventario'
-    else:
-        ws['A2'].value = f'Inventario {central} - Resumen'
-        ws = wb[f'Inventario - PC']
-        ws['A3'].value = f'PCs {central} - Inventario'
-        ws = wb[f'Inventario']
-        ws['A3'].value = f'Servidores {central} - Inventario'
-        ws = wb[f'Inventario - EOL']
-        ws['A3'].value = f'Servidores EOL {central} - Inventario'"""
-    
     ws['A2'].value = f'Inventario {full_Name} - Resumen'
     ws = wb[f'Inventario - PC']
     ws['A3'].value = f'PCs {full_Name} - Inventario'
@@ -379,12 +347,6 @@ def Report(central2):
     path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
     wb = openpyxl.load_workbook(path_rep)
     sheet_reporte = wb[f'Resumen']
-    """if central == 'L_ALB':
-        sheet_reporte['A19'].value = f'Servidores LAGO ALBERTO - Vulnerabilidades'
-    elif central == 'L_ARA':
-        sheet_reporte['A19'].value = f'Servidores LAGO ARAGON - Vulnerabilidades'
-    else:
-        sheet_reporte['A19'].value = f'Servidores {central} - Vulnerabilidades'"""
 
     sheet_reporte['A19'].value = f'Servidores {full_Name} - Vulnerabilidades'
 

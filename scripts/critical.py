@@ -14,7 +14,7 @@ def verificar_archivo(vuln, central):
     
     if not os.path.isdir(ruta_completa):
         return False  # La carpeta no existe
-    return f"{vuln}.csv" in os.listdir(ruta_completa)
+    return f"{vuln}_{central}.csv" in os.listdir(ruta_completa)
 
 def critical(central, current_date_and_time, severidad):
     #print(f'🚀 Iniciando proceso para {severidad} en {central} 0/9')
@@ -32,7 +32,7 @@ def critical(central, current_date_and_time, severidad):
 
     # Copiar archivo CSV a la carpeta de reportes
     #print(f'📂 Copiando archivo {severidad}.csv 1/9 en {central}')
-    src_path = f'./AXONIUS_FILES/{central}/{severidad}.csv'
+    src_path = f'./AXONIUS_FILES/{central}/{severidad}_{central}.csv'
     dest_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/{severidad}.csv'
     shutil.copy(src_path, dest_path)
     

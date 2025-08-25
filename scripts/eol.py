@@ -16,7 +16,7 @@ def verificar_archivo(central):
         return False  # La carpeta no existe
 
     # Verificar si el archivo "vuln.csv" está dentro de central
-    return f"eol.csv" in os.listdir(ruta_completa)
+    return f"eol_{central}.csv" in os.listdir(ruta_completa)
 
 
 def Eol(central, current_date_and_time):
@@ -34,7 +34,7 @@ def Eol(central, current_date_and_time):
     headers = ["Adaptadores", "Preferred Host Name", "Installed Software", "Software Version", "End of Life", "End Of Support", "IPs", "MAC", "Tipo y distribución OS", "Cortex", "Virtual Patching"]
 
     # Copiar el archivo CSV a la carpeta de reportes
-    src_path = f'./AXONIUS_FILES/{central}/eol.csv'
+    src_path = f'./AXONIUS_FILES/{central}/eol_{central}.csv'
     dest_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/eol.csv'
     shutil.copy(src_path, dest_path)
 
