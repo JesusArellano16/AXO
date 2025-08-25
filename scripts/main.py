@@ -124,12 +124,12 @@ def guardar_centrales(Central, centrales_filtradas):
 if __name__ == '__main__':
 
     nombres_permitidos = sys.argv[1:]
-    Central, centrales = cargar_centrales()
-    centrales_filtradas = [c for c in centrales if c.nombre in nombres_permitidos]
+    Central_aux, centrales_aux = cargar_centrales()
+    centrales_filtradas = [c for c in centrales_aux if c.nombre in nombres_permitidos]
     if not centrales_filtradas:
         print("⚠️ Ninguna central coincide con los parámetros dados.")
         sys.exit(1)
-    guardar_centrales(Central, centrales_filtradas)
+    guardar_centrales(Central_aux, centrales_filtradas)
 
     processes = []
     for central in centrales:
