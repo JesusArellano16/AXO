@@ -1,12 +1,14 @@
 class Central:
-    def __init__(self, nombre, queries, file_name):
+    def __init__(self, nombre, fullName, queries, file_name):
         self.nombre = nombre
+        self.fullName = fullName
         self.queries = queries
         self.file_name = file_name
 
 centrales = [
     Central(
         "IXTLA",
+        "IXTLAHUACA",
         [
             "ASSETS IN IXTLAHUACA",
             "SERVERS IN IXTLAHUACA 2",
@@ -21,6 +23,7 @@ centrales = [
         ],
     ),
     Central(
+        "CARSO",
         "CARSO",
         [
             "ASSETS IN CARSO LEGACY",
@@ -37,6 +40,7 @@ centrales = [
     ),
     Central(
         "L_ALB",
+        "LAGO ALBERTO",
         [
             "ASSETS IN LAGO ALBERTO",
             "SERVERS IN LAGO ALBERTO",
@@ -51,6 +55,7 @@ centrales = [
         ],
     ),
     Central(
+        "MALINCHE",
         "MALINCHE",
         [
             "ASSETS IN MALINCHE",
@@ -67,6 +72,7 @@ centrales = [
     ),
     Central(
         "SOTELO",
+        "SOTELO",
         [
             "ASSETS IN SOTELO",
             "SERVERS IN SOTELO",
@@ -82,6 +88,7 @@ centrales = [
     ),
     Central(
         "L_ARA",
+        "LAGO ARAGON",
         [
             "ASSETS IN LAGO ARAGON",
             "SERVERS IN LAGO ARAGON",

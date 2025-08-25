@@ -72,11 +72,13 @@ def formater(ws):
         ws.column_dimensions[col].width = width
     ws.auto_filter.ref = fil
 
-def new_queries(central):
-    if central == "IXTLA": central2 = "IXTLAHUACA"
-    elif central == "L_ALB": central2 = "LAGO ALBERTO"
-    elif central == "L_ARA": central2 = "LAGO ARAGON"
-    else: central2 = central
+def new_queries( central, full_name ):
+    #if central == "IXTLA": central2 = "IXTLAHUACA"
+    #elif central == "L_ALB": central2 = "LAGO ALBERTO"
+    #elif central == "L_ARA": central2 = "LAGO ARAGON"
+    #else: central2 = central
+    
+    central2 = full_name
 
     client = axonapi.Connect(**connect_args)
     saved_query_name = {
