@@ -1,6 +1,6 @@
 # remove_central.py
 import os
-from centrales import Central, centrales
+from centrales_bk import Central, centrales
 
 scripts_folder = os.path.dirname(os.path.abspath(__file__))
 

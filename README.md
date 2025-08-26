@@ -56,7 +56,10 @@ Export CSV
 For alias Reportes
 Open terminal
     nano ~/.zshrc
-    alias Reportes="python3 /Users/jesusarellano/Documents/TELCEL/AXONIUS/Desarrollo/scripts/main.py"
+    Reportes() {
+    python /Users/jesusarellano/Documents/TELCEL/AXONIUS/Desarrollo/scripts/prep_Central.py "$@" && \
+    python /Users/jesusarellano/Documents/TELCEL/AXONIUS/Desarrollo/scripts/main.py
+    }
     CTRL+O, Enter, CTRL+X
     source ~/.zshrc
 

@@ -1,6 +1,6 @@
 # add_central.py
 import os
-from centrales import Central, centrales
+from centrales_bk import Central, centrales
 import shutil
 
 scripts_folder = os.path.dirname(os.path.abspath(__file__))
