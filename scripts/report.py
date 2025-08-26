@@ -250,6 +250,17 @@ def esperar_archivos(central, fecha, carpeta_base="./ARCHIVOS_REPORTES"):
             break
         time.sleep(1)  # Esperar 1 segundo antes de volver a revisar
 
+def verificar_archivo(central):
+    # Ruta de la carpeta donde debe estar
+    ruta_base = "AXONIUS_FILES"
+    ruta_completa = os.path.join(ruta_base, central)
+
+    # Verificar si la carpeta central existe
+    if not os.path.isdir(ruta_completa):
+        return False  # La carpeta no existe
+
+    # Verificar si el archivo "vuln.csv" está dentro de central
+    return f"eol_{central}.csv" in os.listdir(ruta_completa)
 
 def Report(central2):
     central = central2.nombre
@@ -334,13 +345,33 @@ def Report(central2):
     wb.close()
     pcs_Inv(central=central,file='PCs',sheet='Inventario - PC')
     pcs_Inv(central=central,file='SERVERS',sheet='Inventario')
-    eol_total = eol(central=central)
 
-    wb = openpyxl.load_workbook(des_path)
-    ws = wb[f'Resumen']
-    ws['E22'].value = eol_total
-    wb.save(des_path)
-    wb.close()
+    if not verificar_archivo(central=central):
+        wb = openpyxl.load_workbook(des_path)
+        ws = wb[f'Resumen']
+        ws['E22'].value = 0
+        ws = wb[f'Inventario -EOL']
+        ws['A6'].value = ''
+        ws['B6'].value = ''
+        ws['C6'].value = ''
+        ws['D6'].value = ''
+        ws['E6'].value = ''
+        ws['F6'].value = ''
+        ws['G6'].value = ''
+        ws['H6'].value = ''
+        wb.save(des_path)
+        wb.close()
+    else:
+        eol_total = eol(central=central)
+
+        wb = openpyxl.load_workbook(des_path)
+        ws = wb[f'Resumen']
+        ws['E22'].value = eol_total
+        wb.save(des_path)
+        wb.close()
+
+
+
     vuln(vulnerabilitie = 'CRITICAL', central = central, path_rep = des_path)
     vuln(vulnerabilitie = 'HIGH', central = central, path_rep = des_path)
     path_rep = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
