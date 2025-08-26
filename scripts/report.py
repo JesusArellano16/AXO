@@ -350,7 +350,7 @@ def Report(central2):
         wb = openpyxl.load_workbook(des_path)
         ws = wb[f'Resumen']
         ws['E22'].value = 0
-        ws = wb[f'Inventario -EOL']
+        ws = wb[f'Inventario - EOL']
         ws['A6'].value = ''
         ws['B6'].value = ''
         ws['C6'].value = ''
