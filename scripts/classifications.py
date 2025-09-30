@@ -31,6 +31,7 @@ subClassification = {
         "(Amazon Technologies Inc.)",
         "(Taiwan Commate Computer, Inc.)",
         "(Huawei Device Co., Ltd.)",
+        "(HW server)",
     ],
     ##DISPOSITIVOS NO IDENTIFICADOS
     "Fabricantes/Administradores de servidores virtuales y soluciones de virtualización":[
@@ -73,6 +74,14 @@ subClassification = {
         "(Netscout Systems Inc)",
         "(Broadcom)",
         "(3onedata Technology Co. Ltd.)",
+        "(Digital Microwave Corporation)",
+        "(Nokia)",
+        "(Accedian Networks)",
+        "(Ericsson, EAB/RWI/K)",
+        "(NMS Communications)",
+        "(Ceragon Networks)",
+        "(Ericsson AB)",
+
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Fabricantes de Componentes Electrónicos y Hardware Especializado":[
@@ -85,6 +94,8 @@ subClassification = {
         "(LINX Data Terminals, Inc.)",
         "(Sitek)",
         "(Imci Technologies)",
+        "(Austron, Inc.)",
+        "(Symmetricom)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Almacenamiento":[
@@ -115,7 +126,8 @@ subClassification = {
         "(APC by Schneider Electric)",
         "(Knürr GmbH)",
         "(Dux, Inc.)",
-        "(Deif A/S)"
+        "(Deif A/S)",
+        "(Valere Power, Inc.)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Biometricos":[
