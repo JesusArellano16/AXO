@@ -32,6 +32,7 @@ subClassification = {
         "(Taiwan Commate Computer, Inc.)",
         "(Huawei Device Co., Ltd.)",
         "(HW server)",
+        "(FS FORTH-SYSTEME GmbH)",
     ],
     ##DISPOSITIVOS NO IDENTIFICADOS
     "Fabricantes/Administradores de servidores virtuales y soluciones de virtualización":[
@@ -52,6 +53,7 @@ subClassification = {
         "(Compal Information (Kunshan) Co., Ltd.)",
         "(Realtek Semiconductor Corp.)",
         "(LiteON)",
+        "(Intel Corporation)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Fabricantes de Redes y Seguridad":[
@@ -81,6 +83,8 @@ subClassification = {
         "(NMS Communications)",
         "(Ceragon Networks)",
         "(Ericsson AB)",
+        "(Hangzhou H3C Technologies Co., Limited)",
+        "(ProCurve Networking by HP)",
 
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
@@ -96,6 +100,7 @@ subClassification = {
         "(Imci Technologies)",
         "(Austron, Inc.)",
         "(Symmetricom)",
+        "(Keysight Technologies, Inc.)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Almacenamiento":[
@@ -110,6 +115,7 @@ subClassification = {
         "(Western Digital)",
         "(Western Digital Technologies, Inc.)",
         "(Segate Technology LLC)",
+        "(Seagate Cloud Systems Ing)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Videovigilancia y monitoreo de temperatura":[
@@ -128,12 +134,15 @@ subClassification = {
         "(Dux, Inc.)",
         "(Deif A/S)",
         "(Valere Power, Inc.)",
+        "(Raritan Computer, Inc)",
+        "(Eaton Corporation)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Biometricos":[
         "(Idemia)",
         "(Suprema Inc.)",
         "(Integrated Control Technology Limitied)",
+        "(Elster Solutions, LLC,)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Varios":[
@@ -153,6 +162,7 @@ subClassification = {
         "(Apple, Inc.)",
         "(Yamaha Corporation)",
         "(Andover Controls Corporation)",
+        "(Umax Data Systems, Inc.)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Impresoras":[
