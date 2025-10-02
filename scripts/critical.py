@@ -57,10 +57,15 @@ def critical(central, current_date_and_time, severidad):
     
     # Crear archivo Excel
     #print(f'📊 Creando archivo Excel... 4/9 en {central}')
+    
     namew = f'{severidad.upper()}_SEV_{central}_{current_date_and_time}'
     name = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/{namew}.xlsx'
     
-    read_file_product = pd.read_csv(dest_path)
+    try:
+        read_file_product = pd.read_csv(dest_path, on_bad_lines="skip")
+    except pd.errors.ParserError as e:
+        print(f"❌ Error leyendo {dest_path}: {e}")
+        return
     read_file_product.to_excel(name, index=None, header=True)
     os.remove(dest_path)
     
@@ -147,7 +152,11 @@ def critical(central, current_date_and_time, severidad):
         writer.writerow(["Adaptadores", "CVE", "Numero de Dispositivos", "Severidad", "Descripcion", "Hostname", "IPs", "MAC", "Tipo y distribución OS", "Cortex","Virtual Patching"])
         writer.writerows(devices)
     
-    df_devides = pd.read_csv(csv_file_path, encoding='utf-8', delimiter=',')
+    try:
+        df_devides = pd.read_csv(csv_file_path, encoding='utf-8', delimiter=',', on_bad_lines="skip")
+    except pd.errors.ParserError as e:
+        print(f"❌ Error leyendo {csv_file_path}: {e}")
+        return
     de = df_devides.pivot_table(index="CVE", columns="Severidad", values="Numero de Dispositivos")
     
     with pd.ExcelWriter(name, engine="openpyxl", mode='a') as writer:
