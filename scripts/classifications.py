@@ -85,7 +85,16 @@ subClassification = {
         "(Ericsson AB)",
         "(Hangzhou H3C Technologies Co., Limited)",
         "(ProCurve Networking by HP)",
-
+        "(Tellabs)",
+        "(Crossbeam Systems, Inc.)",
+        "(Net Optics)",
+        "(Tellink Sistemas de Telecomunicación S.L.)",
+        "(Chase Research Ltd.)",
+        "(Ericsson)",
+        "(Arbor Networks Inc)",
+        "(Radisys Corporation)",
+        "(MetaSwitch)",
+        "(Sandvine Incorporated)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Fabricantes de Componentes Electrónicos y Hardware Especializado":[
@@ -101,6 +110,7 @@ subClassification = {
         "(Austron, Inc.)",
         "(Symmetricom)",
         "(Keysight Technologies, Inc.)",
+        "(Teknor Microsysteme, Inc.)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Almacenamiento":[
@@ -163,6 +173,7 @@ subClassification = {
         "(Yamaha Corporation)",
         "(Andover Controls Corporation)",
         "(Umax Data Systems, Inc.)",
+        "(Catch The Wind Inc)",
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Impresoras":[
