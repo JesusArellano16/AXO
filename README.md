@@ -83,3 +83,10 @@ Open terminal
     alias Show_Centrals="python3 /Users/jesusarellano/Documents/TELCEL/AXONIUS/Desarrollo/scripts/show_Central.py"
     CTRL+O, Enter, CTRL+X
     source ~/.zshrc
+
+For alias Remove_files
+Open terminal
+    nano ~/.zshrc
+    alias Remove_Files="python3 /Users/jesusarellano/Documents/TELCEL/AXONIUS/Desarrollo/scripts/clear_day.py"
+    CTRL+O, Enter, CTRL+X
+    source ~/.zshrc
