@@ -78,7 +78,11 @@ def critical(central, current_date_and_time, severidad):
 
         for col, width in {"A": 30, "B": 20, "C": 15, "D": 10, "E": 40, "F": 30}.items():
             ws.column_dimensions[col].width = width
+            if col in ["A","E","F"]:
+                for cell in ws[col]:
+                    cell.alignment = Alignment(wrap_text=True)
         ws.auto_filter.ref = "A1:F1"
+
 
         if namew in wb.sheetnames:
             wb.remove(wb[namew])
@@ -113,6 +117,9 @@ def critical(central, current_date_and_time, severidad):
         for col, width in {"A": 30, "B": 20, "C": 15, "D": 10, "E": 40, "F": 50, "G": 20,
                            "H": 20, "I": 25, "J": 8, "K": 15}.items():
             ws.column_dimensions[col].width = width
+            if col in ["A","E","G","H"]:
+                for cell in ws[col]:
+                    cell.alignment = Alignment(wrap_text=True)
         ws.auto_filter.ref = "A1:K1"
 
         wb.save(name)

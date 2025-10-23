@@ -35,16 +35,3 @@ def mostrar_tabla(centrales, current_date_and_time):
 
     console.print(table)
 
-""" 
-    # Verificar si todos los archivos .done existen
-    todos_listos = all(
-        archivo_existe(f"./ARCHIVOS_REPORTES/{central.nombre}/{current_date_and_time}", f"{archivo}_{central.nombre}.done")
-        for central in centrales
-        for archivo in nombres_archivos
-    )
-
-    if todos_listos:
-        console.print("\n🎉 Todos los archivos han sido generados correctamente.\n", style="bold green")
-    else:
-        time.sleep(1)
-        mostrar_tabla(centrales, current_date_and_time) """

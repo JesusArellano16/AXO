@@ -116,6 +116,10 @@ def agregar_hojas_graficas(central):
                                 pass
                         ws.cell(row=row_idx, column=col_idx).value = valor
 
+
+            ws.sheet_view.zoomScale = 110
+            ws.sheet_view.topLeftCell = "J2"
+
             chart = LineChart()
             chart.title = f"Resumen {central}"
             chart.style = 2

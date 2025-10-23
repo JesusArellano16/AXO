@@ -84,7 +84,7 @@ Open terminal
     CTRL+O, Enter, CTRL+X
     source ~/.zshrc
 
-For alias Remove_files
+For alias Remove_Files
 Open terminal
     nano ~/.zshrc
     alias Remove_Files="python3 /Users/jesusarellano/Documents/TELCEL/AXONIUS/Desarrollo/scripts/clear_day.py"
