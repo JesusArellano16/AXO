@@ -252,15 +252,17 @@ def esperar_archivos(central, fecha, carpeta_base="./ARCHIVOS_REPORTES"):
 
 def verificar_archivo(central):
     # Ruta de la carpeta donde debe estar
-    ruta_base = "AXONIUS_FILES"
-    ruta_completa = os.path.join(ruta_base, central)
+    ruta_base = "ARCHIVOS_REPORTES"
+    ruta_completa = os.path.join(ruta_base, central, current_date_and_time)
 
     # Verificar si la carpeta central existe
     if not os.path.isdir(ruta_completa):
         return False  # La carpeta no existe
+    
+    nombre_archivo = f"EOL_{central}_{current_date_and_time}.xlsx"
 
     # Verificar si el archivo "vuln.csv" está dentro de central
-    return f"eol_{central}.csv" in os.listdir(ruta_completa)
+    return nombre_archivo in os.listdir(ruta_completa)
 
 def Report(central2):
     central = central2.nombre

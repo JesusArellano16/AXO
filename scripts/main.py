@@ -1,8 +1,10 @@
 from axonius_retreive_data import axonius_retreive_data
 import datetime as dt
 from critical import critical
+from severities import get_severities
 from dotenv import load_dotenv
-from eol import Eol
+#from eol import Eol
+from new_eol import export_eol
 import os
 from pathlib import Path
 from centrales import centrales
@@ -53,7 +55,7 @@ def run_axonius(central):
 
 
 
-def run_critical(central):
+"""def run_critical(central):
     #Ejecuta la función critical en paralelo para las severidades CRITICAL y HIGH
     processes = []
     for severity in ["CRITICAL", "HIGH"]:
@@ -66,14 +68,28 @@ def run_critical(central):
         p.start()
 
     for p in processes:
+        p.join()"""
+def run_critical(central):
+    #Ejecuta la función critical en paralelo para las severidades CRITICAL y HIGH
+    processes = []
+    for severity in ["CRITICAL", "HIGH"]:
+        p = multiprocessing.Process(target=get_severities, kwargs={
+            "central": central.nombre,
+            "f_central": central.fullName,
+            "severidad": severity,
+        })
+        processes.append(p)
+        p.start()
+
+    for p in processes:
         p.join()
 
 def run_eol(central):
     #Ejecuta la función critical en paralelo para las severidades CRITICAL y HIGH
     processes = []
-    p = multiprocessing.Process(target=Eol, kwargs={
+    p = multiprocessing.Process(target=export_eol, kwargs={
         "central": central.nombre,
-        "current_date_and_time": current_date_and_time,
+        "f_central": central.fullName,
     })
     processes.append(p)
     p.start()

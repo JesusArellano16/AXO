@@ -76,7 +76,7 @@ def critical(central, current_date_and_time, severidad):
             vul.append(vul[0])
             ws.append(vul)
 
-        for col, width in {"A": 30, "B": 20, "C": 15, "D": 10, "E": 40, "F": 30}.items():
+        for col, width in {"A": 30, "B": 20, "C": 25, "D": 10, "E": 40, "F": 30}.items():
             ws.column_dimensions[col].width = width
             if col in ["A","E","F"]:
                 for cell in ws[col]:
