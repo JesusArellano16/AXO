@@ -12,6 +12,7 @@ def export_eol(central, f_central):
     current_date_and_time = str(dt.date.today())
     from table import mostrar_tabla
     from centrales  import centrales
+    from eol import Eol
     mostrar_tabla(centrales, current_date_and_time)
     warnings.filterwarnings(action="ignore", category=axonius_api_client.exceptions.ExtraAttributeWarning)
     warnings.filterwarnings("ignore")
@@ -31,7 +32,14 @@ def export_eol(central, f_central):
     apiobj = client.devices
 
     # 🔍 Query exacta en Axonius
-    query_name = f"AX - Servers in {f_central} with EOL Software"
+    #query_name = f"AX - Servers in {f_central} with EOL Software"
+    query_name = f"DEV EoL SERVERS IN {f_central}"
+    try:
+        devices = apiobj.get_by_saved_query(query_name)
+    except Exception:
+        print(f"Query NOT FOUND: {query_name}. LAST RELEASE OF EOL...")
+        Eol(central=central, current_date_and_time=current_date_and_time)
+        return  # detener ejecución
 
     # ✅ Incluir los campos necesarios para refine data
     devices = apiobj.get_by_saved_query(
@@ -53,6 +61,17 @@ def export_eol(central, f_central):
     base_dir = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/'
     os.makedirs(base_dir, exist_ok=True)
     mostrar_tabla(centrales, current_date_and_time)
+
+    if not devices or len(devices) == 0:
+        print(f"Empty query: {query_name}.")
+        done_path = os.path.join(base_dir, "done", f"eol_{central}.done")
+        os.makedirs(os.path.dirname(done_path), exist_ok=True)
+        with open(done_path, "w") as f:
+            f.write("done")
+        mostrar_tabla(centrales, current_date_and_time)
+        return
+
+
     # 📄 Guardar JSON
     json_path = os.path.join(base_dir, f"EOL_{central}_{current_date_and_time}.json")
     with open(json_path, "w", encoding="utf-8") as f:
@@ -139,7 +158,7 @@ def export_eol(central, f_central):
 
 
 def main():
-    export_eol(central="ECA",f_central="ECATEPEC")
+    export_eol(central="POLANCO",f_central="POLANCO")
 
 if __name__ == "__main__":
     main()

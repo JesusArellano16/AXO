@@ -14,9 +14,19 @@ def get_severities(severidad, central, f_central):
     current_date_and_time = str(dt.date.today())
     from table import mostrar_tabla
     from centrales  import centrales
+    from critical import critical
     mostrar_tabla(centrales, current_date_and_time)
     warnings.filterwarnings(action="ignore", category=axonius_api_client.exceptions.ExtraAttributeWarning)
     warnings.filterwarnings("ignore")
+    base_dir = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/'
+    os.makedirs(base_dir, exist_ok=True)
+    if central == "IXTLA":
+        done_path = os.path.join(base_dir, "done", f"{severidad.lower()}_{central}.done")
+        os.makedirs(os.path.dirname(done_path), exist_ok=True)
+        with open(done_path, "w") as f:
+            f.write("done")
+        mostrar_tabla(centrales, current_date_and_time)
+        return
 
     dotenv_path = Path(__file__).parent / ".env"
     load_dotenv(dotenv_path=dotenv_path)
@@ -30,14 +40,29 @@ def get_severities(severidad, central, f_central):
 
     client = Connect(**connect_args)
     apiobj = client.devices
-    query_name = f"Servers in {f_central} Vuln {severidad}"
-    devices = apiobj.get_by_saved_query(query_name)
+    #query_name = f"Servers in {f_central} Vuln {severidad}"
+    query_name = f"{severidad} VULNERABILITIES SERVERS IN {f_central}"
+    try:
+        devices = apiobj.get_by_saved_query(query_name)
+    except Exception:
+        print(f"Query NOT FOUND: {query_name}. LAST RELEASE OF CRITICAL...")
+        critical(central=central, current_date_and_time=current_date_and_time, severidad=severidad)
+        return  # detener ejecución
 
     mostrar_tabla(centrales, current_date_and_time)
     # Crear carpeta de salida
     
     base_dir = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/'
     os.makedirs(base_dir, exist_ok=True)
+
+
+    if not devices or len(devices) == 0:
+        print(f"Empty query: {query_name}.")
+        done_path = os.path.join(base_dir, "done", f"{severidad.lower()}_{central}.done")
+        os.makedirs(os.path.dirname(done_path), exist_ok=True)
+        with open(done_path, "w") as f:
+            f.write("done")
+        return
 
     # Guardar JSON dentro de la carpeta destino
     json_path = os.path.join(base_dir, f"{severidad}_SEV_{central}.json")
@@ -169,7 +194,7 @@ def get_severities(severidad, central, f_central):
 
 
 def main():
-    get_severities(severidad="HIGH", central="ECA", f_central="ECATEPEC")
+    get_severities(severidad="CRITICAL", central="POLANCO", f_central="POLANCO")
 
 if __name__ == "__main__":
     main()

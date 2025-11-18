@@ -1,6 +1,6 @@
 from axonius_retreive_data import axonius_retreive_data
 import datetime as dt
-from critical import critical
+#from critical import critical
 from severities import get_severities
 from dotenv import load_dotenv
 #from eol import Eol
