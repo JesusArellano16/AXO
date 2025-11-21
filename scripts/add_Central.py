@@ -1,10 +1,10 @@
 # add_central.py
 import os
+import sys
 from centrales_bk import Central, centrales
 import shutil
 
 scripts_folder = os.path.dirname(os.path.abspath(__file__))
-#centrales_file = os.path.join(scripts_folder, "centrales.py")
 desarrollo_folder = os.path.dirname(scripts_folder)
 base_path = os.path.join(desarrollo_folder, "AXONIUS_FILES")
 data_path = os.path.join(desarrollo_folder,"src")
@@ -16,14 +16,12 @@ def add_central(name, fullName):
         f"ALL NETWORK DEVICES IN {fullName}",
         f"PCs IN {fullName}"
     ]
-
     file_names = [
         "TOTAL_ASSETS",
         "SERVERS",
         "NET_DEV",
         "PCs"
     ]
-
     new_central = Central(name, fullName, queries, file_names)
     centrales.append(new_central)
     return new_central
@@ -49,24 +47,26 @@ def save_to_file(type):
 
 def create_central_folder(name):
     folder_path = os.path.join(base_path, name)
-    os.makedirs(folder_path, exist_ok=True)  # crea la carpeta si no existe
-
+    os.makedirs(folder_path, exist_ok=True)
     src_file = os.path.join(data_path, "data.csv")
     graficas_folder = os.path.join(data_path, "Graficas")
     os.makedirs(graficas_folder, exist_ok=True)
     dest_file = os.path.join(graficas_folder, f"data_{name}.csv")
     shutil.copyfile(src_file, dest_file)
-    return 
 
 if __name__ == "__main__":
-    name = input("👉 Enter short name (e.g. L_ARA): ").strip().upper()
-    fullName = input("👉 Enter full name (e.g. LAGO ARAGON): ").strip().upper()
+    if len(sys.argv) == 3:
+        name = sys.argv[1].strip().upper()
+        fullName = sys.argv[2].strip().upper()
+    else:
+        name = input("👉 Enter short name (e.g. L_ARA): ").strip().upper()
+        fullName = input("👉 Enter full name (e.g. LAGO ARAGON): ").strip().upper()
 
     new_central = add_central(name, fullName)
     save_to_file("centrales")
     save_to_file("centrales_bk")
     create_central_folder(name)
 
-    print("\n✅ Central permanently added to centrales.py:")
+    print("\n✅ Central permanently added:")
     print(f"- Short name: {new_central.nombre}")
     print(f"- Full name: {new_central.fullName}")

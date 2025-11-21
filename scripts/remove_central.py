@@ -1,12 +1,13 @@
 # remove_central.py
 import os
+import sys
 from centrales_bk import Central, centrales
 
 scripts_folder = os.path.dirname(os.path.abspath(__file__))
 
-def remove_central(fullName):
+def remove_central(shortName):
     for c in centrales:
-        if c.fullName.upper() == fullName.upper():  # case-insensitive match
+        if c.nombre.upper() == shortName.upper():
             centrales.remove(c)
             return c
     return None
@@ -31,15 +32,18 @@ def save_to_file(type):
         f.write("]\n")
 
 if __name__ == "__main__":
-    fullName = input("👉 Enter the full name of the central to remove: ").strip().upper()
-    removed = remove_central(fullName)
+    if len(sys.argv) < 2:
+        print("⚠️ Falta el short name de la central a eliminar.")
+        sys.exit(1)
+    shortName = sys.argv[1].strip().upper()
+    removed = remove_central(shortName)
 
     if removed:
         save_to_file("centrales")
         save_to_file("centrales_bk")
-        print("\n✅ Central successfully removed:")
+        print("\n✅ Central eliminada correctamente:")
         print(f"- Short name: {removed.nombre}")
         print(f"- Full name: {removed.fullName}")
-        print(f"- Remaining centrals: {len(centrales)}")
+        print(f"- Centrales restantes: {len(centrales)}")
     else:
-        print("\n⚠️ No central found with that full name.")
+        print(f"\n⚠️ No se encontró ninguna central con short name: {shortName}")
