@@ -5,7 +5,7 @@ Instructions below
 
 For MAC users #Create a virtual environment - "python -m venv reportes"
 
-For MAC users #Activate a virtual environment - "source reportes/bin/activate"
+For MAC users #Activate a virtual environment - "source reportes3/bin/activate"
 
 For install all the requirements - "pip install -r requirements.txt"
 
