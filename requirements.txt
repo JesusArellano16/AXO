@@ -7,3 +7,4 @@ rich
 urllib3==1.26.15
 xlwings
 PySide6
+win32com

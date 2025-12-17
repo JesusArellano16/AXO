@@ -20,13 +20,13 @@ def get_severities(severidad, central, f_central):
     warnings.filterwarnings("ignore")
     base_dir = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/'
     os.makedirs(base_dir, exist_ok=True)
-    if central == "IXTLA":
+    """if central == "IXTLA":
         done_path = os.path.join(base_dir, "done", f"{severidad.lower()}_{central}.done")
         os.makedirs(os.path.dirname(done_path), exist_ok=True)
         with open(done_path, "w") as f:
             f.write("done")
         mostrar_tabla(centrales, current_date_and_time)
-        return
+        return"""
 
     dotenv_path = Path(__file__).parent / ".env"
     load_dotenv(dotenv_path=dotenv_path)
@@ -106,6 +106,9 @@ def get_severities(severidad, central, f_central):
     wb = Workbook()
     ws = wb.active
     ws.title = f"{severidad}_SEV_{central}_{current_date_and_time}"
+    MAX_EXCEL_ROWS = 1048576
+    current_row = 1  # encabezado ya ocupa la fila 1
+    excel_limit_reached = False
 
     headers = [
         "Adaptadores", "CVE", "Numero de Dispositivos", "Severidad", "Descripcion",
@@ -136,12 +139,21 @@ def get_severities(severidad, central, f_central):
         vpatch = "SI" if "deep_security_adapter" in device.get("adapters", []) else "NO"
 
         for cve in device.get("software_cves", []):
+            if current_row >= MAX_EXCEL_ROWS:
+                excel_limit_reached = True
+                break
+
             cve_id = cve.get("cve_id", "")
             num_devices = len(cve_to_hostnames.get(cve_id, []))
             ws.append([
                 adapters, cve_id, num_devices, cve.get("cve_severity", ""), cve.get("cve_description", ""),
                 hostname, ips, macs, os_name, cortex, vpatch
             ])
+            current_row += 1
+
+        if excel_limit_reached:
+            break
+
 
     # Ajustes visuales
     align_wrap = Alignment(horizontal="left", vertical="bottom", wrap_text=True)

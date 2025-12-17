@@ -147,6 +147,8 @@ def agregar_hojas_graficas(central):
 
         crear_hoja_con_grafica(wb, f"Data_{central}", ruta_csv, [2,3,4,5,6,7,8])
         wb.save(ruta_reporte)
+        wb.close()
+
     except Exception as e:
         print(f"Error al crear hojas con gráficas: {e}")
 

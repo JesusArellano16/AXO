@@ -370,6 +370,7 @@ def Report(central2):
         ws = wb[f'Resumen']
         ws['E22'].value = eol_total
         wb.save(des_path)
+        
         wb.close()
 
 
