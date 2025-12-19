@@ -1,10 +1,11 @@
-from axonius_retreive_data import axonius_retreive_data
+#from axonius_retreive_data import axonius_retreive_data
+from axonius_retreive_data_NEW import axonius_retreive_data
 import datetime as dt
-#from critical import critical
-from severities import get_severities
+#from severities import get_severities
+from severities_NEW import get_severities
 from dotenv import load_dotenv
-#from eol import Eol
-from new_eol import export_eol
+#from new_eol import export_eol
+from new_eol_NEW import export_eol
 import os
 from pathlib import Path
 from centrales import centrales
@@ -13,8 +14,7 @@ import time
 from report import Report
 import shutil
 import charts
-import sys
-import importlib.util
+from queries_general import run_general_json_generation
 
 
 
@@ -53,22 +53,6 @@ def run_axonius(central):
     for p in processes:
         p.join()
 
-
-
-"""def run_critical(central):
-    #Ejecuta la función critical en paralelo para las severidades CRITICAL y HIGH
-    processes = []
-    for severity in ["CRITICAL", "HIGH"]:
-        p = multiprocessing.Process(target=critical, kwargs={
-            "central": central.nombre,
-            "current_date_and_time": current_date_and_time,
-            "severidad": severity,
-        })
-        processes.append(p)
-        p.start()
-
-    for p in processes:
-        p.join()"""
 def run_critical(central):
     #Ejecuta la función critical en paralelo para las severidades CRITICAL y HIGH
     processes = []
@@ -107,10 +91,14 @@ def run_reporte(central):
     for p in processes:
         p.join()
 
+def only_ixtla(centrales):
+    return len(centrales) == 1 and centrales[0].nombre == "IXTLA"
+
 
 if __name__ == '__main__':
 
-
+    if not only_ixtla(centrales):
+        run_general_json_generation(max_workers=5, delete_previous=True)
     processes = []
     for central in centrales:
         path = r'./ARCHIVOS_REPORTES/'+central.nombre
@@ -150,12 +138,9 @@ if __name__ == '__main__':
         try:
             charts.data_central(central.nombre)
             charts.agregar_hojas_graficas(central.nombre)
-            #charts.servers(central.nombre)
-            #charts.servers_cortex(central.nombre)
-            #charts.agregar_hojas_graficas(central.nombre)
+
         except Exception as e:
             print(f"Error : {e}")
     end_time = time.time()  # Captura el tiempo de finalización
     elapsed_time = (end_time - start_time) / 60  # Calcula el tiempo transcurrido
     print(f"⏳ Tiempo de ejecución: {elapsed_time:.2f} minutos")
-    #shutil.copy(centrales_bk_file, centrales_file)
