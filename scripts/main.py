@@ -97,8 +97,8 @@ def only_ixtla(centrales):
 
 if __name__ == '__main__':
 
-    #if not only_ixtla(centrales):
-    #    run_general_json_generation(max_workers=5, delete_previous=True)
+    if not only_ixtla(centrales):
+        run_general_json_generation(max_workers=5, delete_previous=True)
     processes = []
     for central in centrales:
         path = r'./ARCHIVOS_REPORTES/'+central.nombre
