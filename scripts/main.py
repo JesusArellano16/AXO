@@ -1,11 +1,11 @@
-from axonius_retreive_data import axonius_retreive_data
-#from axonius_retreive_data_NEW import axonius_retreive_data
+#from axonius_retreive_data import axonius_retreive_data
+from axonius_retreive_data_NEW import axonius_retreive_data
 import datetime as dt
-from severities import get_severities
-#from severities_NEW import get_severities
+#from severities import get_severities
+from severities_NEW import get_severities
 from dotenv import load_dotenv
-from new_eol import export_eol
-#from new_eol_NEW import export_eol
+#from new_eol import export_eol
+from new_eol_NEW import export_eol
 import os
 from pathlib import Path
 from centrales import centrales
