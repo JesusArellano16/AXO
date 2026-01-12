@@ -8,6 +8,7 @@ from axonius_api_client import Connect
 import urllib3
 import warnings
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import datetime as dt
 
 # ======================================================
 # WARNINGS
@@ -115,5 +116,9 @@ def run_general_json_generation(
     elapsed_minutes = round((time.time() - start_time) / 60, 2)
 
     print(f"\n⏱ Proceso completo en {elapsed_minutes} minutos")
+    today = str(dt.date.today())
+    done = base_dir / f"general_json_{today}.done"
+    with open(done,"w") as f:
+        f.write("done")
 
     return results_summary

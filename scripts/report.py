@@ -7,8 +7,8 @@ from collections import Counter
 from time import sleep
 import openpyxl.styles
 from openpyxl.utils import get_column_letter
-from new_queries import new_queries
-#from new_queries_NEW import new_queries
+#from new_queries import new_queries
+from new_queries_NEW import new_queries
 import time
 import shutil
 from openpyxl.utils import quote_sheetname

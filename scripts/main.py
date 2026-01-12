@@ -1,11 +1,11 @@
-from axonius_retreive_data import axonius_retreive_data
-#from axonius_retreive_data_NEW import axonius_retreive_data
+#from axonius_retreive_data import axonius_retreive_data
+from axonius_retreive_data_NEW import axonius_retreive_data
 import datetime as dt
-from severities import get_severities
-#from severities_NEW import get_severities
+#from severities import get_severities
+from severities_NEW import get_severities
 from dotenv import load_dotenv
-from new_eol import export_eol
-#from new_eol_NEW import export_eol
+#from new_eol import export_eol
+from new_eol_NEW import export_eol
 import os
 from pathlib import Path
 from centrales import centrales
@@ -91,14 +91,25 @@ def run_reporte(central):
     for p in processes:
         p.join()
 
-def only_ixtla(centrales):
-    return len(centrales) == 1 and centrales[0].nombre == "IXTLA"
+def only_ixtla_carso_or_both(centrales):
+    nombres = {c.nombre for c in centrales}
+    return (
+        nombres == {"IXTLA"} or
+        nombres == {"CARSO"} or
+        nombres == {"IXTLA", "CARSO"}
+    )
 
+def general_json_done_exists():
+    today = str(dt.date.today())
+    base_dir = Path(__file__).parent.parent / "AXONIUS_FILES" / "GENERAL_JSON"
+    done_file = base_dir / f"general_general_json_{today}.done"
+    return done_file.exists()
 
 if __name__ == '__main__':
 
-    #if not only_ixtla(centrales):
-    #    run_general_json_generation(max_workers=5, delete_previous=True)
+    if not only_ixtla_carso_or_both(centrales):
+        if not general_json_done_exists():
+           run_general_json_generation(max_workers=5, delete_previous=True)
     processes = []
     for central in centrales:
         path = r'./ARCHIVOS_REPORTES/'+central.nombre

@@ -72,7 +72,7 @@ def get_severities(severidad, central, f_central):
         "verify": False
     }
 
-    use_api = (central == "IXTLA")
+    use_api = (central == "IXTLA") or (central == "CARSO")
 
     if use_api:
         client = Connect(**connect_args)

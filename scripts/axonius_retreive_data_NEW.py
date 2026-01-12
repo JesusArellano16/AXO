@@ -89,7 +89,7 @@ def axonius_retreive_data(
     # --------------------------------------------------
     # DATA SOURCE RULE
     # --------------------------------------------------
-    use_api = (central == "IXTLA") or (saved_query_name_clean == "TOTAL_ASSETS")
+    use_api = (central == "IXTLA") or (saved_query_name_clean == "TOTAL_ASSETS") or (central == "CARSO")
 
     if use_api:
         client = axonapi.Connect(**connect_args)
