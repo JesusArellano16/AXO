@@ -73,7 +73,7 @@ def run_general_json_generation(
         "GENERAL PCs",
         "GENERAL SERVERS",
         "GENERAL UNMANAGED ASSESTS",
-        "GENERAL VARIOUS IDENTIFIED",
+        "GENERAL VARIOUS IDENTIFIED DEVICES",
         "HIGH VULNERABILITIES GENERAL SERVERS",
     ])
 
