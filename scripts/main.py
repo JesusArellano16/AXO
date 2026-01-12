@@ -102,7 +102,7 @@ def only_ixtla_carso_or_both(centrales):
 def general_json_done_exists():
     today = str(dt.date.today())
     base_dir = Path(__file__).parent.parent / "AXONIUS_FILES" / "GENERAL_JSON"
-    done_file = base_dir / f"general_general_json_{today}.done"
+    done_file = base_dir / f"general_json_{today}.done"
     return done_file.exists()
 
 if __name__ == '__main__':

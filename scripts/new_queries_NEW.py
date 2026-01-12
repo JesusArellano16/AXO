@@ -102,7 +102,7 @@ def new_queries(central, full_name):
     # Queries equivalentes
     saved_query_name = {
         "ALL_GENERAL_UNIDENTIFIED_SERVERS.json": "Inventario No Identificados",
-        "GENERAL_VARIOUS_IDENTIFIED.json": "Inventario Identificados"
+        "GENERAL_VARIOUS_IDENTIFIED_DEVICES.json": "Inventario Identificados"
     }
 
     # API solo para IXTLA
