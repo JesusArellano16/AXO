@@ -94,9 +94,7 @@ def run_reporte(central):
 def only_ixtla_carso_or_both(centrales):
     nombres = {c.nombre for c in centrales}
     return (
-        nombres == {"IXTLA"} or
-        nombres == {"CARSO"} or
-        nombres == {"IXTLA", "CARSO"}
+        nombres == {"IXTLA"}
     )
 
 def general_json_done_exists():

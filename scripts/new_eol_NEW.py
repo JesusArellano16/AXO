@@ -50,7 +50,7 @@ def export_eol(central, f_central):
     # --------------------------------------------------
     # DATA SOURCE LOGIC
     # --------------------------------------------------
-    if central == "IXTLA" or central == "CARSO":
+    if central == "IXTLA":
         dotenv_path = Path(__file__).parent / ".env"
         load_dotenv(dotenv_path=dotenv_path)
 
