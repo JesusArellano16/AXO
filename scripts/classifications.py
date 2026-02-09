@@ -95,6 +95,10 @@ subClassification = {
         "(Radisys Corporation)",
         "(MetaSwitch)",
         "(Sandvine Incorporated)",
+        "(Askey Computer Corp)",
+        "(Audio Codes Ltd.)",
+        "(Check Point Software)"
+        "(Equip'Trans)"
     ],
     ##DISPOSITIVOS IDENTIFICADOS NO SERVIDORES
     "Fabricantes de Componentes Electrónicos y Hardware Especializado":[
