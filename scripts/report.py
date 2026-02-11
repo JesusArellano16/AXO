@@ -12,6 +12,8 @@ from new_queries_NEW import new_queries
 import time
 import shutil
 from openpyxl.utils import quote_sheetname
+import json
+from pathlib import Path
 
 
 name = 'Reporte_Discovery'
@@ -265,6 +267,16 @@ def verificar_archivo(central):
     # Verificar si el archivo "vuln.csv" está dentro de central
     return nombre_archivo in os.listdir(ruta_completa)
 
+def count_assets(central):
+    json_path = Path(__file__).parent.parent / "AXONIUS_FILES" / "GENERAL_JSON" / "GENERAL_ASSETS.json"
+
+    with open(json_path, "r", encoding="utf-8") as file:
+        data = json.load(file)
+    
+    count = sum (1 for asset in data if "labels" in asset and central in asset["labels"])
+
+    return count
+
 def Report(central2):
     central = central2.nombre
     full_Name = central2.fullName
@@ -331,7 +343,8 @@ def Report(central2):
 
     t_assets,cortex,vp = totalAssets(central=central,file='TOTAL_ASSETS',serv=False)
     ws = wb[f'Resumen']
-    ws['F3'].value = t_assets
+    #ws['F3'].value = t_assets
+    ws['F3'].value = count_assets(central)
     t_serv,cortex,vp = totalAssets(central=central,file='SERVERS', serv=True)
     ws['F5'].value = t_serv
     ws['F6'].value = cortex

@@ -75,6 +75,7 @@ def run_general_json_generation(
         "GENERAL UNMANAGED ASSESTS",
         "GENERAL VARIOUS IDENTIFIED DEVICES",
         "HIGH VULNERABILITIES GENERAL SERVERS",
+        "GENERAL ASSETS"
     ])
 
     # --------------------------------------------------
