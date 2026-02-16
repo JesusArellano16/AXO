@@ -14,7 +14,7 @@ import shutil
 from openpyxl.utils import quote_sheetname
 import json
 from pathlib import Path
-
+from datetime import datetime
 
 name = 'Reporte_Discovery'
 origin_path = f'./src/{name}.xlsx'
@@ -343,8 +343,10 @@ def Report(central2):
 
     t_assets,cortex,vp = totalAssets(central=central,file='TOTAL_ASSETS',serv=False)
     ws = wb[f'Resumen']
-    #ws['F3'].value = t_assets
-    ws['F3'].value = count_assets(central)
+    if central=="IXTLA":
+        ws['F3'].value = t_assets
+    else:
+        ws['F3'].value = count_assets(central)
     t_serv,cortex,vp = totalAssets(central=central,file='SERVERS', serv=True)
     ws['F5'].value = t_serv
     ws['F6'].value = cortex
@@ -413,11 +415,44 @@ def Report(central2):
         try:
             wb = openpyxl.load_workbook(path_rep)
             del wb['Adaptadores integrados']
-            ## Se agrega guardado de eliminación de hoja de responsables
             wb.save(path_rep)
             wb.close()
         except:
             pass
+
+    meses = {
+    "01": "Enero",
+    "02": "Febrero",
+    "03": "Marzo",
+    "04": "Abril",
+    "05": "Mayo",
+    "06": "Junio",
+    "07": "Julio",
+    "08": "Agosto",
+    "09": "Septiembre",
+    "10": "Octubre",
+    "11": "Noviembre",
+    "12": "Diciembre"
+    }
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    now = datetime.now()
+    year = now.strftime("%Y")
+    month_number = now.strftime("%m")
+    month_name = meses[month_number]
+
+    dest_dir = os.path.join(
+        base_dir,
+        "REPORTES_SEMANALES",
+        year,
+        month_name,
+        current_date_and_time  
+    )
+
+    os.makedirs(dest_dir, exist_ok=True)
+    file_name = os.path.basename(path_rep)
+    dest_path = os.path.join(dest_dir, file_name)
+    shutil.copy2(path_rep, dest_path)
 
 
     from table import mostrar_tabla

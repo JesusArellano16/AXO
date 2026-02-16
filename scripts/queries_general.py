@@ -19,17 +19,13 @@ warnings.simplefilter("ignore", category=Warning)
 # ======================================================
 # FUNCIÓN PRINCIPAL EXPORTABLE
 # ======================================================
+def timestamp():
+    return dt.datetime.now().strftime("%H:%M:%S.%f")[:-3]
 
 def run_general_json_generation(
-    max_workers: int = 5,
+    max_workers: int = 10,
     delete_previous: bool = True
 ):
-    """
-    Ejecuta todas las queries generales de Axonius y genera
-    un JSON por query en AXONIUS_FILES/GENERAL_JSON.
-
-    Puede ser llamada desde un programa principal.
-    """
 
     start_time = time.time()
 
@@ -47,7 +43,7 @@ def run_general_json_generation(
     }
 
     ax = Connect(**connect_args)
-    devices_api = ax.devices
+    #devices_api = ax.devices
 
     # --------------------------------------------------
     # PATHS
@@ -62,32 +58,44 @@ def run_general_json_generation(
     # --------------------------------------------------
     # QUERIES
     # --------------------------------------------------
-    queries = sorted([
+    queries = [
+        "HIGH VULNERABILITIES GENERAL SERVERS",
+        "EoL GENERAL SERVERS",
+        "CRITICAL VULNERABILITIES GENERAL SERVERS",
+        "GENERAL ASSETS",
         "ALL GENERAL NETWORK DEVICES",
         "ALL GENERAL UNIDENTIFIED SERVERS",
-        "CRITICAL VULNERABILITIES GENERAL SERVERS",
-        "EoL GENERAL SERVERS",
-        "GENERAL ASSETS NO VENDOR",
         "GENERAL IDENTIFIED DEVICES",
-        "GENERAL NETWORK DEVICES",
         "GENERAL PCs",
         "GENERAL SERVERS",
-        "GENERAL UNMANAGED ASSESTS",
         "GENERAL VARIOUS IDENTIFIED DEVICES",
-        "HIGH VULNERABILITIES GENERAL SERVERS",
-        "GENERAL ASSETS"
-    ])
+    ]
 
     # --------------------------------------------------
     # WORKER
     # --------------------------------------------------
     def run_query(query_name: str):
         try:
-            results = devices_api.get_by_saved_query(query_name)
-            output_file = base_dir / f"{query_name.replace(' ', '_')}.json"
+            start_query = time.perf_counter()  # ⏱ inicio exacto
 
+            ax_local = Connect(**connect_args)
+            print(f'[{timestamp()}] EMPEZAMOS {query_name}')
+
+            devices_api_local = ax_local.devices
+            results = devices_api_local.get_by_saved_query(query_name)
+
+            middle_time = time.perf_counter()
+            print(f'[{timestamp()}] OBTUVIMOS {query_name}')
+
+            output_file = base_dir / f"{query_name.replace(' ', '_')}.json"
             with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(results, f, indent=4, ensure_ascii=False)
+
+            end_query = time.perf_counter()  # ⏱ fin exacto
+            duration = round(end_query - middle_time, 2)
+            duration2 = round(middle_time - start_query, 2)
+            duration3 = round(end_query - start_query, 2)
+            print(f'[{timestamp()}] TERMINAMOS {query_name} | ⏱ {duration2} segundos MEDIO | ⏱ {duration} segundos SEGUNDO | ⏱ {duration3} segundos TOTAL')
 
             return query_name, len(results) if results else 0, None
 

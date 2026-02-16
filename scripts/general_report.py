@@ -10,6 +10,7 @@ from axonius_api_client import Connect
 from dotenv import load_dotenv
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
 
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -34,7 +35,7 @@ def fetch_and_count(idx, query_name, devices_api):
 def run_general_report(central):
     base_dir = Path(__file__).parent.parent
     today = str(dt.date.today())
-
+    current_date_and_time = str(dt.date.today())
     src_file = base_dir / "src" / "Reporte_Discovery.xlsx"
 
     central_dir = base_dir / "ARCHIVOS_REPORTES" / central
@@ -146,50 +147,92 @@ def run_general_report(central):
     )
     wb.save(dest_file)
 
-    """if central == "GENERAL":
-        dotenv_path = Path(__file__).parent / ".env"
-        load_dotenv(dotenv_path=dotenv_path)
-
-        connect_args = {
-            "url": os.getenv("AXONIUS_URL"),
-            "key": os.getenv("AXONIUS_KEY"),
-            "secret": os.getenv("AXONIUS_SECRET"),
-            "verify": False
-        }
-
-        ax = Connect(**connect_args)
-        devices_api = ax.devices
-
-        queries = [
-            "HIGH VULNERABILITIES SERVERS IN IXTLAHUACA",
-            "CRITICAL VULNERABILITIES SERVERS IN IXTLAHUACA"
-        ]
-
+    if central == "GENERAL":
+        
         cell_map = {
             0: "E20",
             1: "E21"
         }
 
-        # --- Ejecutar queries en paralelo ---
-        results_map = {}
+    if central == "GENERAL":
 
-        with ThreadPoolExecutor(max_workers=len(queries)) as executor:
-            futures = [
-                executor.submit(fetch_and_count, idx, query, devices_api)
-                for idx, query in enumerate(queries)
-            ]
+        ixtla_file = (
+            base_dir
+            / "ARCHIVOS_REPORTES"
+            / "IXTLA"
+            / today
+            / f"Reporte_Discovery_IXTLA_{today}.xlsx"
+        )
+        #"""
+        
+        if ixtla_file.exists():
 
-            for future in as_completed(futures):
-                idx, cantidad_unicos = future.result()
-                results_map[idx] = cantidad_unicos
+            wb_ixtla = load_workbook(ixtla_file, data_only=True)
 
-        # --- Escritura en Excel (single-thread) ---
-        for idx, cantidad_unicos in results_map.items():
-            cell = ws[cell_map[idx]]
-            valor_actual = cell.value if isinstance(cell.value, (int, float)) else 0
-            cell.value = valor_actual + cantidad_unicos
+            ws_inv = wb_ixtla["Inventario"]
 
-                """
+            max_row = ws_inv.max_row
+
+            critical = 0
+            high = 0
+
+            for row in ws_inv.iter_rows(min_row=6, max_row=max_row, min_col=8, max_col=8):
+                value = row[0].value
+                if isinstance(value, (int, float)) and value > 0:
+                    critical += 1
+
+            for row in ws_inv.iter_rows(min_row=6, max_row=max_row, min_col=9, max_col=9):
+                value = row[0].value
+                if isinstance(value, (int, float)) and value > 0:
+                    high += 1
+    
+
+            # Valores actuales del GENERAL
+            general_critical = int(ws["E20"].value or 0)
+            general_high = int(ws["E21"].value or 0)
+
+            # Sumar
+            ws["E20"] = general_critical + critical
+            ws["E21"] = general_high + high
+
+            wb_ixtla.close()
+
+        else:
+            print(f"⚠️ No existe reporte IXTLA: {ixtla_file}")
+        #"""
+    meses = {
+    "01": "Enero",
+    "02": "Febrero",
+    "03": "Marzo",
+    "04": "Abril",
+    "05": "Mayo",
+    "06": "Junio",
+    "07": "Julio",
+    "08": "Agosto",
+    "09": "Septiembre",
+    "10": "Octubre",
+    "11": "Noviembre",
+    "12": "Diciembre"
+    }
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    now = datetime.now()
+    year = now.strftime("%Y")
+    month_number = now.strftime("%m")
+    month_name = meses[month_number]
+
+    dest_dir = os.path.join(
+        base_dir,
+        "REPORTES_SEMANALES",
+        year,
+        month_name,
+        current_date_and_time  
+    )
+
+    os.makedirs(dest_dir, exist_ok=True)
+    file_name = os.path.basename(dest_file)
+    dest_path = os.path.join(dest_dir, file_name)
+    shutil.copy2(dest_file, dest_path)
 
 
             

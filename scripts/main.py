@@ -36,17 +36,13 @@ current_date_and_time = str(dt.date.today())
 
 
 
-def run_axonius(central):
+def run_all_queries_for_central(central):
     processes = []
 
+    # -----------------------------
+    # 1️⃣ AXONIUS (4 queries)
+    # -----------------------------
     for query, filename in zip(central.queries, central.file_name):
-
-        while len(processes) >= 4:
-            for p in processes:
-                if not p.is_alive():
-                    processes.remove(p)
-            time.sleep(0.5)
-
         p = multiprocessing.Process(
             target=axonius_retreive_data,
             kwargs={
@@ -57,17 +53,12 @@ def run_axonius(central):
                 "current_date_and_time": current_date_and_time,
             }
         )
-
         processes.append(p)
         p.start()
 
-    for p in processes:
-        p.join()
-
-
-def run_critical(central):
-    processes = []
-
+    # -----------------------------
+    # 2️⃣ SEVERITIES (2 queries)
+    # -----------------------------
     for severity in ["CRITICAL", "HIGH"]:
         p = multiprocessing.Process(
             target=get_severities,
@@ -77,15 +68,12 @@ def run_critical(central):
                 "severidad": severity,
             }
         )
-
         processes.append(p)
         p.start()
 
-    for p in processes:
-        p.join()
-
-
-def run_eol(central):
+    # -----------------------------
+    # 3️⃣ EOL (1 query)
+    # -----------------------------
     p = multiprocessing.Process(
         target=export_eol,
         kwargs={
@@ -93,9 +81,14 @@ def run_eol(central):
             "f_central": central.fullName,
         }
     )
-
+    processes.append(p)
     p.start()
-    p.join()
+
+    # -----------------------------
+    # Esperar a que los 7 terminen
+    # -----------------------------
+    for p in processes:
+        p.join()
 
 
 def run_reporte(central):
@@ -122,7 +115,12 @@ if __name__ == '__main__':
 
     if not only_ixtla_carso_or_both(centrales):
         if not general_json_done_exists():
-            run_general_json_generation(max_workers=5, delete_previous=True)
+            run_general_json_generation(max_workers=10, delete_previous=True)
+            """
+            time.sleep(5)
+            exit()
+            """
+            
 
     GENERAL_REPORT_CENTRALS = {f"R{i}" for i in range(1, 10)} | {"GENERAL"}
 
@@ -133,9 +131,8 @@ if __name__ == '__main__':
             run_general_report(central.nombre)
         
         else:
-            run_axonius(central)
-            run_critical(central)
-            run_eol(central)
+            run_all_queries_for_central(central)
+
             run_reporte(central)
 
 
