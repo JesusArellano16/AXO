@@ -79,13 +79,13 @@ def run_general_json_generation(
             start_query = time.perf_counter()  # ⏱ inicio exacto
 
             ax_local = Connect(**connect_args)
-            print(f'[{timestamp()}] EMPEZAMOS {query_name}')
+            #print(f'[{timestamp()}] EMPEZAMOS {query_name}')
 
             devices_api_local = ax_local.devices
             results = devices_api_local.get_by_saved_query(query_name)
 
             middle_time = time.perf_counter()
-            print(f'[{timestamp()}] OBTUVIMOS {query_name}')
+            #print(f'[{timestamp()}] OBTUVIMOS {query_name}')
 
             output_file = base_dir / f"{query_name.replace(' ', '_')}.json"
             with open(output_file, "w", encoding="utf-8") as f:
@@ -95,7 +95,7 @@ def run_general_json_generation(
             duration = round(end_query - middle_time, 2)
             duration2 = round(middle_time - start_query, 2)
             duration3 = round(end_query - start_query, 2)
-            print(f'[{timestamp()}] TERMINAMOS {query_name} | ⏱ {duration2} segundos MEDIO | ⏱ {duration} segundos SEGUNDO | ⏱ {duration3} segundos TOTAL')
+            #print(f'[{timestamp()}] TERMINAMOS {query_name} | ⏱ {duration2} segundos MEDIO | ⏱ {duration} segundos SEGUNDO | ⏱ {duration3} segundos TOTAL')
 
             return query_name, len(results) if results else 0, None
 
