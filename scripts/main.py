@@ -39,9 +39,6 @@ current_date_and_time = str(dt.date.today())
 def run_all_queries_for_central(central):
     processes = []
 
-    # -----------------------------
-    # 1️⃣ AXONIUS (4 queries)
-    # -----------------------------
     for query, filename in zip(central.queries, central.file_name):
         p = multiprocessing.Process(
             target=axonius_retreive_data,
@@ -56,9 +53,6 @@ def run_all_queries_for_central(central):
         processes.append(p)
         p.start()
 
-    # -----------------------------
-    # 2️⃣ SEVERITIES (2 queries)
-    # -----------------------------
     for severity in ["CRITICAL", "HIGH"]:
         p = multiprocessing.Process(
             target=get_severities,
@@ -71,9 +65,6 @@ def run_all_queries_for_central(central):
         processes.append(p)
         p.start()
 
-    # -----------------------------
-    # 3️⃣ EOL (1 query)
-    # -----------------------------
     p = multiprocessing.Process(
         target=export_eol,
         kwargs={
@@ -84,9 +75,6 @@ def run_all_queries_for_central(central):
     processes.append(p)
     p.start()
 
-    # -----------------------------
-    # Esperar a que los 7 terminen
-    # -----------------------------
     for p in processes:
         p.join()
 
@@ -116,10 +104,10 @@ if __name__ == '__main__':
     if not only_ixtla_carso_or_both(centrales):
         if not general_json_done_exists():
             run_general_json_generation(max_workers=10, delete_previous=True)
-            """
-            time.sleep(5)
-            exit()
-            """
+            
+            time.sleep(15)
+            #exit()
+            
             
 
     GENERAL_REPORT_CENTRALS = {f"R{i}" for i in range(1, 10)} | {"GENERAL"}
