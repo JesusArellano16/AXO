@@ -206,7 +206,7 @@ def get_severities(severidad, central, f_central):
 
 
 def main():
-    get_severities(severidad="CRITICAL", central="POLANCO", f_central="POLANCO")
+    get_severities(severidad="HIGH", central="IXTLA", f_central="IXTLAHUACA")
 
 if __name__ == "__main__":
     main()

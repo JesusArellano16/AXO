@@ -73,14 +73,14 @@ def run_general_json_generation(
             start_query = time.perf_counter()
 
             ax_local = Connect(**connect_args)
-            print(f"[{timestamp()}] EMPEZAMOS {query_name}")
+            #print(f"[{timestamp()}] EMPEZAMOS {query_name}")
 
             devices_api_local = ax_local.devices
             output_file = base_dir / f"{query_name.replace(' ', '_')}.json"
 
             if query_name == "HIGH VULNERABILITIES GENERAL SERVERS":
 
-                page_size = 1200
+                page_size = 1500
                 offset = 0
                 total_written = 0
 
@@ -117,9 +117,7 @@ def run_general_json_generation(
                 end_query = time.perf_counter()
                 duration = round(end_query - start_query, 2)
 
-                print(
-                    f"[{timestamp()}] TERMINAMOS {query_name} | ⏱ {duration} segundos TOTAL"
-                )
+                #print(f"[{timestamp()}] TERMINAMOS {query_name} | ⏱ {duration} segundos TOTAL")
 
                 return query_name, total_written, None
 
@@ -133,9 +131,7 @@ def run_general_json_generation(
                 end_query = time.perf_counter()
                 duration = round(end_query - start_query, 2)
 
-                print(
-                    f"[{timestamp()}] TERMINAMOS {query_name} | ⏱ {duration} segundos TOTAL"
-                )
+                #print(f"[{timestamp()}] TERMINAMOS {query_name} | ⏱ {duration} segundos TOTAL")
 
                 return query_name, len(results) if results else 0, None
 

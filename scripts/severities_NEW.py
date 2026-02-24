@@ -9,7 +9,7 @@ from collections import defaultdict
 import datetime as dt
 import warnings
 import axonius_api_client
-
+import time
 
 # ======================================================
 # WARNINGS OFF
@@ -78,11 +78,58 @@ def get_severities(severidad, central, f_central):
         client = Connect(**connect_args)
         apiobj = client.devices
         query_name = f"{severidad} VULNERABILITIES SERVERS IN {f_central}"
-        try:
-            devices = apiobj.get_by_saved_query(query_name)
-        except Exception:
-            critical(central=central, current_date_and_time=current_date_and_time, severidad=severidad)
-            return
+        #try:
+        #devices = apiobj.get_by_saved_query(query_name)
+        #devices = list(apiobj.get_by_saved_query_generator(query_name))
+        #total_vuln = len(devices)
+        page_size = 600
+        offset = 0
+        devices = []
+        total_vuln = 0
+
+        fields_needed = [
+            "adapters",
+            "specific_data.data.hostname_preferred",
+            "specific_data.data.network_interfaces.ips_preferred",
+            "specific_data.data.network_interfaces.mac_preferred",
+            "specific_data.data.os.type_distribution_preferred",
+            "specific_data.data.software_cves.cve_id",
+            "specific_data.data.software_cves.cve_severity",
+            "specific_data.data.software_cves.cve_description"
+        ]
+
+        #print("RECIEN INTENTAREMOS")
+
+        while True:
+            try:
+                batch = apiobj.get_by_saved_query(
+                    query_name,
+                    page_size=page_size,
+                    offset=offset,
+                    fields=fields_needed
+                )
+                #print("RECIEN INTENTAREMOS")
+
+
+            except Exception as e:
+                print(f"Error en offset {offset}: {e}")
+                break
+
+            if not batch:
+                break
+
+            devices.extend(batch)
+            total_vuln += len(batch)
+
+            print(f"Descargados: {total_vuln}")
+            break
+        ###################
+        #print(f'{total_vuln} ---- 1')
+        time.sleep(5)
+        #except Exception:
+            #print(f"NO SE PUDO           {Exception}")
+            #critical(central=central, current_date_and_time=current_date_and_time, severidad=severidad)
+            #return 
     else:
         if severidad in ("CRITICAL", "HIGH"):
             devices = load_vulns_from_json(severidad, central)
@@ -91,7 +138,7 @@ def get_severities(severidad, central, f_central):
             apiobj = client.devices
             query_name = f"{severidad} VULNERABILITIES SERVERS IN {f_central}"
             devices = apiobj.get_by_saved_query(query_name)
-
+    
     mostrar_tabla(centrales, current_date_and_time)
 
     if not devices:
@@ -122,7 +169,9 @@ def get_severities(severidad, central, f_central):
             })
 
         filtered_devices.append(filtered_device)
-
+    if not use_api: total_vuln = len(filtered_devices)
+    #print(f'{total_vuln} ---- 2')
+    time.sleep(5)
     # --------------------------------------------------
     # EXCEL (FORMATO ORIGINAL + CONTROL DE FILAS)
     # --------------------------------------------------
@@ -147,6 +196,7 @@ def get_severities(severidad, central, f_central):
 
     cve_to_hosts = defaultdict(set)
     cve_desc = {}
+    
 
     for d in filtered_devices:
         for cve in d["software_cves"]:
@@ -221,15 +271,19 @@ def get_severities(severidad, central, f_central):
     # --------------------------------------------------
     excel_path = f'{base_dir}/{severidad}_SEV_{central}_{current_date_and_time}.xlsx'
     wb.save(excel_path)
-
+    #print(f'{total_vuln} ---- 3')
+    time.sleep(5)
     with open(f'{base_dir}/done/{severidad.lower()}_{central}.done', "w") as f:
-        f.write("done")
+        f.write(str(total_vuln))
+    
 
     mostrar_tabla(centrales, current_date_and_time)
 
+    #print(f'{total_vuln} ---- 4')
+    time.sleep(5)
 
 def main():
-    get_severities(severidad="CRITICAL", central="POLANCO", f_central="POLANCO")
+    get_severities(severidad="HIGH", central="IXTLA", f_central="IXTLAHUACA")
 
 
 if __name__ == "__main__":

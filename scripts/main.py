@@ -11,7 +11,7 @@ from pathlib import Path
 from centrales import centrales
 import multiprocessing
 import time
-from report import Report
+from report import Report, copy_Report
 import shutil
 import charts
 from queries_general import run_general_json_generation
@@ -53,7 +53,7 @@ def run_all_queries_for_central(central):
         processes.append(p)
         p.start()
 
-    for severity in ["CRITICAL", "HIGH"]:
+    for severity in ["HIGH","CRITICAL"]:
         p = multiprocessing.Process(
             target=get_severities,
             kwargs={
@@ -119,6 +119,7 @@ if __name__ == '__main__':
             run_general_report(central.nombre)
         
         else:
+            #get_severities("HIGH",central=central.nombre, f_central=central.fullName)
             run_all_queries_for_central(central)
 
             run_reporte(central)
@@ -144,6 +145,7 @@ if __name__ == '__main__':
             try:
                 charts.data_central(central.nombre)
                 charts.agregar_hojas_graficas(central.nombre)
+                copy_Report(central=central.nombre)
             except Exception as e:
                 print(f"Error generando gráficas: {e}")
 

@@ -400,8 +400,10 @@ def Report(central2):
 
     sheet_reporte['A19'].value = f'Servidores {full_Name} - Vulnerabilidades'
 
-    sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
-    sheet_reporte['E21'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
+    if central != 'IXTLA':
+        sheet_reporte['E20'].value = f"=COUNTIF('Inventario'!H6:H1048576,\">0\")"
+        sheet_reporte['E21'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
+    
     wb.save(path_rep)
     wb.close()
     new_queries(central,full_Name)
@@ -410,7 +412,35 @@ def Report(central2):
         f.write("done")
 
     if central == 'IXTLA':
-        pass
+        wb = openpyxl.load_workbook(path_rep)
+        ws = wb[f'Resumen']
+        done_base_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/done'
+        critical_done = f'{done_base_path}/critical_{central}.done'
+        if os.path.exists(critical_done):
+            with open(critical_done, "r") as f:
+                lines = f.readlines()
+                #print(f'ARCHIVO CRITICAL TIENE {lines} lineas')
+                total_critical = int(lines[0].strip())
+                ws["E20"] = total_critical
+                #if len(lines) > 1:
+                #    total_critical = int(lines[1].strip())
+                #    ws["E20"] = total_critical
+                #    print(f"EN IXTLA HAY {total_critical} de vulnerabilidades criticas")
+        high_done = f'{done_base_path}/high_{central}.done'
+        if os.path.exists(high_done):
+            with open(high_done, "r") as f:
+                lines = f.readlines()
+                #print(f'ARCHIVO HIGH TIENE {lines} lineas')
+                total_high = int(lines[0].strip())
+                ws["E21"] = total_high
+                #if len(lines) > 1:
+                #    total_high = int(lines[1].strip())
+                #    ws["E21"] = total_high
+                #    print(f"EN IXTLA HAY {total_high} de vulnerabilidades altas")
+
+        wb.save(path_rep)
+
+        
     else:
         try:
             wb = openpyxl.load_workbook(path_rep)
@@ -419,7 +449,11 @@ def Report(central2):
             wb.close()
         except:
             pass
+    from table import mostrar_tabla
+    from centrales  import centrales
+    mostrar_tabla(centrales, current_date_and_time)
 
+def copy_Report(central):
     meses = {
     "01": "Enero",
     "02": "Febrero",
@@ -435,26 +469,16 @@ def Report(central2):
     "12": "Diciembre"
     }
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
     now = datetime.now()
     year = now.strftime("%Y")
     month_number = now.strftime("%m")
     month_name = meses[month_number]
-
-    dest_dir = os.path.join(
-        base_dir,
-        "REPORTES_SEMANALES",
-        year,
-        month_name,
-        current_date_and_time  
-    )
+    path_rep = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
+    dest_dir = os.path.join(base_dir, "REPORTES_SEMANALES", year, month_name, current_date_and_time  )
+    path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
 
     os.makedirs(dest_dir, exist_ok=True)
     file_name = os.path.basename(path_rep)
     dest_path = os.path.join(dest_dir, file_name)
     shutil.copy2(path_rep, dest_path)
 
-
-    from table import mostrar_tabla
-    from centrales  import centrales
-    mostrar_tabla(centrales, current_date_and_time)
