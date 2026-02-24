@@ -64,16 +64,18 @@ def run_general_report(central):
                     cell.value = None       # eliminar fórmula
 
     ws = wb["Resumen"]
-
+    
     for row in range(3, 17):
         cell = ws[f"F{row}"]
         cell.value = None
-        cell.hyperlink = None
+        if central == "GENERAL":
+            cell.hyperlink = None
 
     for row in range(20, 23):
         cell = ws[f"E{row}"]
         cell.value = None
-        cell.hyperlink = None
+        if central == "GENERAL":
+            cell.hyperlink = None
 
     if central == "GENERAL":
         for sheet_name in wb.sheetnames:
@@ -89,10 +91,10 @@ def run_general_report(central):
     red_fill = PatternFill(start_color="FFFF0000", end_color="FFFF0000", fill_type="solid")
 
     max_col = ws.max_column
-
-    for row in (8, 9):
-        for col in range(1, max_col + 1):
-            ws.cell(row=row, column=col).fill = red_fill
+    if central == "GENERAL":
+        for row in (8, 9):
+            for col in range(1, max_col + 1):
+                ws.cell(row=row, column=col).fill = red_fill
 
     assets_count = count_assets_by_central(central)
     ws["F3"] = assets_count
@@ -451,7 +453,7 @@ def run_general_report(central):
                 cell.value = None
 
         from openpyxl.styles import Alignment
-
+        os_notsupported = 0
         for idx, asset in enumerate(filtered_servers, start=1):
             row = base_row + idx - 1
 
@@ -489,6 +491,13 @@ def run_general_report(central):
             # OS
             os_type = asset.get("specific_data.data.os.type_distribution_preferred")
             ws_srv[f"E{row}"] = os_type
+            if os_type in [
+                "Oracle Solaris","Windows Server 2008 R2",
+                "Windows Server 2003 R2","SunOS 10","SunOS 11.1",
+                "SunOS 11.2","SunOS 11.3","IBM AIX 6.1","IBM AIX 7.1",
+                "IBM AIX 7.2","IBM AIX 5.3","SunOS 9","SunOS 11.4.23.69.3",
+                "SunOS 11.0","SunOS 11.4","SunOS 11.4.0.15.0"]:
+                os_notsupported = os_notsupported + 1
 
             adapters = asset.get("adapters", [])
 
@@ -507,11 +516,21 @@ def run_general_report(central):
             ws_srv[f"I{row}"] = critical_count
 
             # Columna J
-            ws_srv[f"J{row}"] = "NA"
-                # =========================
+            if os_type in [
+                "Oracle Solaris","Windows Server 2008 R2",
+                "Windows Server 2003 R2","SunOS 10","SunOS 11.1",
+                "SunOS 11.2","SunOS 11.3","IBM AIX 6.1","IBM AIX 7.1",
+                "IBM AIX 7.2","IBM AIX 5.3","SunOS 9","SunOS 11.4.23.69.3",
+                "SunOS 11.0","SunOS 11.4","SunOS 11.4.0.15.0"]:
+                ws_srv[f"J{row}"] = "Cortex no soportado"
+            else:
+                ws_srv[f"J{row}"] = "NA"
+        # =========================
         # INVENTARIO - EOL
         # =========================
-
+        ws = wb["Resumen"]
+        ws["F9"] = os_notsupported
+        ws["F8"] = len(filtered_servers) - os_notsupported
         ws_eol = wb["Inventario - EOL"]
 
         eol_path = base_dir / "AXONIUS_FILES" / "GENERAL_JSON" / "EoL_GENERAL_SERVERS.json"
@@ -600,11 +619,6 @@ def run_general_report(central):
             else:
                 ws_eol[f"H{row}"] = 0
 
-        #
-        # ================================
-        # HOJA: Inventario No Identificados
-        # ================================
-        
         # ================================
         # HOJA: Inventario No Identificados
         # ================================

@@ -46,8 +46,8 @@ def save_to_file(type):
         f.write("]\n")
 
 def create_central_folder(name):
-    folder_path = os.path.join(base_path, name)
-    os.makedirs(folder_path, exist_ok=True)
+    #folder_path = os.path.join(base_path, name)
+    #os.makedirs(folder_path, exist_ok=True)
     src_file = os.path.join(data_path, "data.csv")
     graficas_folder = os.path.join(data_path, "Graficas")
     os.makedirs(graficas_folder, exist_ok=True)

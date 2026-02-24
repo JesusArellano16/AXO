@@ -405,7 +405,7 @@ def Report(central2):
         sheet_reporte['E21'].value = f"=COUNTIF('Inventario'!I6:I1048576,\">0\")"
     
     wb.save(path_rep)
-    wb.close()
+    wb.close()##################################################################################################################
     new_queries(central,full_Name)
     done_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/done/Reporte_{central}.done'
     with open(done_path, 'w') as f:

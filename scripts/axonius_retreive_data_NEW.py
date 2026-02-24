@@ -45,6 +45,8 @@ def resolve_json_from_query(saved_query_name: str):
         return "ALL_GENERAL_NETWORK_DEVICES.json"
     if "PCS" in q:
         return "GENERAL_PCs.json"
+    if "ASSETS" in q:
+        return "GENERAL_ASSETS.json"
 
 
     raise ValueError(f"No mapping for query: {saved_query_name}")
@@ -89,8 +91,8 @@ def axonius_retreive_data(
     # --------------------------------------------------
     # DATA SOURCE RULE
     # --------------------------------------------------
-    use_api = (central == "IXTLA") or (saved_query_name_clean == "TOTAL_ASSETS")
-
+    #use_api = (central == "IXTLA") or (saved_query_name_clean == "TOTAL_ASSETS")
+    use_api = (central == "IXTLA")
     if use_api:
         client = axonapi.Connect(**connect_args)
         devices = client.devices.get_by_saved_query(saved_query_name)
