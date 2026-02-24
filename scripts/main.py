@@ -129,8 +129,8 @@ if __name__ == '__main__':
 
     for central in centrales:
         if central.nombre in GENERAL_REPORT_CENTRALS:
-            run_general_report(central.nombre)
-        
+            #run_general_report(central.nombre)
+            pass
         else:
             try:
                 shutil.rmtree(f'./ARCHIVOS_REPORTES/{central.nombre}/{current_date_and_time}/done')
@@ -139,8 +139,11 @@ if __name__ == '__main__':
 
     for central in centrales:
         if central.nombre in GENERAL_REPORT_CENTRALS:
-            run_general_report(central.nombre)
-        
+            #run_general_report(central.nombre)
+            charts.data_central(central.nombre)
+            charts.agregar_hojas_graficas(central.nombre)
+            copy_Report(central=central.nombre)
+            #pass
         else:
             try:
                 charts.data_central(central.nombre)
