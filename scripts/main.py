@@ -16,6 +16,7 @@ import shutil
 import charts
 from queries_general import run_general_json_generation
 from general_report import run_general_report
+from eol_eos import retrieve_eol
 
 
 start_time = time.time()
@@ -104,6 +105,7 @@ if __name__ == '__main__':
     if not only_ixtla_carso_or_both(centrales):
         if not general_json_done_exists():
             run_general_json_generation(max_workers=10, delete_previous=True)
+            retrieve_eol()
             
             time.sleep(15)
             #exit()
