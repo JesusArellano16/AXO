@@ -104,7 +104,10 @@ if __name__ == '__main__':
 
     if not only_ixtla_carso_or_both(centrales):
         if not general_json_done_exists():
-            run_general_json_generation(max_workers=10, delete_previous=True)
+            result = run_general_json_generation(max_workers=10, delete_previous=True)
+            if not result["success"]:
+                print("ERROR EN RED - PROCESO INCOMPLETO")
+                raise SystemExit(1)
             retrieve_eol()
             
             time.sleep(15)

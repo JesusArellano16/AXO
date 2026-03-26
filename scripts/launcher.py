@@ -7,6 +7,8 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, Signal, QTimer
 from PySide6.QtGui import QColor, QPainter, QBrush
+from pathlib import Path
+from PySide6.QtWidgets import QScrollArea
 
 # --------------------------
 # SWITCH DESLIZABLE
@@ -102,7 +104,8 @@ class LauncherGUI(QWidget):
         self.combo_actions.addItems([
             "Reportes",
             "Add_Central",
-            "Remove_Central"
+            "Remove_Central",
+            "Compare"
         ])
         self.layout_main.addWidget(self.combo_actions)
         self.combo_actions.currentTextChanged.connect(self.action_selected)
@@ -255,6 +258,77 @@ class LauncherGUI(QWidget):
             self.current_display_widget = container
             self.layout_main.insertWidget(4, container)
             btn_remove.clicked.connect(lambda: self.eliminar_central(txt_short))
+        elif action_name == "Compare":
+            container = QWidget()
+            v_layout = QVBoxLayout()
+            v_layout.setAlignment(Qt.AlignTop)
+
+            # 🔹 Central Compare
+            lbl_central = QLabel("Compare Central:")
+            combo_central = QComboBox()
+            combo_central.addItems([c.nombre for c in self.centrales])
+
+            # 🔹 Tipo de comparación
+            lbl_type = QLabel("Category:")
+            combo_type = QComboBox()
+            combo_type.addItems([
+                "ALL_GENERAL_NETWORK_DEVICES",
+                "ALL_GENERAL_UNIDENTIFIED_SERVERS",
+                "GENERAL_ASSETS",
+                "GENERAL_PCs",
+                "GENERAL_SERVERS",
+                "GENERAL_VARIOUS_IDENTIFIED_DEVICES"
+            ])
+
+            # 🔹 Fechas disponibles
+            record_path = Path(self.base_path) / "RECORD" / "GENERAL_JSON"
+            fechas = []
+            if record_path.exists():
+                fechas = sorted([f.name for f in record_path.iterdir() if f.is_dir()])
+
+            # 🔹 Fecha 1
+            lbl_fecha1 = QLabel("Reference Date:")
+            combo_fecha1 = QComboBox()
+            combo_fecha1.addItems(fechas)
+
+            # 🔹 Fecha 2
+            lbl_fecha2 = QLabel("Comparision Date:")
+            combo_fecha2 = QComboBox()
+
+            def update_fecha2():
+                selected = combo_fecha1.currentText()
+                combo_fecha2.clear()
+                combo_fecha2.addItems([f for f in fechas if f != selected])
+
+            combo_fecha1.currentTextChanged.connect(update_fecha2)
+            update_fecha2()
+
+            # 🔹 Botón Compare
+            btn_compare = QPushButton("COMPARE")
+            btn_compare.setFixedHeight(45)
+            btn_compare.setStyleSheet(self.run_button_style())
+
+            v_layout.addWidget(lbl_central)
+            v_layout.addWidget(combo_central)
+            v_layout.addWidget(lbl_type)
+            v_layout.addWidget(combo_type)
+            v_layout.addWidget(lbl_fecha1)
+            v_layout.addWidget(combo_fecha1)
+            v_layout.addWidget(lbl_fecha2)
+            v_layout.addWidget(combo_fecha2)
+            v_layout.addWidget(btn_compare)
+
+            container.setLayout(v_layout)
+            self.current_display_widget = container
+            self.layout_main.insertWidget(4, container)
+
+            # 🔹 Acción botón (placeholder, no rompe lógica)
+            btn_compare.clicked.connect(lambda: self.run_compare(
+                combo_central.currentText(),
+                combo_type.currentText(),
+                combo_fecha1.currentText(),
+                combo_fecha2.currentText()
+            ))
 
     # --------------------------
     # Mostrar switches
@@ -282,7 +356,16 @@ class LauncherGUI(QWidget):
                 col = 0
                 row += 1
                 if row >= self.MAX_ROWS: break
-        v_layout.addWidget(self.switches_container)
+        #v_layout.addWidget(self.switches_container)
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)  # opcional (solo vertical)
+        scroll.setWidget(self.switches_container)
+
+        # 👇 importante: altura máxima para que no empuje los botones
+        scroll.setMaximumHeight(350)
+
+        v_layout.addWidget(scroll)
 
         # Mostrar ALL toggle
         self.lbl_all.setVisible(True)
@@ -359,6 +442,23 @@ end tell'''
 activate
 do script "{full_script.replace('"', '\\"')}"
 end tell'''
+        subprocess.Popen(["osascript", "-e", osa_script])
+    
+    def run_compare(self, central, category, fecha1, fecha2):
+        if not central or not fecha1 or not fecha2:
+            return
+
+        print(f"Comparando {central} | {category} | {fecha1} vs {fecha2}")
+
+        # 🔹 Ejemplo comando (ajústalo luego a tu script real)
+        prefix = f"cd '{self.base_path}'; source reportes3/bin/activate;"
+        cmd = f'{prefix}python3 "{self.base_path}/scripts/compare.py" "{central}" "{category}" "{fecha1}" "{fecha2}"'
+
+        osa_script = f'''tell application "Terminal"
+    activate
+    do script "{cmd.replace('"', '\\"')}"
+    end tell'''
+
         subprocess.Popen(["osascript", "-e", osa_script])
 
 # --------------------------

@@ -16,12 +16,32 @@ warnings.simplefilter("ignore", category=Warning)
 def timestamp():
     return dt.datetime.now().strftime("%H:%M:%S.%f")[:-3]
 
+def backup_json_files(base_dir: Path):
+    today = str(dt.date.today())
+
+    dest_dir = (
+        base_dir.parent.parent
+        / "RECORD"
+        / "GENERAL_JSON"
+        / today
+    )
+
+    if dest_dir.exists():
+        shutil.rmtree(dest_dir)
+
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
+    for file in base_dir.glob("*.json"):
+        shutil.copy2(file, dest_dir / file.name)
+
+    print(f"[{timestamp()}] Backup creado en: {dest_dir}")
 
 def run_general_json_generation(
     max_workers: int = 10,
     delete_previous: bool = True
 ):
-
+    results_summary = {}
+    has_error = False
     start_time = time.time()
 
     dotenv_path = Path(__file__).parent / ".env"
@@ -80,7 +100,7 @@ def run_general_json_generation(
 
             if query_name == "HIGH VULNERABILITIES GENERAL SERVERS":
 
-                page_size = 1500
+                page_size = 1000
                 offset = 0
                 total_written = 0
 
@@ -136,7 +156,11 @@ def run_general_json_generation(
                 return query_name, len(results) if results else 0, None
 
         except Exception as e:
-            return query_name, 0, str(e)
+            error_msg = str(e)
+            if "Falló definitivamente" in error_msg:
+                return query_name, 0, "ERROR_EN_RED"
+
+            return query_name, 0, error_msg
 
     results_summary = {}
 
@@ -152,6 +176,8 @@ def run_general_json_generation(
 
             if error:
                 print(f"✖ {query_name} | ERROR | {error}")
+                if error == "ERROR_EN_RED":
+                    has_error = True
             else:
                 print(f"✔ {query_name} | {total} elementos")
 
@@ -164,5 +190,8 @@ def run_general_json_generation(
 
     with open(done, "w") as f:
         f.write("done")
-
-    return results_summary
+    backup_json_files(base_dir)
+    return {
+        "results": results_summary,
+        "success": not has_error
+        }
