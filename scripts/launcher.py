@@ -448,7 +448,7 @@ end tell'''
         if not central or not fecha1 or not fecha2:
             return
 
-        print(f"Comparando {central} | {category} | {fecha1} vs {fecha2}")
+        #print(f"Comparando {central} | {category} | {fecha1} vs {fecha2}")
 
         # 🔹 Ejemplo comando (ajústalo luego a tu script real)
         prefix = f"cd '{self.base_path}'; source reportes3/bin/activate;"

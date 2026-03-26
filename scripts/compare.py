@@ -70,14 +70,29 @@ def compare_assets(ref_assets, comp_assets):
     ref_by_host = {a["hostname"]: a for a in ref_assets if a["hostname"]}
     comp_by_host = {a["hostname"]: a for a in comp_assets if a["hostname"]}
 
+    # 🔥 NUEVO: índices por MAC
+    def mac_key(asset):
+        macs = asset.get("macs", [])
+        return tuple(sorted(macs)) if macs else None
+
+    ref_by_mac = {mac_key(a): a for a in ref_assets if mac_key(a)}
+    comp_by_mac = {mac_key(a): a for a in comp_assets if mac_key(a)}
+
     visited_comp_ids = set()
     results = []
 
     for rid, ref in ref_by_id.items():
         comp = comp_by_id.get(rid)
 
+        # fallback hostname
         if not comp and ref.get("hostname"):
             comp = comp_by_host.get(ref["hostname"])
+
+        # 🔥 fallback MAC
+        if not comp:
+            key = mac_key(ref)
+            if key:
+                comp = comp_by_mac.get(key)
 
         if comp:
             if comp.get("id"):
@@ -96,6 +111,9 @@ def compare_assets(ref_assets, comp_assets):
 
             if ref.get("os") != comp.get("os"):
                 changes.append("Modified OS")
+
+            if ref.get("macs") != comp.get("macs"):
+                changes.append("Modified MAC")
 
             if not changes:
                 status = "UNCHANGED"
@@ -122,8 +140,15 @@ def compare_assets(ref_assets, comp_assets):
             continue
 
         ref = None
+
         if comp.get("hostname"):
             ref = ref_by_host.get(comp["hostname"])
+
+        # 🔥 fallback MAC en NEW
+        if not ref:
+            key = mac_key(comp)
+            if key:
+                ref = ref_by_mac.get(key)
 
         if ref:
             continue
@@ -198,6 +223,7 @@ def generate_excel(results, output_file, fecha1, fecha2, category, total_ref, to
     mod_host = sum(1 for r in modified if "Hostname" in r.get("comment", ""))
     mod_adapters = sum(1 for r in modified if "Adapters" in r.get("comment", ""))
     mod_os = sum(1 for r in modified if "OS" in r.get("comment", ""))
+    mod_mac = sum(1 for r in modified if "MAC" in r.get("comment", ""))
 
     ws_summary["A10"] = "Modified IPs"
     ws_summary["B10"] = mod_ips
@@ -211,8 +237,11 @@ def generate_excel(results, output_file, fecha1, fecha2, category, total_ref, to
     ws_summary["A13"] = "Modified OS Type/Distribution"
     ws_summary["B13"] = mod_os
 
-    ws_summary["A15"] = "VALIDATE INFORMATION"
-    ws_summary["A15"].font = Font(bold=True, color="FF0000", size=14)
+    ws_summary["A14"] = "Modified MAC"
+    ws_summary["B14"] = mod_mac
+
+    ws_summary["A16"] = "VALIDATE INFORMATION"
+    ws_summary["A16"].font = Font(bold=True, color="FF0000", size=14)
 
     ws = wb.create_sheet("Compare")
 
@@ -224,6 +253,8 @@ def generate_excel(results, output_file, fecha1, fecha2, category, total_ref, to
         "Status",
         "IPs Before",
         "IPs After",
+        "MAC Before",
+        "MAC After",
         "Adapters Before",
         "Adapters After",
         "OS Before",
@@ -243,8 +274,10 @@ def generate_excel(results, output_file, fecha1, fecha2, category, total_ref, to
     ws.column_dimensions["G"].width = 20
     ws.column_dimensions["H"].width = 30
     ws.column_dimensions["I"].width = 30
-    ws.column_dimensions["J"].width = 25
-    ws.column_dimensions["K"].width = 25
+    ws.column_dimensions["J"].width = 30
+    ws.column_dimensions["K"].width = 30
+    ws.column_dimensions["L"].width = 25
+    ws.column_dimensions["M"].width = 25
 
     wrap = Alignment(wrap_text=True)
 
@@ -258,6 +291,9 @@ def generate_excel(results, output_file, fecha1, fecha2, category, total_ref, to
         adapters_before = "\n".join(ref.get("adapters", []))
         adapters_after = "\n".join(comp.get("adapters", []))
 
+        macs_before = "\n".join(ref.get("macs", []))
+        macs_after = "\n".join(comp.get("macs", []))
+
         row = [
             r["id"],
             r.get("comment", ""),
@@ -266,6 +302,8 @@ def generate_excel(results, output_file, fecha1, fecha2, category, total_ref, to
             r["status"],
             ips_before,
             ips_after,
+            macs_before,
+            macs_after,
             adapters_before,
             adapters_after,
             ref.get("os"),
@@ -275,7 +313,7 @@ def generate_excel(results, output_file, fecha1, fecha2, category, total_ref, to
         ws.append(row)
         excel_row = ws.max_row
 
-        for col in [6, 7, 8, 9]:
+        for col in [6, 7, 8, 9, 10, 11]:
             ws.cell(row=excel_row, column=col).alignment = wrap
 
         if r["status"] == "NEW":
