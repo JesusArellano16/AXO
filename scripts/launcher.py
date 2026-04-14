@@ -193,7 +193,8 @@ class LauncherGUI(QWidget):
                 "centrales_bk", f"{self.base_path}/scripts/centrales_bk.py")
             mod = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod)
-            self.centrales = mod.centrales[:self.MAX_CENTRALES]
+            #self.centrales = mod.centrales[:self.MAX_CENTRALES]
+            self.centrales = mod.centrales
         except Exception as e:
             print(e)
             self.centrales = []
@@ -352,10 +353,13 @@ class LauncherGUI(QWidget):
             grid.addWidget(sw, row*2+1, col)
             self.switches[central.nombre] = sw
             col += 1
+            """if col >= self.MAX_COLS:
+                col = 0
+                row += 1
+                if row >= self.MAX_ROWS: break"""
             if col >= self.MAX_COLS:
                 col = 0
                 row += 1
-                if row >= self.MAX_ROWS: break
         #v_layout.addWidget(self.switches_container)
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
