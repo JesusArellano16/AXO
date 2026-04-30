@@ -114,13 +114,28 @@ class LauncherGUI(QWidget):
         self.lbl_all = QLabel("ALL")
         self.btn_all = ToggleSwitch(label=self.lbl_all)
         self.btn_all.setDisabled(True)
-        all_layout = QVBoxLayout()
+        # 🔹 Botón Clear Toggles
+        self.btn_clear_toggles = QPushButton("Clear")
+        self.btn_clear_toggles.setFixedHeight(28)
+        self.btn_clear_toggles.setStyleSheet(self.select_button_initial_style())
+        self.btn_clear_toggles.setVisible(True)
+
+        # 🔹 Layout horizontal (ALL + botón)
+        # 🔹 Contenedor para ALL + Clear
+        self.all_container = QWidget()
+        all_layout = QHBoxLayout()
         all_layout.setAlignment(Qt.AlignHCenter)
+
         all_layout.addWidget(self.lbl_all)
         all_layout.addWidget(self.btn_all)
-        self.layout_main.addLayout(all_layout)
-        self.lbl_all.setVisible(False)
-        self.btn_all.setVisible(False)
+        all_layout.addWidget(self.btn_clear_toggles)
+
+        self.all_container.setLayout(all_layout)
+        self.layout_main.addWidget(self.all_container)
+
+        self.all_container.setVisible(False)
+        #self.lbl_all.setVisible(False)
+        #self.btn_all.setVisible(False)
         self.btn_all.toggled.connect(self.toggle_all)
 
         # Spacer para empujar botones al fondo
@@ -144,6 +159,7 @@ class LauncherGUI(QWidget):
         # Conexiones
         self.btn_clear.clicked.connect(self.ejecutar_clear_day)
         self.btn_exec.clicked.connect(self.run_reports)
+        self.btn_clear_toggles.clicked.connect(self.clear_all_switches)
 
     # --------------------------
     # Estilos
@@ -162,7 +178,14 @@ class LauncherGUI(QWidget):
         """
     def run_button_style(self):
         return self.select_button_initial_style()
+    def clear_all_switches(self):
+        for sw in self.switches.values():
+            sw._checked = False
+            sw.update_label_style()
+            sw.update()
 
+        self.btn_all._checked = False
+        self.btn_all.update()
     # --------------------------
     # Selección de carpeta
     # --------------------------
@@ -215,12 +238,12 @@ class LauncherGUI(QWidget):
 
         # Ocultar botones
         self.btn_container.setVisible(False)
-        self.lbl_all.setVisible(False)
-        self.btn_all.setVisible(False)
+        self.all_container.setVisible(False)
 
         if action_name == "Reportes":
             self.show_switches()
             self.btn_container.setVisible(True)
+            #self.btn_clear_toggles.setVisible(False)
 
         elif action_name == "Add_Central":
             container = QWidget()
@@ -372,9 +395,9 @@ class LauncherGUI(QWidget):
         v_layout.addWidget(scroll)
 
         # Mostrar ALL toggle
-        self.lbl_all.setVisible(True)
-        self.btn_all.setVisible(True)
+        self.all_container.setVisible(True)
         self.btn_all.setDisabled(False)
+        self.btn_clear_toggles.setVisible(True)
 
         self.current_display_widget = container
         self.layout_main.insertWidget(4, container)
