@@ -120,25 +120,25 @@ def save_to_csv(hosts):
 if __name__ == "__main__":
 
     if not os.path.isdir(NMAP_DIR):
-        print(f"No existe el directorio: {NMAP_DIR}")
+        print(f"Folder does not exists: {NMAP_DIR}")
         sys.exit(1)
 
     txt_files = [f for f in os.listdir(NMAP_DIR) if f.endswith(".txt")]
 
     if not txt_files:
-        print("No hay archivos .txt en NMAP_FILES")
+        print("There are no .txt in NMAP_FILES")
         sys.exit(1)
 
     all_hosts = []
 
     for file in txt_files:
         full_path = os.path.join(NMAP_DIR, file)
-        print(f"Procesando: {file}")
+        #print(f"Procesando: {file}")
 
         hosts = parse_nmap(full_path)
         all_hosts.extend(hosts)
 
     added = save_to_csv(all_hosts)
 
-    print(f"\nArchivos procesados: {len(txt_files)}")
-    print(f"Hosts nuevos agregados: {added}")
+    #print(f"\nArchivos procesados: {len(txt_files)}")
+    print(f"New hosts added: {added}")
