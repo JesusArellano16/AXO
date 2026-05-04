@@ -105,7 +105,8 @@ class LauncherGUI(QWidget):
             "Reportes",
             "Add_Central",
             "Remove_Central",
-            "Compare"
+            "Compare",
+            "Nmap Processor"
         ])
         self.layout_main.addWidget(self.combo_actions)
         self.combo_actions.currentTextChanged.connect(self.action_selected)
@@ -190,12 +191,12 @@ class LauncherGUI(QWidget):
     # Selección de carpeta
     # --------------------------
     def select_folder(self):
-        folder = QFileDialog.getExistingDirectory(self, "Selecciona la carpeta DESARROLLO", "", QFileDialog.ShowDirsOnly)
+        folder = QFileDialog.getExistingDirectory(self, "Select folder DESARROLLO", "", QFileDialog.ShowDirsOnly)
         if folder:
             self.base_path = folder
             self.lbl_selected_path.setText(folder)
             self.lbl_selected_path.setStyleSheet("color: black;")
-            self.btn_select.setText("Cambiar carpeta…")
+            self.btn_select.setText("Change folder…")
             self.btn_select.setStyleSheet(self.select_button_after_style())
             self.setFixedSize(800, 650)
             self.center_window()
@@ -353,6 +354,36 @@ class LauncherGUI(QWidget):
                 combo_fecha1.currentText(),
                 combo_fecha2.currentText()
             ))
+        elif action_name == "Nmap Processor":
+            container = QWidget()
+            v_layout = QVBoxLayout()
+            v_layout.setAlignment(Qt.AlignTop)
+
+            lbl = QLabel("Process all NMAP (.txt) in NMAP_FILES")
+            lbl.setAlignment(Qt.AlignCenter)
+
+            btn_run_nmap = QPushButton("Process NMAP")
+            btn_run_nmap.setFixedHeight(45)
+            btn_run_nmap.setStyleSheet(self.run_button_style())
+
+            v_layout.addWidget(lbl)
+            v_layout.addWidget(btn_run_nmap)
+
+            container.setLayout(v_layout)
+            self.current_display_widget = container
+            self.layout_main.insertWidget(4, container)
+
+            btn_run_nmap.clicked.connect(self.run_nmap_processor)
+
+    def run_nmap_processor(self):
+        cmd = f'python3 "{self.base_path}/scripts/nmap_reader.py"'
+
+        osa_script = f'''tell application "Terminal"
+    activate
+    do script "{cmd.replace('"', '\\"')}"
+    end tell'''
+
+        subprocess.Popen(["osascript", "-e", osa_script])
 
     # --------------------------
     # Mostrar switches

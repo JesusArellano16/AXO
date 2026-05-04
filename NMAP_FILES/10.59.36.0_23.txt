@@ -1,0 +1,81 @@
+# Nmap 7.99 scan initiated Thu Apr 30 23:54:54 2026 as: nmap -sV -T4 -O -F -oN 10.59.36.0_23.txt -oX C:\\Users\\SVAXO01\\AppData\\Local\\Temp\\5\\zenmap-uodzc9rl.xml --fuzzy --osscan-guess -R 10.59.36.102 10.59.36.161-163 10.59.36.180-182 10.59.36.243 10.59.37.1-12 10.59.37.14-17 10.59.37.20 10.59.37.22 10.59.37.24-32 10.59.37.34-35 10.59.37.37-38 10.59.37.40 10.59.37.42 10.59.37.47-49 10.59.37.51-52 10.59.37.56 10.59.37.58 10.59.37.63-69 10.59.37.71-78 10.59.37.80-81 10.59.37.83 10.59.37.85-94 10.59.37.99-107 10.59.37.109 10.59.37.111-112 10.59.37.115 10.59.37.118-119 10.59.37.122 10.59.37.124 10.59.37.126-128 10.59.37.136-139 10.59.37.146 10.59.37.148 10.59.37.250
+Nmap scan report for 10.59.36.102
+Host is up (0.00012s latency).
+Not shown: 98 closed tcp ports (reset)
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 7.2 (protocol 2.0)
+111/tcp open  rpcbind 2-4 (RPC #100000)
+Device type: general purpose|storage-misc|media device|WAP
+Running (JUST GUESSING): Linux 2.6.X|3.X|5.X|4.X|2.4.X (96%), QNAP QTS 5.X (94%), Western Digital embedded (94%), Zgemma embedded (94%)
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32 cpe:/o:linux:linux_kernel:3.16 cpe:/o:qnap:qts:5.0 cpe:/o:linux:linux_kernel:5.10 cpe:/o:linux:linux_kernel:4.4 cpe:/o:linux:linux_kernel:4.14 cpe:/o:linux:linux_kernel:2.4 cpe:/o:linux:linux_kernel:2.6.22
+Aggressive OS guesses: Linux 2.6.32 (96%), Linux 3.16 (95%), Linux 3.18 (94%), QNAP QTS 5.0 (Linux 5.10) (94%), Western Digital My Cloud DL4100 NAS (Linux 3.10) (94%), Zgemma H9 TV receiver (Linux 4.4) (94%), Linux 4.14 (93%), OpenWrt 0.9 - 7.09 (Linux 2.4.30 - 2.4.34) (93%), OpenWrt White Russian 0.9 (Linux 2.4.30) (93%), OpenWrt Kamikaze 7.09 (Linux 2.6.22) (93%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=32829%PV=Y%DS=2%DC=I%G=Y%TM=69F4404
+OS:9%P=i686-pc-windows-windows)SEQ(SP=101%GCD=1%ISR=10C%TI=Z%CI=Z%II=I%TS=U
+OS:)SEQ(SP=103%GCD=1%ISR=10A%TI=Z%CI=Z%II=I%TS=U)SEQ(SP=105%GCD=1%ISR=10B%T
+OS:I=Z%CI=Z%II=I%TS=U)SEQ(SP=105%GCD=1%ISR=10E%TI=Z%CI=Z%II=I%TS=U)SEQ(SP=1
+OS:06%GCD=1%ISR=109%TI=Z%CI=Z%II=I%TS=U)OPS(O1=M5B4NNSNW9%O2=M5B4NNSNW9%O3=
+OS:M5B4NW9%O4=M5B4NNSNW9%O5=M5B4NNSNW9%O6=M5B4NNS)WIN(W1=7210%W2=7210%W3=72
+OS:10%W4=7210%W5=7210%W6=7210)ECN(R=Y%DF=Y%T=40%W=7210%O=M5B4NNSNW9%CC=Y%Q=
+OS:)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W
+OS:=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+OS:T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL=
+OS:164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 2 hops
+
+Nmap scan report for 10.59.36.243
+Host is up (0.00012s latency).
+Not shown: 97 closed tcp ports (reset)
+PORT     STATE SERVICE  VERSION
+111/tcp  open  rpcbind  2-4 (RPC #100000)
+8080/tcp open  http     OpenResty web app server
+8081/tcp open  ssl/http nginx
+Device type: general purpose|storage-misc|media device|WAP
+Running (JUST GUESSING): Linux 2.6.X|3.X|5.X|4.X|2.4.X (96%), QNAP QTS 5.X (94%), Western Digital embedded (94%), Zgemma embedded (94%)
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32 cpe:/o:linux:linux_kernel:3.16 cpe:/o:qnap:qts:5.0 cpe:/o:linux:linux_kernel:5.10 cpe:/o:linux:linux_kernel:4.4 cpe:/o:linux:linux_kernel:4.14 cpe:/o:linux:linux_kernel:2.4 cpe:/o:linux:linux_kernel:2.6.22
+Aggressive OS guesses: Linux 2.6.32 (96%), Linux 3.16 (95%), Linux 3.18 (94%), QNAP QTS 5.0 (Linux 5.10) (94%), Western Digital My Cloud DL4100 NAS (Linux 3.10) (94%), Zgemma H9 TV receiver (Linux 4.4) (94%), Linux 4.14 (93%), OpenWrt 0.9 - 7.09 (Linux 2.4.30 - 2.4.34) (93%), OpenWrt White Russian 0.9 (Linux 2.4.30) (93%), OpenWrt Kamikaze 7.09 (Linux 2.6.22) (93%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=111%CT=7%CU=37100%PV=Y%DS=2%DC=I%G=Y%TM=69F440
+OS:49%P=i686-pc-windows-windows)SEQ(SP=102%GCD=1%ISR=10B%TI=Z%CI=Z%II=I%TS=
+OS:U)SEQ(SP=103%GCD=1%ISR=109%TI=Z%CI=Z%II=I%TS=U)SEQ(SP=105%GCD=1%ISR=109%
+OS:TI=Z%CI=Z%II=I%TS=U)SEQ(SP=106%GCD=1%ISR=10D%TI=Z%CI=Z%II=I%TS=U)SEQ(SP=
+OS:107%GCD=1%ISR=10C%TI=Z%CI=Z%II=I%TS=U)OPS(O1=M5B4NNSNW9%O2=M5B4NNSNW9%O3
+OS:=M5B4NW9%O4=M5B4NNSNW9%O5=M5B4NNSNW9%O6=M5B4NNS)WIN(W1=7210%W2=7210%W3=7
+OS:210%W4=7210%W5=7210%W6=7210)ECN(R=Y%DF=Y%T=40%W=7210%O=M5B4NNSNW9%CC=Y%Q
+OS:=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%
+OS:W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=
+OS:)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL
+OS:=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 2 hops
+
+Nmap scan report for 10.59.37.250
+Host is up (0.00017s latency).
+Not shown: 99 closed tcp ports (reset)
+PORT    STATE SERVICE VERSION
+111/tcp open  rpcbind 2-4 (RPC #100000)
+Device type: general purpose|storage-misc|media device|WAP
+Running (JUST GUESSING): Linux 2.6.X|3.X|5.X|4.X|2.4.X (96%), QNAP QTS 5.X (94%), Western Digital embedded (94%), Zgemma embedded (94%)
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32 cpe:/o:linux:linux_kernel:3.16 cpe:/o:qnap:qts:5.0 cpe:/o:linux:linux_kernel:5.10 cpe:/o:linux:linux_kernel:4.4 cpe:/o:linux:linux_kernel:4.14 cpe:/o:linux:linux_kernel:2.4 cpe:/o:linux:linux_kernel:2.6.22
+Aggressive OS guesses: Linux 2.6.32 (96%), Linux 3.16 (95%), Linux 3.18 (94%), QNAP QTS 5.0 (Linux 5.10) (94%), Western Digital My Cloud DL4100 NAS (Linux 3.10) (94%), Zgemma H9 TV receiver (Linux 4.4) (94%), Linux 4.14 (93%), OpenWrt 0.9 - 7.09 (Linux 2.4.30 - 2.4.34) (93%), OpenWrt White Russian 0.9 (Linux 2.4.30) (93%), OpenWrt Kamikaze 7.09 (Linux 2.6.22) (93%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=111%CT=7%CU=43959%PV=Y%DS=2%DC=I%G=Y%TM=69F440
+OS:49%P=i686-pc-windows-windows)SEQ(SP=102%GCD=1%ISR=103%TI=Z%CI=Z%II=I%TS=
+OS:U)SEQ(SP=105%GCD=1%ISR=10D%TI=Z%CI=Z%II=I%TS=U)SEQ(SP=107%GCD=1%ISR=107%
+OS:TI=Z%CI=Z%II=I%TS=U)SEQ(SP=107%GCD=1%ISR=10B%TI=Z%CI=Z%II=I%TS=U)SEQ(SP=
+OS:108%GCD=1%ISR=10E%TI=Z%CI=Z%II=I%TS=U)OPS(O1=M5B4NNSNW9%O2=M5B4NNSNW9%O3
+OS:=M5B4NW9%O4=M5B4NNSNW9%O5=M5B4NNSNW9%O6=M5B4NNS)WIN(W1=7210%W2=7210%W3=7
+OS:210%W4=7210%W5=7210%W6=7210)ECN(R=Y%DF=Y%T=40%W=7210%O=M5B4NNSNW9%CC=Y%Q
+OS:=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%
+OS:W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=
+OS:)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL
+OS:=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 2 hops
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Apr 30 23:55:21 2026 -- 103 IP addresses (3 hosts up) scanned in 26.52 seconds

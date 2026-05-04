@@ -1,0 +1,2 @@
+# Nmap 7.99 scan initiated Thu Apr 30 23:52:02 2026 as: nmap -sV -T4 -O -F -oN 10.59.80.0_23.txt -oX C:\\Users\\SVAXO01\\AppData\\Local\\Temp\\5\\zenmap-vjcmm379.xml --fuzzy --osscan-guess -R 10.59.80.152-153 10.59.80.208-209 10.59.80.212-227
+# Nmap done at Thu Apr 30 23:52:12 2026 -- 20 IP addresses (0 hosts up) scanned in 10.16 seconds

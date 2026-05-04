@@ -1,0 +1,422 @@
+# Nmap 7.99 scan initiated Thu Apr 30 23:18:02 2026 as: nmap -sV -T4 -O -F -oN 10.59.2.0_23.txt -oX C:\\Users\\SVAXO01\\AppData\\Local\\Temp\\5\\zenmap-xpflzb3w.xml --fuzzy --osscan-guess -R 10.59.2.15 10.59.2.25-26 10.59.2.61-64 10.59.2.92-93 10.59.2.106 10.59.2.159-160 10.59.2.193 10.59.2.211 10.59.2.218-224 10.59.2.252-254
+Nmap scan report for MOPCRMBERS.telcel.net (10.59.2.15)
+Host is up (0.0013s latency).
+Not shown: 95 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+445/tcp  open  microsoft-ds?
+1433/tcp open  ms-sql-s      Microsoft SQL Server 2019 15.00.2000
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2019|10|11 (97%)
+OS CPE: cpe:/o:microsoft:windows_server_2019 cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_11
+Aggressive OS guesses: Microsoft Windows Server 2019 (97%), Microsoft Windows 10 1803 (91%), Microsoft Windows 10 1903 - 22H2 (91%), Microsoft Windows 10 22H2 (91%), Microsoft Windows 11 (88%)
+No exact OS matches for host (test conditions non-ideal).
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Nmap scan report for 10.59.2.25
+Host is up (0.0020s latency).
+Not shown: 97 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 8.0 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 4.12 (97%), Linux 3.12 (95%), Linux 4.1 (95%), Linux 2.6.36 - 2.6.39 (95%), Linux 3.1 - 3.2 (94%), HP P2000 G3 NAS device (93%), Linux 5.13 (93%), Linux 3.14 (92%), Linux 2.6.32 (92%), Linux 2.6.32 - 3.13 (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=30339%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=101%GCD=1%ISR=10E%TI=Z%CI=Z%II=I%TS=A
+OS:)SEQ(SP=104%GCD=1%ISR=108%TI=Z%CI=Z%II=I%TS=A)SEQ(SP=105%GCD=1%ISR=10B%T
+OS:I=Z%CI=Z%II=I%TS=A)SEQ(SP=106%GCD=1%ISR=107%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M
+OS:2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW7%O4=M2300ST11NW7%O5=M2300ST1
+OS:1NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68DC%W4=68DC%W5=68DC%W6=68DC)EC
+OS:N(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F
+OS:=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5
+OS:(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z
+OS:%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=
+OS:G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.26
+Host is up (0.0017s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 8.0 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+8080/tcp open  http-proxy HAProxy http proxy 2.0.0 or later
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 4.12 (97%), Linux 4.1 (95%), Linux 2.6.36 - 2.6.39 (95%), Linux 3.12 (95%), Linux 3.1 - 3.2 (94%), Linux 5.13 (94%), HP P2000 G3 NAS device (93%), Linux 3.14 (92%), Linux 3.16 (92%), Synology DiskStation Manager 6 (Linux 3.10) (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=36621%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=100%GCD=1%ISR=10E%TI=Z%CI=Z%II=I%TS=A
+OS:)SEQ(SP=104%GCD=1%ISR=108%TI=Z%CI=Z%TS=A)SEQ(SP=106%GCD=1%ISR=107%TI=Z%C
+OS:I=Z%II=I%TS=A)SEQ(SP=107%GCD=1%ISR=10B%TI=Z%CI=Z%TS=A)SEQ(SP=FF%GCD=1%IS
+OS:R=10E%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NN
+OS:T11NW7%O4=M2300ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%
+OS:W3=68DC%W4=68DC%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%C
+OS:C=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%
+OS:T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD
+OS:=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=4
+OS:0%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+Service Info: Device: load balancer
+
+Nmap scan report for 10.59.2.61
+Host is up (0.0016s latency).
+Not shown: 97 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (97%), Linux 4.12 (95%), Linux 3.14 (94%), Linux 3.16 (94%), Synology DiskStation Manager 6 (Linux 3.10) (94%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), QNAP QTS 5.0 (Linux 5.10) (93%), Linux 3.1 - 3.2 (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=42375%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=103%GCD=1%ISR=106%TI=Z%II=I%TS=A)SEQ(
+OS:SP=103%GCD=1%ISR=108%TI=Z%II=I%TS=A)SEQ(SP=103%GCD=1%ISR=10A%TI=Z%CI=I%I
+OS:I=I%TS=A)SEQ(SP=103%GCD=1%ISR=10B%TI=Z%CI=I%TS=A)SEQ(SP=105%GCD=1%ISR=10
+OS:9%TI=Z%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW7%O4=M230
+OS:0ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68DC%W4=68D
+OS:C%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q=)T1(R=Y%
+OS:DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A
+OS:=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%D
+OS:F=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL=164%UN=0
+OS:%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.62
+Host is up (0.0013s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (97%), Linux 4.12 (95%), Linux 3.14 (94%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), Synology DiskStation Manager 6 (Linux 3.10) (93%), Linux 3.16 (92%), Linux 3.1 - 3.2 (92%), Linux 3.10 (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=41823%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=103%GCD=1%ISR=106%TI=Z%TS=A)SEQ(SP=10
+OS:4%GCD=1%ISR=106%TI=Z%CI=I%II=I%TS=A)SEQ(SP=105%GCD=1%ISR=10A%TI=Z%II=I%T
+OS:S=A)SEQ(SP=105%GCD=1%ISR=10A%TI=Z%CI=I%TS=A)SEQ(SP=FE%GCD=1%ISR=104%TI=Z
+OS:%CI=I%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW7%O4=M2300
+OS:ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68DC%W4=68DC
+OS:%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q=)T1(R=Y%D
+OS:F=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=
+OS:Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF
+OS:=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL=164%UN=0%
+OS:RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.64
+Host is up (0.0014s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (97%), Linux 4.12 (95%), Linux 3.14 (94%), Synology DiskStation Manager 6 (Linux 3.10) (94%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), Linux 3.16 (93%), QNAP QTS 5.0 (Linux 5.10) (93%), Linux 3.1 - 3.2 (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=33236%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=104%GCD=1%ISR=10B%TI=Z%CI=I%II=I%TS=A
+OS:)SEQ(SP=104%GCD=1%ISR=10C%TI=Z%CI=I%II=I%TS=A)SEQ(SP=FC%GCD=1%ISR=104%TI
+OS:=Z%CI=I%TS=A)SEQ(SP=FE%GCD=1%ISR=108%TI=Z%TS=A)SEQ(SP=FE%GCD=1%ISR=10D%T
+OS:I=Z%II=I%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW7%O4=M2
+OS:300ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68DC%W4=6
+OS:8DC%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q=)T1(R=
+OS:Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A
+OS:%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y
+OS:%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL=164%UN
+OS:=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.92
+Host is up (0.0013s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (97%), Linux 4.12 (95%), Linux 3.14 (94%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), Linux 3.16 (93%), Synology DiskStation Manager 6 (Linux 3.10) (93%), Linux 3.1 - 3.2 (92%), Amazon Fire TV (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=38511%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=104%GCD=1%ISR=109%TI=Z%CI=I%TS=A)SEQ(
+OS:SP=106%GCD=1%ISR=105%TI=Z%CI=I%TS=A)SEQ(SP=106%GCD=1%ISR=10C%TI=Z%TS=A)S
+OS:EQ(SP=FD%GCD=1%ISR=10A%TI=Z%II=I%TS=A)SEQ(SP=FF%GCD=1%ISR=104%TI=Z%CI=I%
+OS:II=I%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW7%O4=M2300S
+OS:T11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68DC%W4=68DC%
+OS:W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q=)T1(R=Y%DF
+OS:=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z
+OS:%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=
+OS:Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL=164%UN=0%R
+OS:IPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.93
+Host is up (0.0012s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (97%), Linux 4.12 (95%), Linux 3.14 (94%), Linux 3.16 (94%), Linux 2.6.36 - 2.6.39 (93%), Synology DiskStation Manager 6 (Linux 3.10) (93%), Linux 4.14 (93%), Linux 3.1 - 3.2 (92%), Amazon Fire TV (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=39105%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=101%GCD=1%ISR=107%TI=Z%CI=I%II=I%TS=A
+OS:)SEQ(SP=102%GCD=1%ISR=109%TI=Z%CI=I%II=I%TS=A)SEQ(SP=104%GCD=1%ISR=109%T
+OS:I=Z%CI=I%II=I%TS=A)SEQ(SP=104%GCD=1%ISR=10B%TI=Z%CI=I%II=I%TS=A)SEQ(SP=1
+OS:05%GCD=1%ISR=10B%TI=Z%CI=I%II=I%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7
+OS:%O3=M2300NNT11NW7%O4=M2300ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68
+OS:DC%W2=68DC%W3=68DC%W4=68DC%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2
+OS:300NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T
+OS:4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+
+OS:%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R
+OS:=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N
+OS:%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.106
+Host is up (0.0049s latency).
+Not shown: 98 closed tcp ports (reset)
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 8.0 (protocol 2.0)
+111/tcp open  rpcbind 2-4 (RPC #100000)
+Device type: general purpose
+Running: Linux 5.X
+OS CPE: cpe:/o:linux:linux_kernel:5
+OS details: Linux 5.1 - 5.15
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.159
+Host is up (0.0015s latency).
+Not shown: 97 closed tcp ports (reset)
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.0 (protocol 2.0)
+111/tcp  open  rpcbind 2-4 (RPC #100000)
+2049/tcp open  nfs_acl 3 (RPC #100227)
+Device type: general purpose
+Running: Linux 5.X
+OS CPE: cpe:/o:linux:linux_kernel:5
+OS details: Linux 5.1 - 5.15
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.160
+Host is up (0.0015s latency).
+Not shown: 97 closed tcp ports (reset)
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.0 (protocol 2.0)
+111/tcp  open  rpcbind 2-4 (RPC #100000)
+2049/tcp open  nfs_acl 3 (RPC #100227)
+Device type: general purpose
+Running: Linux 5.X
+OS CPE: cpe:/o:linux:linux_kernel:5
+OS details: Linux 5.1 - 5.15
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.193
+Host is up (0.00077s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (97%), Linux 4.12 (95%), Linux 3.14 (94%), Linux 3.16 (94%), Linux 2.6.36 - 2.6.39 (93%), Synology DiskStation Manager 6 (Linux 3.10) (93%), Linux 4.14 (93%), Linux 3.1 - 3.2 (92%), Amazon Fire TV (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=33348%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=101%GCD=1%ISR=109%TI=Z%CI=I%II=I%TS=A
+OS:)SEQ(SP=105%GCD=1%ISR=10C%TI=Z%CI=I%TS=A)SEQ(SP=106%GCD=1%ISR=10A%TI=Z%T
+OS:S=A)SEQ(SP=FE%GCD=1%ISR=10B%TI=Z%CI=I%II=I%TS=A)SEQ(SP=FF%GCD=1%ISR=10B%
+OS:TI=Z%CI=I%II=I%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW7
+OS:%O4=M2300ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68D
+OS:C%W4=68DC%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q=
+OS:)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W
+OS:=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+OS:T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL=
+OS:164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.211
+Host is up (0.0013s latency).
+Not shown: 98 closed tcp ports (reset)
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 8.0 (protocol 2.0)
+111/tcp open  rpcbind 2-4 (RPC #100000)
+Device type: general purpose
+Running: Linux 5.X
+OS CPE: cpe:/o:linux:linux_kernel:5
+OS details: Linux 5.1 - 5.15
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.218
+Host is up (0.00072s latency).
+Not shown: 97 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (96%), Linux 4.12 (95%), Linux 3.14 (94%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), Linux 3.16 (93%), Synology DiskStation Manager 6 (Linux 3.10) (93%), Linux 3.1 - 3.2 (92%), Amazon Fire TV (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=30700%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=101%GCD=1%ISR=10A%TI=Z%II=I%TS=A)SEQ(
+OS:SP=105%GCD=1%ISR=106%TI=Z%CI=I%II=I%TS=A)SEQ(SP=105%GCD=1%ISR=109%TI=Z%C
+OS:I=I%II=I%TS=A)SEQ(SP=106%GCD=1%ISR=10C%TI=Z%CI=I%II=I%TS=A)SEQ(SP=FC%GCD
+OS:=1%ISR=10C%TI=Z%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW
+OS:7%O4=M2300ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68
+OS:DC%W4=68DC%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q
+OS:=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%
+OS:W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=
+OS:)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL
+OS:=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.219
+Host is up (0.00065s latency).
+Not shown: 97 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (97%), Linux 4.12 (95%), Linux 3.14 (94%), Synology DiskStation Manager 6 (Linux 3.10) (94%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), Linux 3.16 (93%), QNAP QTS 5.0 (Linux 5.10) (93%), Linux 3.1 - 3.2 (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=41480%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=102%GCD=1%ISR=108%TI=Z%CI=I%TS=A)SEQ(
+OS:SP=104%GCD=1%ISR=10A%TI=Z%CI=I%II=I%TS=A)SEQ(SP=106%GCD=1%ISR=109%TI=Z%T
+OS:S=A)SEQ(SP=F4%GCD=1%ISR=10D%TI=Z%CI=I%II=I%TS=A)SEQ(SP=FB%GCD=1%ISR=105%
+OS:TI=Z%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW7%O4=M2300S
+OS:T11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68DC%W4=68DC%
+OS:W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q=)T1(R=Y%DF
+OS:=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z
+OS:%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=
+OS:Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL=164%UN=0%R
+OS:IPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.220
+Host is up (0.00061s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (97%), Linux 4.12 (95%), Linux 3.14 (94%), Synology DiskStation Manager 6 (Linux 3.10) (94%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), Linux 3.16 (93%), QNAP QTS 5.0 (Linux 5.10) (93%), Linux 3.1 - 3.2 (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=38353%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=104%GCD=1%ISR=109%TI=Z%CI=I%II=I%TS=A
+OS:)SEQ(SP=104%GCD=1%ISR=10A%TI=Z%CI=I%II=I%TS=A)SEQ(SP=106%GCD=1%ISR=105%T
+OS:I=Z%CI=I%II=I%TS=A)SEQ(SP=108%GCD=1%ISR=109%TI=Z%CI=I%II=I%TS=A)SEQ(SP=F
+OS:F%GCD=1%ISR=10A%TI=Z%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NN
+OS:T11NW7%O4=M2300ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%
+OS:W3=68DC%W4=68DC%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%C
+OS:C=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%
+OS:T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD
+OS:=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=4
+OS:0%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.223
+Host is up (0.00034s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (96%), Linux 4.12 (95%), Linux 3.14 (94%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), Linux 3.16 (93%), Synology DiskStation Manager 6 (Linux 3.10) (93%), Linux 3.1 - 3.2 (92%), Amazon Fire TV (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=32387%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=105%GCD=1%ISR=108%TI=Z%CI=I%II=I%TS=A
+OS:)SEQ(SP=105%GCD=1%ISR=10B%TI=Z%II=I%TS=A)SEQ(SP=105%GCD=1%ISR=10C%TI=Z%C
+OS:I=I%II=I%TS=A)SEQ(SP=106%GCD=2%ISR=109%TI=Z%CI=I%TS=A)SEQ(SP=FC%GCD=1%IS
+OS:R=10E%TI=Z%CI=I%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M2300NNT11NW
+OS:7%O4=M2300ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2=68DC%W3=68
+OS:DC%W4=68DC%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NNSNW7%CC=Y%Q
+OS:=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%
+OS:W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=
+OS:)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF=N%T=40%IPL
+OS:=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.224
+Host is up (0.00046s latency).
+Not shown: 96 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 6.6.1 (protocol 2.0)
+111/tcp  open  rpcbind    2-4 (RPC #100000)
+5666/tcp open  tcpwrapped
+9100/tcp open  jetdirect?
+Aggressive OS guesses: Linux 3.12 (97%), Linux 4.1 (96%), Linux 4.12 (95%), Linux 4.14 (93%), Linux 2.6.36 - 2.6.39 (93%), Linux 3.14 (93%), Linux 3.16 (93%), Linux 3.1 - 3.2 (92%), Synology DiskStation Manager 6 (Linux 3.10) (92%), Amazon Fire TV (92%)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.99%E=4%D=4/30%OT=22%CT=7%CU=30343%PV=Y%DS=3%DC=I%G=Y%TM=69F4380
+OS:3%P=i686-pc-windows-windows)SEQ(SP=103%GCD=1%ISR=108%TI=Z%CI=I%II=I%TS=A
+OS:)SEQ(SP=106%GCD=1%ISR=107%TI=Z%CI=I%II=I%TS=A)SEQ(SP=106%GCD=2%ISR=109%T
+OS:I=Z%CI=I%TS=A)SEQ(SP=107%GCD=1%ISR=107%TI=Z%CI=I%II=I%TS=A)SEQ(SP=107%GC
+OS:D=1%ISR=108%TI=Z%CI=I%II=I%TS=A)OPS(O1=M2300ST11NW7%O2=M2300ST11NW7%O3=M
+OS:2300NNT11NW7%O4=M2300ST11NW7%O5=M2300ST11NW7%O6=M2300ST11)WIN(W1=68DC%W2
+OS:=68DC%W3=68DC%W4=68DC%W5=68DC%W6=68DC)ECN(R=Y%DF=Y%T=40%W=6900%O=M2300NN
+OS:SNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y
+OS:%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR
+OS:%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=N)U1(R=Y%DF
+OS:=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40
+OS:%CD=S)
+
+Network Distance: 3 hops
+
+Nmap scan report for 10.59.2.254
+Host is up (0.00076s latency).
+Not shown: 87 filtered tcp ports (no-response)
+PORT      STATE  SERVICE          VERSION
+7/tcp     closed echo
+21/tcp    closed ftp
+22/tcp    open   ssh              OpenSSH 7.5 (protocol 2.0)
+23/tcp    closed telnet
+80/tcp    open   http             Apache httpd
+111/tcp   open   rpcbind          2-4 (RPC #100000)
+139/tcp   closed netbios-ssn
+389/tcp   closed ldap
+443/tcp   open   ssl/https        Apache
+445/tcp   open   microsoft-ds     (workgroup:)
+2049/tcp  open   nfs              3-4 (RPC #100003)
+8009/tcp  open   ajp13            Apache Jserv (Protocol v1.3)
+10000/tcp closed snet-sensor-mgmt
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port445-TCP:V=7.99%I=7%D=4/30%Time=69F43799%P=i686-pc-windows-windows%r
+SF:(SMBProgNeg,81,"\0\0\0}\xffSMBr\0\0\0\0\x98\x02\xc0\0\0\0\0\0\0\0\0\0\0
+SF:\0\0\0\0@\x06\0\0\x01\0\x11\x07\0\x032\0\x01\0\0@\0\0\0\0\x01\0\0\0\0\0
+SF:\xfc\xe2\0\0\0\x02\xcb\xe7\)\xd9\xdc\x01,\x01\x088\0W\x1b\x10\xd7\x8d\x
+SF:0f\xa1\x87\0\0I\0T\0H\0M\0S\0O\0R\0-\0D\0D\0\.\0l\0o\0c\0a\0l\0d\0o\0m\
+SF:0a\0i\0n\0\0\0");
+Aggressive OS guesses: Linux 3.1 - 3.2 (94%), Netgear RAIDiator 4.2.21 (Linux 2.6.37) (92%), Linux 2.6.32 - 3.2 (91%), Linux 2.6.36 - 2.6.39 (91%), HP P2000 G3 NAS device (89%), Linux 2.6.32 (88%), Linux 2.6.32 - 3.13 (88%), Linux 5.0 (88%), Linux 5.0 - 5.14 (88%), Linux 5.1 - 5.15 (88%)
+No exact OS matches for host (test conditions non-ideal).
+Service Info: Host: ITHMSOR-DD.localdomain
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Apr 30 23:20:03 2026 -- 24 IP addresses (19 hosts up) scanned in 121.12 seconds
