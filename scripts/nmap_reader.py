@@ -7,15 +7,63 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NMAP_DIR = os.path.join(BASE_DIR, "NMAP_FILES")
 OUTPUT_FILE = os.path.join(NMAP_DIR, "NMAP_RESULTS.csv")
 
+def normalize_ip(ip):
+    return ip.strip().lower()
+
+DB_FILE = os.path.join(NMAP_DIR, "db_nmap.csv")
+
+def load_db():
+    db = {}
+
+    if not os.path.isfile(DB_FILE):
+        print(f"DB file not found: {DB_FILE}")
+        return db
+
+    with open(DB_FILE, "r", encoding="utf-8-sig") as csvfile:  # 👈 clave
+        reader = csv.DictReader(csvfile)
+
+        headers = [h.strip() for h in reader.fieldnames]
+
+        ip_col = None
+        host_col = None
+        mac_col = None
+
+        for h in headers:
+            h_clean = h.lower().replace(" ", "")
+
+            if "ip" in h_clean:
+                ip_col = h
+            elif "hostname" in h_clean:
+                host_col = h
+            elif "mac" in h_clean:
+                mac_col = h
+
+        for row in reader:
+            row = {k.strip(): v for k, v in row.items()}
+
+            raw_ip = row.get(ip_col, "")
+            ip = normalize_ip(raw_ip)
+
+            if not ip:
+                continue
+
+            hostname = row.get(host_col)
+            mac = row.get(mac_col)
+
+            db[ip] = {
+                "hostname": hostname.strip() if hostname else "",
+                "mac": mac.strip() if mac else "",
+                "serial": ""
+            }
+
+    return db
 
 def clean_os(os_string):
     if not os_string:
         return ""
 
-    # Quitar porcentaje (ej: (97%))
     os_string = re.sub(r"\(\d+%.*?\)", "", os_string).strip()
 
-    # Manejar rangos tipo "Linux 3.1 - 3.2"
     if "-" in os_string:
         parts = os_string.split("-")
         last_part = parts[-1].strip()
@@ -38,7 +86,6 @@ def parse_nmap(file_path):
     for block in blocks[1:]:
         lines = block.splitlines()
 
-        # --- IP y hostname ---
         first_line = lines[0]
 
         hostname = ""
@@ -51,7 +98,6 @@ def parse_nmap(file_path):
         else:
             ip = first_line.strip()
 
-        # --- OS ---
         os_detected = ""
 
         for line in lines:
@@ -77,7 +123,6 @@ def parse_nmap(file_path):
 
 
 def get_existing_ips():
-    """Leer IPs ya existentes en el CSV"""
     existing_ips = set()
 
     if not os.path.isfile(OUTPUT_FILE):
@@ -86,7 +131,7 @@ def get_existing_ips():
     with open(OUTPUT_FILE, "r", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            existing_ips.add(row["ip"])
+            existing_ips.add(normalize_ip(row["ip"]))
 
     return existing_ips
 
@@ -95,27 +140,38 @@ def save_to_csv(hosts):
     existing_ips = get_existing_ips()
     file_exists = os.path.isfile(OUTPUT_FILE)
 
-    new_count = 0
+    db = load_db()
 
+    new_count = 0
     with open(OUTPUT_FILE, "a", newline="", encoding="utf-8") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=["ip", "hostname", "os"])
+        fieldnames = ["id", "ip", "hostname", "mac", "serial", "os"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         if not file_exists:
             writer.writeheader()
 
         for host in hosts:
-            ip = host["ip"]
-
-            # 🔹 NO duplicar
+            ip = normalize_ip(host["ip"])
             if ip in existing_ips:
                 continue
 
-            writer.writerow(host)
+            db_data = db.get(ip)
+
+            row = {
+                "id": "",  
+                "ip": ip,
+                "hostname": (db_data.get("hostname") if db_data else "") or host.get("hostname"),
+                "mac": db_data.get("mac") if db_data else "",
+                "serial": db_data.get("serial") if db_data else "",
+                "os": host.get("os", "")
+            }
+
+            writer.writerow(row)
+
             existing_ips.add(ip)
             new_count += 1
 
     return new_count
-
 
 if __name__ == "__main__":
 
@@ -133,12 +189,10 @@ if __name__ == "__main__":
 
     for file in txt_files:
         full_path = os.path.join(NMAP_DIR, file)
-        #print(f"Procesando: {file}")
 
         hosts = parse_nmap(full_path)
         all_hosts.extend(hosts)
 
     added = save_to_csv(all_hosts)
 
-    #print(f"\nArchivos procesados: {len(txt_files)}")
     print(f"New hosts added: {added}")
