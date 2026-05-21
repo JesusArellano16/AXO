@@ -162,7 +162,14 @@ def pcs_Inv(central,file, sheet):
             f'IF(OR({conditions}), "Cortex not supported", "NA"))'
         )
         if file == 'SERVERS':
-            ws_rep[f'J{row+4}'].value = formula
+            if central == "IXTLA":
+                comment = ws[f'I{row}'].value
+                if comment not in (None, ""):
+                    ws_rep[f'J{row+4}'].value = comment
+                else:
+                    ws_rep[f'J{row+4}'].value = formula
+            else:
+                ws_rep[f'J{row+4}'].value = formula
 
         aux = True
     temp_path = des_path_rep.replace(".xlsx", "_temp.xlsx")

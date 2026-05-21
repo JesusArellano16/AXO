@@ -96,6 +96,10 @@ def axonius_retreive_data(
     if use_api:
         client = axonapi.Connect(**connect_args)
         devices = client.devices.get_by_saved_query(saved_query_name)
+
+        #if saved_query_name == "SERVERS IN IXTLAHUACA":
+        #    with open(f'{base_path}/SERVERS_IN_IXTLAHUACA_RAW.json', "w", encoding="utf-8") as f:
+        #        json.dump(devices, f, indent=4, ensure_ascii=False)
     else:
         devices = load_devices_from_json(saved_query_name, central)
 
@@ -122,6 +126,9 @@ def axonius_retreive_data(
             "specific_data.data.os.type_distribution_preferred"
         ]
 
+        if saved_query_name == "SERVERS IN IXTLAHUACA":
+            fields.append("specific_data.connection_label")
+
     for device in devices:
         d = {}
         for f in fields:
@@ -131,12 +138,41 @@ def axonius_retreive_data(
         if saved_query_name_clean != "NET_DEV":
             d["CORTEX"] = "SI" if "paloalto_xdr_adapter" in d.get("adapters", []) else "NO"
             d["VIRTUAL PATCHING"] = "SI" if "deep_security_adapter" in d.get("adapters", []) else "NO"
+        
+        if saved_query_name == "SERVERS IN IXTLAHUACA":
+            adapters = device.get("adapters", [])
+            connection_labels = device.get("specific_data.connection_label", [])
+
+            allowed_adapters = {
+                "csv_adapter",
+                "cisco_apic_adapter"
+            }
+
+            unique_adapters = set(adapters)
+
+            only_expected = (
+                unique_adapters.issubset(allowed_adapters)
+                and "csv_adapter" in unique_adapters
+            )
+
+            has_nmap = any(
+                "NMAP" in str(label).upper()
+                for label in connection_labels
+            )
+
+            if only_expected and has_nmap:
+                d["COMMENTS"] = "Discovered via NMAP"
+            else:
+                d["COMMENTS"] = ""
 
         clean_devices.append(d)
 
     # --------------------------------------------------
     # EXCEL
     # --------------------------------------------------
+    for d in clean_devices:
+        if "COMMENTS" not in d:
+            d["COMMENTS"] = ""
     df = pd.DataFrame(clean_devices)
 
     headers = {
@@ -145,10 +181,20 @@ def axonius_retreive_data(
         "specific_data.data.network_interfaces.ips_preferred": "IPs",
         "specific_data.data.network_interfaces.mac_preferred": "MAC",
         "specific_data.data.os.type_distribution_preferred": "OS",
-        "specific_data.data.network_interfaces.manufacturer": "Manufacturer"
+        "specific_data.data.network_interfaces.manufacturer": "Manufacturer",
+        "specific_data.connection_label": "Connection Label"
     }
 
     df.rename(columns=headers, inplace=True)
+
+    if saved_query_name == "SERVERS IN IXTLAHUACA":
+        cols = list(df.columns)
+
+        if "COMMENTS" in cols:
+            cols.remove("COMMENTS")
+            cols.append("COMMENTS")
+
+        df = df[cols]
 
     final_name = f'{saved_query_name_clean}_{central}_{current_date_and_time}.xlsx'
     final_path = f'{base_path}/{final_name}'
@@ -161,6 +207,16 @@ def axonius_retreive_data(
     ws = wb.active
     ws.title = saved_query_name_clean
     ws.auto_filter.ref = ws.dimensions
+    # Mover columna F a I y la I original a F
+    if saved_query_name == "SERVERS IN IXTLAHUACA":
+        for row in range(1, ws.max_row + 1):
+            temp = ws[f'J{row}'].value
+
+            ws[f'J{row}'] = ws[f'F{row}'].value
+            ws[f'F{row}'] = ws[f'G{row}'].value
+            ws[f'G{row}'] = ws[f'H{row}'].value
+            ws[f'H{row}'] = ws[f'J{row}'].value
+            ws[f'J{row}'] = temp
 
     for col in ws.columns:
         ws.column_dimensions[col[0].column_letter].width = 30

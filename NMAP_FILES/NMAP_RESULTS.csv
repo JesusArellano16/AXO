@@ -1,0 +1,121 @@
+id,ip,hostname,mac,serial,os
+,10.59.2.15,MOPCRMBERS.telcel.net,AC:F9:70:8A:FB:F8,,Microsoft Windows Server 2019
+,10.59.2.25,,AC:F9:70:A9:BE:3D,,Linux 4.12
+,10.59.2.26,,50:6F:77:E5:9E:28,,Linux 4.12
+,10.59.2.61,,50:6F:77:53:C3:9F,,Linux 3.12
+,10.59.2.62,,50:6F:77:53:BC:AD,,Linux 3.12
+,10.59.2.64,,50:6F:77:E5:9C:29,,Linux 3.12
+,10.59.2.92,,50:6F:77:53:C0:65,,Linux 3.12
+,10.59.2.93,,0C:41:E9:54:7B:3E,,Linux 3.12
+,10.59.2.106,,50:6F:77:42:5F:55,,Linux 5.X
+,10.59.2.159,,1C:43:63:E5:4E:97,,Linux 5.X
+,10.59.2.160,,48:DC:2D:0E:D1:F1,,Linux 5.X
+,10.59.2.193,,50:6F:77:53:BC:75,,Linux 3.12
+,10.59.2.211,,48:8E:EF:78:79:4C,,Linux 5.X
+,10.59.2.218,,50:6F:77:42:5E:2F,,Linux 3.12
+,10.59.2.219,,50:6F:77:E9:6A:5A,,Linux 3.12
+,10.59.2.220,,50:6F:77:53:B8:CB,,Linux 3.12
+,10.59.2.223,,50:6F:77:53:BC:83,,Linux 3.12
+,10.59.2.224,,50:6F:77:42:5D:2C,,Linux 3.12
+,10.59.2.254,,00:0C:29:DA:32:8B,,Linux 3.2
+,10.59.36.102,ITHFHWCBSPSWR04,CC:B1:82:2A:20:46,,Linux 2.6.32
+,10.59.36.243,,,,Linux 2.6.32
+,10.59.37.250,,,,Linux 2.6.32
+,10.152.4.4,,,,Linux 4.14
+,10.152.4.5,,,,Linux 4.14
+,10.152.4.6,,,,Linux 4.14
+,10.152.4.7,,,,Linux 4.14
+,10.152.4.8,,,,Linux 4.14
+,10.152.4.9,,,,Linux 4.14
+,10.152.4.10,ITHFHWCRMPSBDA04,44:22:7C:29:E2:6D,,Linux 4.14
+,10.152.4.11,ITHFHWCRMPSBDP04,44:22:7C:29:E2:5F,,Linux 4.14
+,10.152.4.18,ITHFHWCRMPSBDA08,44:22:7C:29:E3:D2,,Linux 4.14
+,10.152.4.19,ITHFHWCRMPSBDP08,CC:B1:82:2A:1E:A9,,Linux 4.14
+,10.152.4.20,ITHFHWCRMPSBDA09,CC:B1:82:2A:20:5B,,Linux 4.14
+,10.152.4.21,ITHFHWCRMPSBDP09,CC:B1:82:2A:20:A8,,Linux 4.14
+,10.152.4.111,,FA:16:3E:6F:F2:E8,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.112,,FA:16:3E:7F:5D:26,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.113,,FA:16:3E:56:81:66,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.114,,FA:16:3E:8E:C0:0A,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.115,,FA:16:3E:04:94:A9,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.116,,FA:16:3E:7E:3E:5C,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.117,,FA:16:3E:18:E3:5D,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.118,,FA:16:3E:DB:4A:FF,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.119,,FA:16:3E:4A:95:CF,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.120,,FA:16:3E:36:BD:F7,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.121,,FA:16:3E:14:1E:53,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.122,,FA:16:3E:1E:EC:B7,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.123,,FA:16:3E:B4:33:7B,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.124,,FA:16:3E:53:1E:0A,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.125,,FA:16:3E:71:29:2C,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.137,,FA:16:3E:8A:14:E0,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.142,,FA:16:3E:79:4D:60,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.143,,FA:16:3E:40:87:27,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.144,,FA:16:3E:63:1C:FC,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.145,,FA:16:3E:9D:17:81,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.146,,FA:16:3E:B7:F6:92,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.147,,FA:16:3E:4C:EE:F8,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.148,,FA:16:3E:F6:1B:01,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.149,,FA:16:3E:B7:2D:57,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.150,,FA:16:3E:66:9C:44,,Linux 3.18
+,10.152.4.151,,FA:16:3E:F1:77:F1,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.152,,FA:16:3E:EC:A8:C8,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.153,,FA:16:3E:3E:99:A3,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.154,,FA:16:3E:09:95:49,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.155,,FA:16:3E:F1:25:C9,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.156,,FA:16:3E:B1:9A:3A,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.157,,FA:16:3E:D9:3B:92,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.158,,FA:16:3E:C6:3D:BF,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.165,,FA:16:3E:68:D6:DB,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.166,,FA:16:3E:21:3E:3A,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.167,,FA:16:3E:9B:D8:98,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.168,,FA:16:3E:C1:FD:56,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.171,,FA:16:3E:E4:5A:5A,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.172,,FA:16:3E:9F:64:16,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.173,,FA:16:3E:2A:BC:41,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.174,,FA:16:3E:40:86:43,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.175,,FA:16:3E:52:9E:16,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
+,10.152.4.176,,FA:16:3E:46:21:0D,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.177,,FA:16:3E:26:9D:FF,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.178,,FA:16:3E:99:8B:E1,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.179,,FA:16:3E:2A:19:C1,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.180,,FA:16:3E:1E:89:AE,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.181,,FA:16:3E:0A:D7:96,,Zgemma H9 TV receiver (Linux 4.4)
+,10.152.4.182,,FA:16:3E:21:D6:00,,Linux 2.6.32
+,10.152.4.183,,FA:16:3E:62:9D:F1,,Linux 2.6.32
+,10.152.4.184,,FA:16:3E:B5:08:75,,Linux 2.6.32
+,10.152.4.185,,FA:16:3E:DB:10:EC,,Linux 2.6.32
+,10.152.4.186,,FA:16:3E:1B:30:F7,,Linux 2.6.32
+,10.152.4.187,,FA:16:3E:5E:FB:5B,,Linux 2.6.32
+,10.152.4.188,,FA:16:3E:8B:A8:22,,Linux 2.6.32
+,10.152.4.189,,FA:16:3E:3D:D0:6A,,Linux 2.6.32
+,10.152.4.190,,FA:16:3E:1C:EE:93,,Linux 2.6.32
+,10.152.4.191,,FA:16:3E:57:D6:B1,,Linux 2.6.32
+,10.152.4.192,,FA:16:3E:D3:31:4C,,Linux 2.6.32
+,10.152.4.193,,FA:16:3E:0C:69:5A,,Linux 2.6.32
+,10.152.4.194,,FA:16:3E:C0:04:73,,Linux 2.6.32
+,10.152.4.195,,FA:16:3E:EE:0C:0F,,Linux 2.6.32
+,10.152.4.196,,FA:16:3E:F8:B9:D3,,Linux 2.6.32
+,10.152.4.198,,FA:16:3E:94:68:64,,Linux 2.6.32
+,10.152.4.199,,FA:16:3E:7E:9C:7D,,Linux 2.6.32
+,10.152.4.200,,FA:16:3E:65:C1:62,,Linux 2.6.32
+,10.152.4.201,,FA:16:3E:44:2F:BC,,Linux 2.6.32
+,10.152.4.221,,44:22:7C:29:E3:E0,,Linux 4.14
+,10.152.4.222,ITHFHWCRMPSBDP01,44:22:7C:29:E3:B6,,Linux 4.14
+,10.152.4.223,,,,Linux 4.14
+,10.152.4.224,ITHFHWCRMPSBDA02,44:22:7C:29:E1:9B,,Linux 4.14
+,10.152.4.225,ITHFHWCRMPSBDP02,44:22:7C:29:E3:CB,,Linux 4.14
+,10.152.4.226,,,,Linux 4.14
+,10.152.4.227,ITHFHWCRMPSBDA03,44:22:7C:29:E1:FD,,Linux 4.14
+,10.152.4.228,ITHFHWCRMPSBDP03,CC:B1:82:2A:1E:A2,,Linux 4.14
+,10.152.4.229,,,,Linux 4.14
+,10.152.4.230,,,,Linux 4.14
+,10.152.4.231,,,,Linux 4.14
+,10.152.4.232,,,,Linux 4.14
+,10.152.4.242,,,,Linux 4.14
+,10.152.4.243,,,,Linux 4.14
+,10.152.4.244,,,,Linux 4.14
+,10.152.4.245,,,,Linux 4.14
+,10.152.4.246,,,,Linux 4.14
+,10.152.4.247,,,,Linux 4.14
+,10.152.5.116,,FA:16:3E:92:D8:F5,,OpenWrt Kamikaze 7.09 (Linux 2.6.22)
