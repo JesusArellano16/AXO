@@ -125,8 +125,9 @@ if __name__ == '__main__':
         
         else:
             #get_severities("HIGH",central=central.nombre, f_central=central.fullName)
-            run_all_queries_for_central(central)
-
+            ############ ELIMINAREMOS ESTO PARA PRUEBA
+            ##run_all_queries_for_central(central)
+############
             run_reporte(central)
 
 

@@ -154,7 +154,38 @@ def pcs_Inv(central,file, sheet):
         ws_rep[f'D{row+4}'].value = ws[f'D{row}'].value
         ws_rep[f'E{row+4}'].value = ws[f'E{row}'].value
         ws_rep[f'F{row+4}'].value = ws[f'F{row}'].value
+
+        # =====================================================
+        # PCs
+        # SOLO PARA IXTLA:
+        # mover COMMENTS a columna H
+        # =====================================================
+
         ws_rep[f'G{row+4}'].value = ws[f'G{row}'].value
+
+        if file == 'PCs' and central == "IXTLA":
+
+            # Vaciar columna G
+            ws_rep[f'G{row+4}'].value = ""
+
+            # Copiar SIEMPRE formato G -> H
+            source_cell = ws_rep[f'G{row+4}']
+            target_cell = ws_rep[f'H{row+4}']
+
+            target_cell.font = copy(source_cell.font)
+            target_cell.fill = copy(source_cell.fill)
+            target_cell.border = copy(source_cell.border)
+            target_cell.alignment = copy(source_cell.alignment)
+            target_cell.number_format = copy(source_cell.number_format)
+
+            # Width columna H
+            ws_rep.column_dimensions['H'].width = 20
+            # Copiar comentario
+            comment = ws[f'I{row}'].value
+
+            if comment not in (None, ""):
+                ws_rep[f'H{row+4}'].value = comment
+
         conditions = ', '.join([f'E{row+4}="{os}"' for os in unsupported_oses])
         #formula = f'=IF(OR({conditions}), "Cortex not supported", "NA")'
         formula = (
@@ -162,12 +193,36 @@ def pcs_Inv(central,file, sheet):
             f'IF(OR({conditions}), "Cortex not supported", "NA"))'
         )
         if file == 'SERVERS':
+
+            # SOLO IXTLA
             if central == "IXTLA":
+
                 comment = ws[f'I{row}'].value
+
                 if comment not in (None, ""):
-                    ws_rep[f'J{row+4}'].value = comment
+
+                    # Obtener resultado esperado de la fórmula
+                    if ws[f'F{row}'].value == "SI":
+                        formula_result = "NA"
+
+                    elif ws[f'E{row}'].value in unsupported_oses:
+                        formula_result = "Cortex not supported"
+
+                    else:
+                        formula_result = "NA"
+
+                    # Si el resultado es NA, no agregarlo
+                    if formula_result == "NA":
+                        ws_rep[f'J{row+4}'].value = "DISCOVERED VIA NMAP"
+                    else:
+                        ws_rep[f'J{row+4}'].value = (
+                            f'DISCOVERED VIA NMAP | {formula_result}'
+                        )
+
                 else:
                     ws_rep[f'J{row+4}'].value = formula
+
+            # RESTO DE CENTRALES
             else:
                 ws_rep[f'J{row+4}'].value = formula
 
@@ -316,9 +371,39 @@ def Report(central2):
     # Recorrer filas y columnas
     for row in ws_aux.iter_rows(min_row=1):
         for cell in row:
-            # Ajustar fila de destino para que empiece también desde la fila 2
-            target_row = cell.row + 3 # ya empieza desde 2, no hay que ajustar nada más
-            ws.cell(row=target_row, column=cell.column, value=cell.value)
+
+            target_row = cell.row + 3
+
+            # ============================================
+            # SOLO IXTLA:
+            # mover COMMENTS a columna G
+            # ============================================
+
+            if central == "IXTLA":
+
+                # Saltar Connection Label original
+                if cell.column == 7:
+                    continue
+
+                # COMMENTS -> columna G
+                if cell.column == 8:
+
+                    target_cell = ws.cell(row=target_row, column=7, value=cell.value)
+
+                    # Copiar formato F -> G
+                    source_cell = ws.cell(row=target_row, column=6)
+
+                    target_cell.font = copy(source_cell.font)
+                    target_cell.fill = copy(source_cell.fill)
+                    target_cell.border = copy(source_cell.border)
+                    target_cell.alignment = copy(source_cell.alignment)
+                    target_cell.number_format = copy(source_cell.number_format)
+
+                else:
+                    ws.cell(row=target_row, column=cell.column, value=cell.value)
+
+            else:
+                ws.cell(row=target_row, column=cell.column, value=cell.value)
 
     # Determinar la última fila pegada
     last_row_written = ws_aux.max_row + 3  # porque comenzamos desde fila 1 y pegamos desde fila 2
@@ -327,10 +412,30 @@ def Report(central2):
     copy_style_from_row(ws, source_row=5, start_row=4, end_row=last_row_written)
     for col in ['A', 'B', 'C', 'D', 'E', 'F']:
         ws[f"{col}4"].font = openpyxl.styles.Font(bold=True)
-    fil = "A4:F4"
+    # SOLO IXTLA incluye columna G en filtro
+    if central == "IXTLA":
+        fil = "A4:G4"
+    else:
+        fil = "A4:F4"
+
     ws.auto_filter.ref = fil
     
     ws['A3'].value = f"Network Devices {full_Name} - Inventario "
+    if central == "IXTLA":
+        # Deshacer merge anterior A3:F3
+        try:
+            ws.unmerge_cells('A3:F3')
+        except:
+            pass
+
+        # Nuevo merge A3:G3
+        ws.merge_cells('A3:G3')
+    else:
+        # Limpiar columna G completa
+        for row in range(4, ws.max_row + 1):
+            ws[f'G{row}'].value = None
+
+
 
     # Ajustar anchos de columna (opcional)
     for col in ws_aux.columns:
@@ -340,8 +445,45 @@ def Report(central2):
 
     ws = wb[f'Resumen']
     ws['A2'].value = f'Inventario {full_Name} - Resumen'
+    ws.column_dimensions['E'].width = 20
     ws = wb[f'Inventario - PC']
+
+    # SOLO IXTLA
+    # Expandir merge A3:G3 -> A3:H3
+    if central == "IXTLA":
+
+        try:
+            ws.unmerge_cells('A3:G3')
+        except:
+            pass
+
+        ws.merge_cells('A3:H3')
+
     ws['A3'].value = f'PCs {full_Name} - Inventario'
+
+    if central == "IXTLA":
+
+        # Merge H4:H5
+        ws.merge_cells('H4:H5')
+
+        # Título
+        ws['H4'] = 'COMMENTS'
+
+        # Copiar formato desde G4
+        source_cell = ws['G4']
+        target_cell = ws['H4']
+
+        target_cell.font = copy(source_cell.font)
+        target_cell.fill = copy(source_cell.fill)
+        target_cell.border = copy(source_cell.border)
+        target_cell.alignment = copy(source_cell.alignment)
+        target_cell.number_format = copy(source_cell.number_format)
+
+        # Width columna H
+        ws.column_dimensions['H'].width = 20
+
+        # Agregar filtro incluyendo H
+        ws.auto_filter.ref = "A5:H5"
     ws = wb[f'Inventario']
     ws['A3'].value = f'Servidores {full_Name} - Inventario'
     ws = wb[f'Inventario - EOL']
