@@ -214,6 +214,8 @@ def run_general_report(central):
             label for label, region in unique_labels.items()
             if region == region_number
         }
+        if central == "R9":
+            region_labels -= {"IXTLAHUACA", "CARSO", "L_ALB"}
         #print(region_labels)
         # Cargar PCs
         with open(pcs_path, "r", encoding="utf-8") as f:
@@ -422,9 +424,21 @@ def run_general_report(central):
 
             if central == "R9" and "IXTLAHUACA" in asset_labels:
                 continue
-
+            debug_assets = []
             if any(label in region_labels for label in asset_labels):
+                debug_assets.append({
+                    "hostname": asset.get("specific_data.data.hostname_preferred"),
+                    "labels": asset_labels
+                })
                 filtered_servers.append(asset)
+            with open("debug_r9_assets.json", "w", encoding="utf-8") as f:
+                json.dump(
+                    debug_assets,
+                    f,
+                    indent=4,
+                    ensure_ascii=False
+                )
+            
 
         # Crear mapa hostname -> cantidad HIGH
         high_map = {}
@@ -892,6 +906,8 @@ def count_assets_by_central(central):
         label for label, region in unique_labels.items()
         if region == region_number
     }
+    if central == "R9":
+            region_labels -= {"IXTLAHUACA", "CARSO", "L_ALB"}
 
     counted_assets = set()
 
@@ -908,6 +924,7 @@ def count_assets_by_central(central):
         # ✅ Contar si tiene AL MENOS un label válido
         if any(label in region_labels for label in asset_labels):
             counted_assets.add(asset_id)
+   
 
     return len(counted_assets)
 
@@ -950,6 +967,8 @@ def count_assets_and_xdr(central, json_filename):
         label for label, region in unique_labels.items()
         if region == region_number
     }
+    if central == "R9":
+            region_labels -= {"IXTLAHUACA", "CARSO", "L_ALB"}
 
     total_assets = set()
     xdr_assets = set()
@@ -999,10 +1018,13 @@ def count_assets_simple(central, json_filename):
     with open(unique_labels_path, "r", encoding="utf-8") as f:
         unique_labels = json.load(f)["unique_labels"]
 
+
     region_labels = {
         label for label, region in unique_labels.items()
         if region == region_number
     }
+    if central == "R9":
+            region_labels -= {"IXTLAHUACA", "CARSO", "L_ALB"}
 
     counted_assets = set()
 
