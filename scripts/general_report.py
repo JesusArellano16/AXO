@@ -545,7 +545,7 @@ def run_general_report(central):
         ws = wb["Resumen"]
         ws["F9"] = os_notsupported
         #ws["F8"] = len(filtered_servers) - os_notsupported              ###################################################
-        ws["F8"] = servers_xdr - os_notsupported 
+        ws["F8"] = servers_total - servers_xdr - os_notsupported 
         ws_eol = wb["Inventario - EOL"]
 
         eol_path = base_dir / "AXONIUS_FILES" / "GENERAL_JSON" / "EoL_GENERAL_SERVERS.json"
