@@ -130,6 +130,14 @@ class LauncherGUI(QWidget):
         all_layout.addWidget(self.lbl_all)
         all_layout.addWidget(self.btn_all)
         all_layout.addWidget(self.btn_clear_toggles)
+        ######################################################################################
+        self.btn_select_general = QPushButton("General")
+        self.btn_select_general.setFixedHeight(28)
+        self.btn_select_general.setStyleSheet(self.select_button_initial_style())
+
+        all_layout.addWidget(self.btn_select_general)
+        self.btn_select_general.clicked.connect(self.select_general_switches)
+        ######################################################################################
 
         self.all_container.setLayout(all_layout)
         self.layout_main.addWidget(self.all_container)
@@ -152,8 +160,19 @@ class LauncherGUI(QWidget):
         self.btn_exec = QPushButton("Ejecutar Reporte")
         self.btn_exec.setStyleSheet(self.run_button_style())
         self.btn_exec.setFixedHeight(45)
+        ######################################################################################
+        """self.h_layout_buttons.addWidget(self.btn_clear)
+        self.h_layout_buttons.addWidget(self.btn_exec)"""
+        self.btn_general_adapters = QPushButton("Ejecutar General Adapters")
+        self.btn_general_adapters.setStyleSheet(self.run_button_style())
+        self.btn_general_adapters.setFixedHeight(45)
+
         self.h_layout_buttons.addWidget(self.btn_clear)
         self.h_layout_buttons.addWidget(self.btn_exec)
+        self.h_layout_buttons.addWidget(self.btn_general_adapters)
+        ######################################################################################
+
+
         self.btn_container.setVisible(False)
         self.layout_main.addWidget(self.btn_container)
 
@@ -161,6 +180,10 @@ class LauncherGUI(QWidget):
         self.btn_clear.clicked.connect(self.ejecutar_clear_day)
         self.btn_exec.clicked.connect(self.run_reports)
         self.btn_clear_toggles.clicked.connect(self.clear_all_switches)
+        ######################################################################################
+        self.btn_general_adapters.clicked.connect(self.run_general_adapters)
+        ######################################################################################
+
 
     # --------------------------
     # Estilos
@@ -455,7 +478,48 @@ activate
 do script "{cmd.replace('"', '\\"')}"
 end tell'''
         subprocess.Popen(["osascript", "-e", osa_script])
+        ######################################################################################
+    def select_general_switches(self):
+        general_sites = {
+            "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9",
+            "IXTLA", "CARSO", "L_ALB", "MTY", "GDL"
+        }
 
+        for nombre, sw in self.switches.items():
+            if nombre in general_sites:
+                sw._checked = True
+            else:
+                sw._checked = False
+
+            sw.update_label_style()
+            sw.update()
+
+        self.btn_all._checked = False
+        self.btn_all.update()   
+
+    def run_general_adapters(self):
+        if not self.base_path:
+            return
+
+        selected_centrales = [c.nombre for c in self.centrales] if self.btn_all.isChecked() \
+            else [nombre for nombre, sw in self.switches.items() if sw.isChecked()]
+
+        if not selected_centrales:
+            return
+
+        cmd = (
+            f'cd "{self.base_path}"; source reportes3/bin/activate;' +
+            f'python3 "{self.base_path}/scripts/general_adapters.py" '
+            + " ".join(selected_centrales)
+        )
+
+        osa_script = f'''tell application "Terminal"
+    activate
+    do script "{cmd.replace('"', '\\"')}"
+    end tell'''
+
+        subprocess.Popen(["osascript", "-e", osa_script])
+        ######################################################################################
     def agregar_central(self, txt_short, txt_full):
         shortname = txt_short.text().strip().upper()
         fullname = txt_full.text().strip().upper()
