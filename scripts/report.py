@@ -141,7 +141,6 @@ def pcs_Inv(central,file, sheet):
     "SunOS 11.2", "SunOS 11.3", "IBM AIX 6.1", "IBM AIX 7.1",
     "IBM AIX 7.2", "IBM AIX 5.3", "SunOS 9", "SunOS 11.4.23.69.3",
     "SunOS 11.0", "SunOS 11.4", "SunOS 11.4.0.15.0",
-    "Windows Server 2008", "Windows Server 2003", "Windows Server 2000",
     "Linux Red Hat 5", "Linux Red Hat 6",
     "IBM AIX 6",
     "HP HP-UX",
@@ -150,7 +149,9 @@ def pcs_Inv(central,file, sheet):
     "Linux FreeBSD", "Linux FreeBSD 6.2", "Linux FreeBSD 7.1", "Linux FreeBSD 8.2", "Linux FreeBSD 9.2", "Linux FreeBSD 11", "Linux FreeBSD 12",
     "Linux Photon OS (64-bit)",
     "Linux Arch 7",
-    "Linux Rocky 3300.0.320"
+    "Windows Server 2008", "Windows Server 2003", "Windows Server 2000",
+    "Linux Fedora", "Linux Fedora 24",
+    "Linux openSUSE 12.5", "Linux openSUSE 8.10"
     ]
 
 

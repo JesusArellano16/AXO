@@ -100,9 +100,24 @@ archivo_destino = reportes_path / f"Reporte_Discovery_Adaptadores_{fecha_str}.xl
 # Duplicar archivo
 copy2(archivo_r1, archivo_destino)
 
+app = xw.App(visible=False)
+wb_excel = app.books.open(str(archivo_destino))
+ws_excel = wb_excel.sheets["Inventario"]
 
-# Abrir workbook
+# Última fila con datos en columna A
+last_row = ws_excel.range("A" + str(ws_excel.cells.last_cell.row)).end("up").row
+
+# Convertir fórmulas a valores únicamente en J
+rng = ws_excel.range(f"J6:J{last_row}")
+valores = rng.value
+rng.options(transpose=True).value = valores
+
+wb_excel.save()
+wb_excel.close()
+
+# Volver a cargar el workbook para que openpyxl vea los cambios
 wb = load_workbook(archivo_destino)
+
 
 # ----------------------------
 # Hoja Resumen
@@ -565,7 +580,7 @@ for central in centrales:
     archivo_central = reportes_path / \
         f"Reporte_Discovery_{central}_{fecha_str}.xlsx"
 
-    wb_src = load_workbook(archivo_central)
+    wb_src = load_workbook(archivo_central, data_only=True)
 
     for nombre_hoja, (fila_header, fila_inicio) in HOJAS.items():
 
