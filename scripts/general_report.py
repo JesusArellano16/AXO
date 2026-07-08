@@ -506,11 +506,21 @@ def run_general_report(central):
             os_type = asset.get("specific_data.data.os.type_distribution_preferred")
             ws_srv[f"E{row}"] = os_type
             if os_type in [
-                "Oracle Solaris","Windows Server 2008 R2",
-                "Windows Server 2003 R2","SunOS 10","SunOS 11.1",
-                "SunOS 11.2","SunOS 11.3","IBM AIX 6.1","IBM AIX 7.1",
-                "IBM AIX 7.2","IBM AIX 5.3","SunOS 9","SunOS 11.4.23.69.3",
-                "SunOS 11.0","SunOS 11.4","SunOS 11.4.0.15.0"]:
+                "Oracle Solaris", "Windows Server 2008 R2",
+                "Windows Server 2003 R2", "SunOS 10", "SunOS 11.1",
+                "SunOS 11.2", "SunOS 11.3", "IBM AIX 6.1", "IBM AIX 7.1",
+                "IBM AIX 7.2", "IBM AIX 5.3", "SunOS 9", "SunOS 11.4.23.69.3",
+                "SunOS 11.0", "SunOS 11.4", "SunOS 11.4.0.15.0",
+                "Windows Server 2008", "Windows Server 2003", "Windows Server 2000",
+                "Linux Red Hat 5", "Linux Red Hat 6",
+                "IBM AIX 6",
+                "HP HP-UX",
+                "Cisco ISE", "Cisco IOS",
+                "VMWare ESXi 6", "VMWare ESXi 6.5", "VMWare ESXi 7.0.3", "VMWare ESXi 8.0.3",
+                "Linux FreeBSD", "Linux FreeBSD 6.2", "Linux FreeBSD 7.1", "Linux FreeBSD 8.2", "Linux FreeBSD 9.2", "Linux FreeBSD 11", "Linux FreeBSD 12",
+                "Linux Photon OS (64-bit)",
+                "Linux Arch 7",
+                "Linux Rocky 3300.0.320"]:
                 os_notsupported = os_notsupported + 1
 
             adapters = asset.get("adapters", [])
@@ -531,12 +541,22 @@ def run_general_report(central):
 
             # Columna J
             if os_type in [
-                "Oracle Solaris","Windows Server 2008 R2",
-                "Windows Server 2003 R2","SunOS 10","SunOS 11.1",
-                "SunOS 11.2","SunOS 11.3","IBM AIX 6.1","IBM AIX 7.1",
-                "IBM AIX 7.2","IBM AIX 5.3","SunOS 9","SunOS 11.4.23.69.3",
-                "SunOS 11.0","SunOS 11.4","SunOS 11.4.0.15.0"]:
-                ws_srv[f"J{row}"] = "Cortex no soportado"
+                "Oracle Solaris", "Windows Server 2008 R2",
+                "Windows Server 2003 R2", "SunOS 10", "SunOS 11.1",
+                "SunOS 11.2", "SunOS 11.3", "IBM AIX 6.1", "IBM AIX 7.1",
+                "IBM AIX 7.2", "IBM AIX 5.3", "SunOS 9", "SunOS 11.4.23.69.3",
+                "SunOS 11.0", "SunOS 11.4", "SunOS 11.4.0.15.0",
+                "Windows Server 2008", "Windows Server 2003", "Windows Server 2000",
+                "Linux Red Hat 5", "Linux Red Hat 6",
+                "IBM AIX 6",
+                "HP HP-UX",
+                "Cisco ISE", "Cisco IOS",
+                "VMWare ESXi 6", "VMWare ESXi 6.5", "VMWare ESXi 7.0.3", "VMWare ESXi 8.0.3",
+                "Linux FreeBSD", "Linux FreeBSD 6.2", "Linux FreeBSD 7.1", "Linux FreeBSD 8.2", "Linux FreeBSD 9.2", "Linux FreeBSD 11", "Linux FreeBSD 12",
+                "Linux Photon OS (64-bit)",
+                "Linux Arch 7",
+                "Linux Rocky 3300.0.320"]:
+                ws_srv[f"J{row}"] = "Cortex not supported"
             else:
                 ws_srv[f"J{row}"] = "NA"
         # =========================
