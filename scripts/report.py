@@ -127,14 +127,6 @@ def getFormat(ws_rep, col, row,beg):
         new_cell.number_format = copy(prev_cell.number_format)
 
 def pcs_Inv(central,file, sheet):   
-    """unsupported_oses = [
-    "Oracle Solaris","Windows Server 2008 R2",
-    "Windows Server 2003 R2","SunOS 10","SunOS 11.1",
-    "SunOS 11.2","SunOS 11.3","IBM AIX 6.1","IBM AIX 7.1",
-    "IBM AIX 7.2","IBM AIX 5.3","SunOS 9","SunOS 11.4.23.69.3",
-    "SunOS 11.0","SunOS 11.4","SunOS 11.4.0.15.0"
-    ] """
-
     unsupported_oses = [
     "Oracle Solaris", "Windows Server 2008 R2",
     "Windows Server 2003 R2", "SunOS 10", "SunOS 11.1",
@@ -142,7 +134,7 @@ def pcs_Inv(central,file, sheet):
     "IBM AIX 7.2", "IBM AIX 5.3", "SunOS 9", "SunOS 11.4.23.69.3",
     "SunOS 11.0", "SunOS 11.4", "SunOS 11.4.0.15.0",
     "Linux Red Hat 5", "Linux Red Hat 6",
-    "IBM AIX 6",
+    "IBM AIX 6","IBM AIX 0", "F5 Networks Big-IP",
     "HP HP-UX",
     "Cisco ISE", "Cisco IOS",
     "VMWare ESXi 6", "VMWare ESXi 6.5", "VMWare ESXi 7.0.3", "VMWare ESXi 8.0.3",
@@ -645,7 +637,12 @@ def copy_Report(central):
     month_name = meses[month_number]
     path_rep = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
     dest_dir = os.path.join(base_dir, "REPORTES_SEMANALES", year, month_name, current_date_and_time  )
-    path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
+
+    if central == "GENERAL":
+        path_rep = path_rep + r'/' + f'Reporte_Disc_Con_Sin_Clasificacion_{current_date_and_time}.xlsx'
+    else:
+        path_rep = path_rep + r'/' + f'Reporte_Discovery_{central}_{current_date_and_time}.xlsx'
+
 
     os.makedirs(dest_dir, exist_ok=True)
     file_name = os.path.basename(path_rep)

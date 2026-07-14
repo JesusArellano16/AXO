@@ -96,6 +96,14 @@ def axonius_retreive_data(
     if use_api:
         client = axonapi.Connect(**connect_args)
         devices = client.devices.get_by_saved_query(saved_query_name)
+        """if saved_query_name == "SERVERS IN IXTLAHUACA":
+            raw_json = os.path.join(
+                base_path,
+                f"SERVERS_IN_IXTLAHUACA_RAW_{current_date_and_time}.json"
+            )
+
+            with open(raw_json, "w", encoding="utf-8") as f:
+                json.dump(devices, f, indent=4, ensure_ascii=False, default=str)"""
 
         #if saved_query_name == "ALL NETWORK DEVICES IN IXTLAHUACA":
         #    with open(f'{base_path}/ALL_NETWORK_DEVICES_IN_IXTLAHUACA_RAW.json', "w", encoding="utf-8") as f:
@@ -136,6 +144,15 @@ def axonius_retreive_data(
         for f in fields:
             if f in device:
                 d[f] = normalize_multivalue(device[f])
+        # Solo para IXTLA
+        if central == "IXTLA":
+            os_value = (
+                device.get("specific_data.data.os.type_distribution_preferred")
+                or device.get("specific_data.data.os.type_preferred")
+                or device.get("specific_data.data.os.type")
+            )
+
+            d["specific_data.data.os.type_distribution_preferred"] = normalize_multivalue(os_value)
 
         if saved_query_name_clean != "NET_DEV":
             d["CORTEX"] = "SI" if "paloalto_xdr_adapter" in d.get("adapters", []) else "NO"

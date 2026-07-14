@@ -42,7 +42,10 @@ def sobrescribir_registro_csv(ruta_csv, fila_nueva):
 def data_central(central):
     ruta_base = "ARCHIVOS_REPORTES"
     current_date_and_time = str(dt.date.today())
-    nombre_archivo = f"Reporte_Discovery_{central}_{current_date_and_time}.xlsx"
+    if central == "GENERAL":    
+        nombre_archivo = f"Reporte_Disc_Con_Sin_Clasificacion_{current_date_and_time}.xlsx"
+    else: 
+        nombre_archivo = f"Reporte_Discovery_{central}_{current_date_and_time}.xlsx"
     ruta_completa = os.path.join(ruta_base, central, current_date_and_time, nombre_archivo)
 
     carpeta_script = os.path.dirname(os.path.realpath(__file__))
@@ -88,7 +91,11 @@ def data_central(central):
 
 def agregar_hojas_graficas(central):
     fecha_hoy = dt.date.today().strftime("%Y-%m-%d")
-    ruta_reporte = os.path.join("ARCHIVOS_REPORTES", central, fecha_hoy, f"Reporte_Discovery_{central}_{fecha_hoy}.xlsx")
+
+    if central == "GENERAL":    
+        ruta_reporte = os.path.join("ARCHIVOS_REPORTES", central, fecha_hoy, f"Reporte_Disc_Con_Sin_Clasificacion_{fecha_hoy}.xlsx")
+    else:
+        ruta_reporte = os.path.join("ARCHIVOS_REPORTES", central, fecha_hoy, f"Reporte_Discovery_{central}_{fecha_hoy}.xlsx")
 
     carpeta_script = os.path.dirname(os.path.realpath(__file__))
     ruta_csv = os.path.abspath(os.path.join(carpeta_script, "..", "src", "Graficas", f"data_{central}.csv"))
@@ -121,7 +128,10 @@ def agregar_hojas_graficas(central):
             ws.sheet_view.topLeftCell = "J2"
 
             chart = LineChart()
-            chart.title = f"Resumen {central}"
+            if central == "GENERAL":
+                chart.title ="Tendencia Con/Sin Clasificacion"
+            else:
+                chart.title = f"Resumen {central}"
             chart.style = 2
             chart.y_axis.title = "Cantidad"
             chart.x_axis.title = "Fecha"

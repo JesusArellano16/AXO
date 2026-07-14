@@ -41,7 +41,8 @@ def run_general_report(central):
 
     central_dir = base_dir / "ARCHIVOS_REPORTES" / central
     dated_dir = central_dir / today
-    dest_file = dated_dir / f"Reporte_Discovery_{central}_{today}.xlsx"
+    if central == "GENERAL":    dest_file = dated_dir / f"Reporte_Disc_Con_Sin_Clasificacion_{today}.xlsx"
+    else: dest_file = dated_dir / f"Reporte_Discovery_{central}_{today}.xlsx"
 
     # Crear carpeta central si no existe
     central_dir.mkdir(parents=True, exist_ok=True)
@@ -85,8 +86,12 @@ def run_general_report(central):
         ws["A19"] = "Servidores - Vulnerabilidades"
     else:
         del wb["Adaptadores integrados"]
-        ws["A2"] = f"Inventario {central} - Resumen"
-        ws["A19"] = f"Servidores {central} - Vulnerabilidades"
+        if central == "GENERAL":
+            ws["A2"] = f"Inventario Con/Sin Clasificacion - Resumen"
+            ws["A19"] = f"Servidores Con/Sin Clasificacion - Vulnerabilidades"
+        else:
+            ws["A2"] = f"Inventario {central} - Resumen"
+            ws["A19"] = f"Servidores {central} - Vulnerabilidades"
 
     red_fill = PatternFill(start_color="FFFF0000", end_color="FFFF0000", fill_type="solid")
 
@@ -238,7 +243,10 @@ def run_general_report(central):
                 filtered_pcs.append(asset)
         #print(len(filtered_pcs))
         # Encabezado
-        ws["A3"] = f"PCs {central} - Inventario"
+        if central == "GENERAL":
+            ws["A3"] = f"PCs Con/Sin Clasificacion - Inventario"
+        else:
+            ws["A3"] = f"PCs {central} - Inventario"
 
         # Fila base de formato
         base_row = 6
@@ -274,7 +282,10 @@ def run_general_report(central):
             ws[f"D{row}"].alignment = Alignment(wrap_text=True)
 
             # OS
-            os_type = asset.get("specific_data.data.os.type_distribution_preferred")
+            os_type = (
+                asset.get("specific_data.data.os.type_distribution_preferred")
+                or asset.get("specific_data.data.os.type_preferred")
+            )
             ws[f"E{row}"] = os_type
 
             adapters = asset.get("adapters", [])
@@ -316,7 +327,10 @@ def run_general_report(central):
                 filtered_network.append(asset)
 
         # Encabezado
-        ws_red["A3"] = f"Network Devices {central} - Inventario"
+        if central == "GENERAL":
+            ws_red["A3"] = f"Network Devices Con/Sin Clasificacion - Inventario"
+        else:
+            ws_red["A3"] = f"Network Devices {central} - Inventario"
 
         from openpyxl.styles import Alignment
 
@@ -457,7 +471,10 @@ def run_general_report(central):
                 critical_map[hostname.strip().upper()] = len(cves)
 
         # Encabezado
-        ws_srv["A3"] = f"Servidores {central} - Inventario"
+        if central == "GENERAL":
+            ws_srv["A3"] = f"Servidores Con/Sin Clasificacion - Inventario"
+        else:
+            ws_srv["A3"] = f"Servidores {central} - Inventario"
 
         base_row = 6
 
@@ -503,7 +520,10 @@ def run_general_report(central):
             ws_srv[f"D{row}"].alignment = Alignment(wrap_text=True)
 
             # OS
-            os_type = asset.get("specific_data.data.os.type_distribution_preferred")
+            os_type = (
+                asset.get("specific_data.data.os.type_distribution_preferred")
+                or asset.get("specific_data.data.os.type_preferred")
+            )
             ws_srv[f"E{row}"] = os_type
             if os_type in [
                  "Oracle Solaris", "Windows Server 2008 R2",
@@ -512,7 +532,7 @@ def run_general_report(central):
                 "IBM AIX 7.2", "IBM AIX 5.3", "SunOS 9", "SunOS 11.4.23.69.3",
                 "SunOS 11.0", "SunOS 11.4", "SunOS 11.4.0.15.0",
                 "Linux Red Hat 5", "Linux Red Hat 6",
-                "IBM AIX 6",
+                "IBM AIX 6","IBM AIX 0", "F5 Networks Big-IP",
                 "HP HP-UX",
                 "Cisco ISE", "Cisco IOS",
                 "VMWare ESXi 6", "VMWare ESXi 6.5", "VMWare ESXi 7.0.3", "VMWare ESXi 8.0.3",
@@ -548,7 +568,7 @@ def run_general_report(central):
                 "IBM AIX 7.2", "IBM AIX 5.3", "SunOS 9", "SunOS 11.4.23.69.3",
                 "SunOS 11.0", "SunOS 11.4", "SunOS 11.4.0.15.0",
                 "Linux Red Hat 5", "Linux Red Hat 6",
-                "IBM AIX 6",
+                "IBM AIX 6","IBM AIX 0", "F5 Networks Big-IP",
                 "HP HP-UX",
                 "Cisco ISE", "Cisco IOS",
                 "VMWare ESXi 6", "VMWare ESXi 6.5", "VMWare ESXi 7.0.3", "VMWare ESXi 8.0.3",
@@ -592,7 +612,10 @@ def run_general_report(central):
                 filtered_eol.append(asset)
 
         # Encabezado
-        ws_eol["A3"] = f"Servidores EOL {central} - Inventario"
+        if central == "GENERAL":
+            ws_eol["A3"] = f"Servidores EOL Con/Sin Clasificacion - Inventario"
+        else:
+            ws_eol["A3"] = f"Servidores EOL {central} - Inventario"
 
         base_row = 6
 

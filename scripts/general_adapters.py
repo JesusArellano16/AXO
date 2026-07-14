@@ -95,7 +95,7 @@ if not archivo_r1.exists():
     sys.exit(1)
 
 # Nombre del nuevo reporte
-archivo_destino = reportes_path / f"Reporte_Discovery_Adaptadores_{fecha_str}.xlsx"
+archivo_destino = reportes_path / f"Reporte_Disc_Con_Clasificacion_{fecha_str}.xlsx"
 
 # Duplicar archivo
 copy2(archivo_r1, archivo_destino)
@@ -124,32 +124,32 @@ wb = load_workbook(archivo_destino)
 # ----------------------------
 ws = wb["Resumen"]
 
-ws["A2"] = "Inventario Adaptadores - Resumen"
-ws["A19"] = "Servidores Adaptadores - Vulnerabilidades"
+ws["A2"] = "Inventario Con Clasificacion - Resumen"
+ws["A19"] = "Servidores Con Clasificacion - Vulnerabilidades"
 
 # ----------------------------
 # Inventario - PC
 # ----------------------------
 ws = wb["Inventario - PC"]
-ws["A3"] = "PCs Adaptadores - Inventario"
+ws["A3"] = "PCs Con Clasificacion - Inventario"
 
 # ----------------------------
 # Inventario - Red
 # ----------------------------
 ws = wb["Inventario - Red"]
-ws["A3"] = "Network Devices Adaptadores - Inventario"
+ws["A3"] = "Network Devices Con Clasificacion - Inventario"
 
 # ----------------------------
 # Inventario
 # ----------------------------
 ws = wb["Inventario"]
-ws["A3"] = "Servidores Adaptadores - Inventario"
+ws["A3"] = "Servidores Con Clasificacion - Inventario"
 
 # ----------------------------
 # Inventario - EOL
 # ----------------------------
 ws = wb["Inventario - EOL"]
-ws["A3"] = "Servidores EOL Adaptadores - Inventario"
+ws["A3"] = "Servidores EOL Con Clasificacion - Inventario"
 
 
 # ----------------------------
@@ -563,14 +563,54 @@ from openpyxl.utils import get_column_letter
 col_inicio = 8  # J
 col_fin = columna - 1  # última central
 
-col_inicio_letter = get_column_letter(col_inicio)
-col_fin_letter = get_column_letter(col_fin)
+col_inicio_letter = "H"
+col_fin_letter = "AI"
 ws = wb["Resumen"]
 
 for fila in range(3, 17):
     ws[f"F{fila}"] = f"=SUM({col_inicio_letter}{fila}:{col_fin_letter}{fila})"
 for fila in range(20, 23):
     ws[f"E{fila}"] = f"=SUM({col_inicio_letter}{fila}:{col_fin_letter}{fila})"
+
+# ----------------------------
+# Formato encabezado Resumen
+# ----------------------------
+from copy import copy
+
+ws = wb["Resumen"]
+
+# Guardar estilo de A2 ANTES de deshacer el merge
+estilo = {
+    "font": copy(ws["A2"].font),
+    "fill": copy(ws["A2"].fill),
+    "border": copy(ws["A2"].border),
+    "alignment": copy(ws["A2"].alignment),
+    "number_format": ws["A2"].number_format,
+    "protection": copy(ws["A2"].protection),
+}
+
+texto = ws["A2"].value
+
+# Deshacer merges si existen
+for rango in ("A1:F1", "A2:F2", "A1:F2"):
+    try:
+        ws.unmerge_cells(rango)
+    except:
+        pass
+
+# Nuevo merge
+ws.merge_cells("A1:F2")
+
+# Restaurar contenido
+ws["A1"] = texto
+
+# Restaurar formato
+ws["A1"].font = estilo["font"]
+ws["A1"].fill = estilo["fill"]
+ws["A1"].border = estilo["border"]
+ws["A1"].alignment = estilo["alignment"]
+ws["A1"].number_format = estilo["number_format"]
+ws["A1"].protection = estilo["protection"]
 
 for central in centrales:
 
@@ -608,6 +648,205 @@ for central in centrales:
                 append_hoja(ws_dest, ws_src, fila_header, fila_inicio, "")
     print(f'TEERMINAMOS DE COPIAR {central}')
 
+
+from copy import copy
+from openpyxl.utils import column_index_from_string
+
+def mover_columna(ws, origen, destino):
+    c_org = column_index_from_string(origen)
+    c_dst = column_index_from_string(destino)
+
+    for fila in range(1, ws.max_row + 1):
+        src = ws.cell(fila, c_org)
+        dst = ws.cell(fila, c_dst)
+
+        dst.value = src.value
+        dst.font = copy(src.font)
+        dst.fill = copy(src.fill)
+        dst.border = copy(src.border)
+        dst.alignment = copy(src.alignment)
+        dst.number_format = copy(src.number_format)
+        dst.protection = copy(src.protection)
+
+        # Limpia la columna origen
+        src.value = None
+
+# Mover de derecha a izquierda
+mover_columna(ws, "AA", "AD")
+mover_columna(ws, "Z", "AA")
+mover_columna(ws, "W", "AI")
+mover_columna(ws, "V", "AH")
+mover_columna(ws, "Q", "AG")
+mover_columna(ws, "P", "AF")
+mover_columna(ws, "O", "AC")
+mover_columna(ws, "N", "Z")
+mover_columna(ws, "M", "W")
+mover_columna(ws, "X", "Q")
+mover_columna(ws, "Y", "X")
+mover_columna(ws, "T", "O")
+mover_columna(ws, "L", "T")
+mover_columna(ws, "R", "M")
+mover_columna(ws, "S", "N")
+mover_columna(ws, "Q", "R")
+mover_columna(ws, "K", "Q")
+mover_columna(ws, "I", "K")
+mover_columna(ws, "M", "L")
+mover_columna(ws, "O", "I")
+mover_columna(ws, "N", "O")
+mover_columna(ws, "J", "N")
+
+
+from openpyxl.utils import column_index_from_string
+from copy import copy
+
+# Encabezados por región
+regiones = [
+    ("R1", "H"),
+    ("R2", "K"),
+    ("R3", "N"),
+    ("R4", "Q"),
+    ("R5", "T"),
+    ("R6", "W"),
+    ("R7", "Z"),
+    ("R8", "AC"),
+]
+
+for nombre, col in regiones:
+
+    c = column_index_from_string(col)
+
+    # Merge de 3 columnas
+    ws.merge_cells(
+        start_row=1,
+        start_column=c,
+        end_row=1,
+        end_column=c + 2
+    )
+
+    celda = ws.cell(1, c)
+    celda.value = nombre
+
+    celda.font = copy(estilo["font"])
+    celda.fill = copy(estilo["fill"])
+    celda.border = copy(estilo["border"])
+    celda.alignment = copy(estilo["alignment"])
+    celda.number_format = estilo["number_format"]
+    celda.protection = copy(estilo["protection"])
+
+# Encabezados individuales
+individuales = {
+    "AF": "R9",
+    "AG": "CARSO",
+    "AH": "IXTLA",
+    "AI": "L_ALB",
+}
+
+for col, texto in individuales.items():
+
+    celda = ws[col + "1"]
+    celda.value = texto
+
+    celda.font = copy(estilo["font"])
+    celda.fill = copy(estilo["fill"])
+    celda.border = copy(estilo["border"])
+    celda.alignment = copy(estilo["alignment"])
+    celda.number_format = estilo["number_format"]
+    celda.protection = copy(estilo["protection"])
+from copy import copy
+# ----------------------------
+# Fila 2: Cent / Ofic / CACs
+# ----------------------------
+bloques = ["H", "K", "N", "Q", "T", "W", "Z", "AC"]
+
+for inicio in bloques:
+
+    col = column_index_from_string(inicio)
+
+    # Encabezados
+    ws.cell(2, col).value = "Cent"
+    ws.cell(2, col + 1).value = "Ofic"
+    ws.cell(2, col + 2).value = "CACs"
+
+    # Copiar formato de A2
+    for offset in range(3):
+        c = ws.cell(2, col + offset)
+
+        c.font = copy(estilo["font"])
+        c.fill = copy(estilo["fill"])
+        c.border = copy(estilo["border"])
+        c.alignment = copy(estilo["alignment"])
+        c.number_format = estilo["number_format"]
+        c.protection = copy(estilo["protection"])
+
+    # Columna CACs -> "-" de fila 3 a 16
+    for fila in range(3, 17):
+        c = ws.cell(fila, col + 2)
+        c.value = "-"
+# R9, CARSO, IXTLA y L_ALB
+ws["AF2"] = "Cent"
+ws["AG2"] = "Ofic"
+ws["AH2"] = "Site"
+ws["AI2"] = "Site"
+
+for col in ["AF", "AG", "AH", "AI"]:
+    c = ws[f"{col}2"]
+
+    c.font = copy(estilo["font"])
+    c.fill = copy(estilo["fill"])
+    c.border = copy(estilo["border"])
+    c.alignment = copy(estilo["alignment"])
+    c.number_format = estilo["number_format"]
+    c.protection = copy(estilo["protection"])
+from openpyxl.styles import Font
+
+for fila in [8, 15]:
+    for col in range(1, ws.max_column + 1):
+
+        c = ws.cell(fila, col)
+
+        c.font = Font(
+            name=c.font.name,
+            size=c.font.size,
+            bold=c.font.bold,
+            italic=c.font.italic,
+            underline=c.font.underline,
+            strike=c.font.strike,
+            color="FF0000"
+        )
+from copy import copy
+from openpyxl.utils import column_index_from_string
+
+for destino in ["AB", "AE"]:
+    for fila in range(3, 23):   # 3 a 22
+
+        src = ws[f"AA{fila}"]
+        dst = ws[f"{destino}{fila}"]
+
+        dst.font = copy(src.font)
+        dst.fill = copy(src.fill)
+        dst.border = copy(src.border)
+        dst.alignment = copy(src.alignment)
+        dst.number_format = copy(src.number_format)
+        dst.protection = copy(src.protection)
+# Eliminar merge si existe
+try:
+    ws.unmerge_cells("H19:AI19")
+except:
+    pass
+
+# Crear merge
+ws.merge_cells("H19:AI19")
+
+c = ws["H19"]
+c.value = "Servidores Con Clasificacion - Vulnerabilidades"
+
+# Mismo formato que A1
+c.font = copy(estilo["font"])
+c.fill = copy(estilo["fill"])
+c.border = copy(estilo["border"])
+c.alignment = copy(estilo["alignment"])
+c.number_format = estilo["number_format"]
+c.protection = copy(estilo["protection"])
 # Guardar cambios
 wb.save(archivo_destino)
 
@@ -626,7 +865,8 @@ def suma_fila(ws, fila, col_inicio=8, col_fin=None):
             total += valor
 
     return total
-col_fin = columna - 1
+col_fin = 35
+
 nuevo_registro = {
     "Date": fecha_csv,
     "Total Dispositivos y/o IPs Descubiertos": suma_fila(ws_resumen, 3, 8, col_fin),
@@ -665,7 +905,7 @@ for fila in dataframe_to_rows(df, index=False, header=True):
     ws_data.append(fila)
 chart = LineChart()
 
-chart.title = "Tendencia Adaptadores"
+chart.title = "Tendencia Con Clasificacion"
 chart.style = 2
 
 chart.y_axis.title = "Cantidad"
