@@ -12,6 +12,7 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from classifications import subClassification
+from openpyxl.utils import get_column_letter
 
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -32,6 +33,159 @@ def fetch_and_count(idx, query_name, devices_api):
     cantidad_unicos = count_unique_servers(results)
     return idx, cantidad_unicos
 
+def get_centrales_by_region(central):
+    base_dir = Path(__file__).parent.parent
+    unique_labels_path = base_dir / "scripts" / "UNIQUE_LABELS.json"
+
+    try:
+        region_number = int(central.replace("R", ""))
+    except ValueError:
+        return []
+
+    with open(unique_labels_path, "r", encoding="utf-8") as f:
+        unique_labels = json.load(f)["unique_labels"]
+
+    centrales = [
+        label
+        for label, region in unique_labels.items()
+        if region == region_number
+    ]
+
+    if central == "R9":
+        centrales = [
+            label for label in centrales
+            if label not in {"IXTLAHUACA", "CARSO", "L_ALB"}
+        ]
+
+    return sorted(centrales)
+
+def count_assets_by_label(label, json_filename):
+    base_dir = Path(__file__).parent.parent
+    data_path = base_dir / "AXONIUS_FILES" / "GENERAL_JSON" / json_filename
+
+    with open(data_path, "r", encoding="utf-8") as f:
+        assets = json.load(f)
+
+    counted_assets = set()
+
+    for asset in assets:
+        asset_id = asset.get("internal_axon_id")
+        asset_labels = asset.get("labels", [])
+
+        if not asset_id or not isinstance(asset_labels, list):
+            continue
+
+        if label in asset_labels:
+            counted_assets.add(asset_id)
+
+    return len(counted_assets)
+
+def count_assets_and_xdr_by_label(label, json_filename):
+    base_dir = Path(__file__).parent.parent
+    data_path = base_dir / "AXONIUS_FILES" / "GENERAL_JSON" / json_filename
+
+    with open(data_path, "r", encoding="utf-8") as f:
+        assets = json.load(f)
+
+    total_assets = set()
+    xdr_assets = set()
+
+    for asset in assets:
+        asset_id = asset.get("internal_axon_id")
+        asset_labels = asset.get("labels", [])
+        adapters = asset.get("adapters", [])
+
+        if not asset_id or not isinstance(asset_labels, list):
+            continue
+
+        if label in asset_labels:
+            total_assets.add(asset_id)
+
+            if "paloalto_xdr_adapter" in adapters:
+                xdr_assets.add(asset_id)
+
+    return len(total_assets), len(xdr_assets)
+
+def count_not_supported_by_label(label):
+    base_dir = Path(__file__).parent.parent
+    servers_path = (
+        base_dir
+        / "AXONIUS_FILES"
+        / "GENERAL_JSON"
+        / "GENERAL_SERVERS.json"
+    )
+
+    with open(servers_path, "r", encoding="utf-8") as f:
+        servers = json.load(f)
+
+    unsupported_os = {
+        "Oracle Solaris",
+        "Windows Server 2008 R2",
+        "Windows Server 2003 R2",
+        "SunOS 10",
+        "SunOS 11.1",
+        "SunOS 11.2",
+        "SunOS 11.3",
+        "IBM AIX 6.1",
+        "IBM AIX 7.1",
+        "IBM AIX 7.2",
+        "IBM AIX 5.3",
+        "SunOS 9",
+        "SunOS 11.4.23.69.3",
+        "SunOS 11.0",
+        "SunOS 11.4",
+        "SunOS 11.4.0.15.0",
+        "Linux Red Hat 5",
+        "Linux Red Hat 6",
+        "IBM AIX 6",
+        "IBM AIX 0",
+        "F5 Networks Big-IP",
+        "HP HP-UX",
+        "Cisco ISE",
+        "Cisco IOS",
+        "VMWare ESXi 6",
+        "VMWare ESXi 6.5",
+        "VMWare ESXi 7.0.3",
+        "VMWare ESXi 8.0.3",
+        "Linux FreeBSD",
+        "Linux FreeBSD 6.2",
+        "Linux FreeBSD 7.1",
+        "Linux FreeBSD 8.2",
+        "Linux FreeBSD 9.2",
+        "Linux FreeBSD 11",
+        "Linux FreeBSD 12",
+        "Linux Photon OS (64-bit)",
+        "Linux Arch 7",
+        "Windows Server 2008",
+        "Windows Server 2003",
+        "Windows Server 2000",
+        "Linux Fedora",
+        "Linux Fedora 24",
+        "Linux openSUSE 12.5",
+        "Linux openSUSE 8.10"
+    }
+
+    count = 0
+
+    for asset in servers:
+        asset_id = asset.get("internal_axon_id")
+        labels = asset.get("labels", [])
+
+        if not asset_id or not isinstance(labels, list):
+            continue
+
+        if label not in labels:
+            continue
+
+        os_type = (
+            asset.get("specific_data.data.os.type_distribution_preferred")
+            or asset.get("specific_data.data.os.type_preferred")
+        )
+
+        if os_type in unsupported_os:
+            count += 1
+
+    return count
 
 def run_general_report(central):
     base_dir = Path(__file__).parent.parent
@@ -145,6 +299,183 @@ def run_general_report(central):
         central,
         "EoL_GENERAL_SERVERS.json"
     )
+    # ==========================================
+    # DESGLOSE POR CENTRAL EN HOJA RESUMEN
+    # ==========================================
+
+    if central != "GENERAL":
+
+        centrales = get_centrales_by_region(central)
+
+        # H, I, J, K...
+        start_col = 8
+
+        for idx, nombre_central in enumerate(centrales):
+
+            col = start_col + idx
+            col_letter = get_column_letter(col)
+
+            # ==========================================
+            # COPIAR ESTILOS
+            # ==========================================
+
+            # Fila 2 -> estilo de A2
+            ws.cell(row=2, column=col)._style = ws["A2"]._style
+
+            # Filas 3-16 -> estilo de F de cada fila
+            for row in range(3, 17):
+                ws.cell(row=row, column=col)._style = ws.cell(
+                    row=row,
+                    column=6
+                )._style
+
+            # Filas 20-22 -> estilo de E de cada fila
+            for row in range(20, 23):
+                ws.cell(row=row, column=col)._style = ws.cell(
+                    row=row,
+                    column=5
+                )._style
+
+            # ==========================================
+            # FILA 2
+            # ==========================================
+
+            ws.cell(row=2, column=col).value = nombre_central
+
+            # ==========================================
+            # FILA 3
+            # ==========================================
+
+            ws.cell(row=3, column=col).value = count_assets_by_label(
+                nombre_central,
+                "GENERAL_ASSETS.json"
+            )
+
+            # ==========================================
+            # SERVIDORES
+            # ==========================================
+
+            servers_total_central, servers_xdr_central = (
+                count_assets_and_xdr_by_label(
+                    nombre_central,
+                    "GENERAL_SERVERS.json"
+                )
+            )
+
+            # F5
+            ws.cell(row=5, column=col).value = servers_total_central
+
+            # F6
+            ws.cell(row=6, column=col).value = servers_xdr_central
+            # F12
+            ws.cell(row=7, column=col).value = (
+                f"={col_letter}5-{col_letter}6"
+            )
+            # F9
+            servers_not_supported_central = count_not_supported_by_label(
+                nombre_central
+            )
+
+            ws.cell(row=9, column=col).value = (
+                servers_not_supported_central
+            )
+
+            # F8
+            ws.cell(row=8, column=col).value = (
+                f"={col_letter}5-{col_letter}6-{col_letter}9"
+            )
+
+            # ==========================================
+            # FILA 4
+            # ==========================================
+
+            ws.cell(row=4, column=col).value = (
+                f"={col_letter}5"
+                f"+{col_letter}10"
+                f"+{col_letter}13"
+                f"+{col_letter}14"
+            )
+
+            # ==========================================
+            # PCs
+            # ==========================================
+
+            pcs_total_central, pcs_xdr_central = (
+                count_assets_and_xdr_by_label(
+                    nombre_central,
+                    "GENERAL_PCs.json"
+                )
+            )
+
+            # F10
+            ws.cell(row=10, column=col).value = pcs_total_central
+
+            # F11
+            ws.cell(row=11, column=col).value = pcs_xdr_central
+
+            # F12
+            ws.cell(row=12, column=col).value = (
+                f"={col_letter}10-{col_letter}11"
+            )
+
+            # ==========================================
+            # NETWORK DEVICES
+            # ==========================================
+
+            ws.cell(row=13, column=col).value = count_assets_by_label(
+                nombre_central,
+                "ALL_GENERAL_NETWORK_DEVICES.json"
+            )
+
+            # ==========================================
+            # IDENTIFIED DEVICES
+            # ==========================================
+
+            ws.cell(row=14, column=col).value = count_assets_by_label(
+                nombre_central,
+                "GENERAL_VARIOUS_IDENTIFIED_DEVICES.json"
+            )
+
+            # ==========================================
+            # UNIDENTIFIED SERVERS
+            # ==========================================
+
+            ws.cell(row=15, column=col).value = count_assets_by_label(
+                nombre_central,
+                "ALL_GENERAL_UNIDENTIFIED_SERVERS.json"
+            )
+
+            # ==========================================
+            # FILA 16
+            # ==========================================
+
+            ws.cell(row=16, column=col).value = (
+                f"={col_letter}3"
+                f"-{col_letter}4"
+                f"-{col_letter}15"
+            )
+
+            # ==========================================
+            # VULNERABILIDADES
+            # ==========================================
+
+            # F20
+            ws.cell(row=20, column=col).value = count_assets_by_label(
+                nombre_central,
+                "CRITICAL_VULNERABILITIES_GENERAL_SERVERS.json"
+            )
+
+            # F21
+            ws.cell(row=21, column=col).value = count_assets_by_label(
+                nombre_central,
+                "HIGH_VULNERABILITIES_GENERAL_SERVERS.json"
+            )
+
+            # F22
+            ws.cell(row=22, column=col).value = count_assets_by_label(
+                nombre_central,
+                "EoL_GENERAL_SERVERS.json"
+            )
     wb.save(dest_file)
 
     if central == "GENERAL":
@@ -925,7 +1256,7 @@ def run_general_report(central):
 
     # Guardar
     wb.save(dest_file)
-
+    print(f"Región {central} terminada")
     return dest_file
 
 
