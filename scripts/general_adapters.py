@@ -14,8 +14,21 @@ from openpyxl.chart import LineChart, Reference
 
 AGREGAR_SITIO = True
 
+# Columna final en Resumen de cada CAC
+CAC_COLS = {
+    "CACR1": "J",  "CACR2": "M",  "CACR3": "P",
+    "CACR4": "S",  "CACR5": "V",  "CACR6": "Y",
+    "CACR7": "AB", "CACR8": "AE", "CACR9": "AG",
+}
+INCLUIR_CACS_EN_INVENTARIOS = True   # True si también quieres sus filas en las hojas de inventario
+
+todas = sys.argv[1:]
+cacs = sorted(c for c in todas if c.upper() in CAC_COLS)
+centrales = [c for c in todas if c.upper() not in CAC_COLS]
+
+
 # Centrales recibidas como argumentos
-centrales = sys.argv[1:]
+#centrales = sys.argv[1:]
 
 if not centrales:
     print("No se recibieron centrales.")
@@ -71,7 +84,7 @@ def sort_key(c):
     return (1, c)
     
 centrales = sorted(centrales, key=sort_key)
-for central in centrales:
+for central in centrales + cacs:
     archivo = reportes_path / f"Reporte_Discovery_{central}_{fecha_str}.xlsx"
 
     if not archivo.exists():
@@ -564,7 +577,7 @@ col_inicio = 8  # J
 col_fin = columna - 1  # última central
 
 col_inicio_letter = "H"
-col_fin_letter = "AI"
+col_fin_letter = "AJ"
 ws = wb["Resumen"]
 
 for fila in range(3, 17):
@@ -612,7 +625,7 @@ ws["A1"].alignment = estilo["alignment"]
 ws["A1"].number_format = estilo["number_format"]
 ws["A1"].protection = estilo["protection"]
 
-for central in centrales:
+for central in centrales + (cacs if INCLUIR_CACS_EN_INVENTARIOS else []):
 
     if central == "IXTLA":
         continue
@@ -694,6 +707,9 @@ mover_columna(ws, "M", "L")
 mover_columna(ws, "O", "I")
 mover_columna(ws, "N", "O")
 mover_columna(ws, "J", "N")
+mover_columna(ws, "AI", "AJ")   # L_ALB
+mover_columna(ws, "AH", "AI")   # IXTLA
+mover_columna(ws, "AG", "AH")   # CARSO
 
 
 from openpyxl.utils import column_index_from_string
@@ -736,23 +752,45 @@ for nombre, col in regiones:
 # Encabezados individuales
 individuales = {
     "AF": "R9",
-    "AG": "CARSO",
-    "AH": "IXTLA",
-    "AI": "L_ALB",
+    "AH": "CARSO",
+    "AI": "IXTLA",
+    "AJ": "L_ALB",
 }
 
 for col, texto in individuales.items():
-
     celda = ws[col + "1"]
     celda.value = texto
-
     celda.font = copy(estilo["font"])
     celda.fill = copy(estilo["fill"])
     celda.border = copy(estilo["border"])
     celda.alignment = copy(estilo["alignment"])
     celda.number_format = estilo["number_format"]
     celda.protection = copy(estilo["protection"])
+    c = ws["AG1"]
+    c.font = copy(estilo["font"])
+    c.fill = copy(estilo["fill"])
+    c.border = copy(estilo["border"])
+    c.alignment = copy(estilo["alignment"])
+    c.number_format = estilo["number_format"]
+    c.protection = copy(estilo["protection"])
+    ws.merge_cells("AF1:AG1")
+
 from copy import copy
+# Fila 2
+ws["AF2"] = "Cent"
+ws["AG2"] = "CACs"
+ws["AH2"] = "Ofic"
+ws["AI2"] = "Site"
+ws["AJ2"] = "Site"
+
+for col in ["AF", "AG", "AH", "AI", "AJ"]:
+    c = ws[f"{col}2"]
+    c.font = copy(estilo["font"])
+    c.fill = copy(estilo["fill"])
+    c.border = copy(estilo["border"])
+    c.alignment = copy(estilo["alignment"])
+    c.number_format = estilo["number_format"]
+    c.protection = copy(estilo["protection"])
 # ----------------------------
 # Fila 2: Cent / Ofic / CACs
 # ----------------------------
@@ -783,11 +821,11 @@ for inicio in bloques:
         c = ws.cell(fila, col + 2)
         c.value = "-"
 # R9, CARSO, IXTLA y L_ALB
-ws["AF2"] = "Cent"
+"""ws["AF2"] = "Cent"
 ws["AG2"] = "Ofic"
 ws["AH2"] = "Site"
 ws["AI2"] = "Site"
-
+"""
 for col in ["AF", "AG", "AH", "AI"]:
     c = ws[f"{col}2"]
 
@@ -828,14 +866,44 @@ for destino in ["AB", "AE"]:
         dst.alignment = copy(src.alignment)
         dst.number_format = copy(src.number_format)
         dst.protection = copy(src.protection)
+
+for fila in range(3, 17):
+    ws.cell(fila, column_index_from_string("AG")).value = "-"
+
+if cacs:
+    # Recalcular primero, luego leer valores
+    with xw.App(visible=False) as app_cac:
+        app_cac.display_alerts = False
+        for cac in cacs:
+            f = reportes_path / f"Reporte_Discovery_{cac}_{fecha_str}.xlsx"
+            wb_x = app_cac.books.open(str(f))
+            wb_x.app.calculate()
+            wb_x.save()
+            wb_x.close()
+
+    for cac in cacs:
+        col = column_index_from_string(CAC_COLS[cac.upper()])
+        f = reportes_path / f"Reporte_Discovery_{cac}_{fecha_str}.xlsx"
+        ws_src = load_workbook(f, data_only=True)["Resumen"]
+
+        for fila in range(3, 17):
+            ws.cell(fila, col).value = ws_src[f"F{fila}"].value
+        for fila in range(20, 23):
+            ws.cell(fila, col).value = ws_src[f"E{fila}"].value
+for rango in ("H19:AI19", "H19:AJ19"):
+    try:
+        ws.unmerge_cells(rango)
+    except:
+        pass
+
 # Eliminar merge si existe
 try:
-    ws.unmerge_cells("H19:AI19")
+    ws.unmerge_cells("H19:AJ19")
 except:
     pass
 
 # Crear merge
-ws.merge_cells("H19:AI19")
+ws.merge_cells("H19:AJ19")
 
 c = ws["H19"]
 c.value = "Servidores Con Clasificacion - Vulnerabilidades"
@@ -865,7 +933,7 @@ def suma_fila(ws, fila, col_inicio=8, col_fin=None):
             total += valor
 
     return total
-col_fin = 35
+col_fin = 36
 
 nuevo_registro = {
     "Date": fecha_csv,

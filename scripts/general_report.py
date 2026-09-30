@@ -476,6 +476,27 @@ def run_general_report(central):
                 nombre_central,
                 "EoL_GENERAL_SERVERS.json"
             )
+        if central in {f"R{i}" for i in range(1, 10)} and centrales:
+            last_col_letter = get_column_letter(start_col + len(centrales) - 1)
+            ws["F3"] = f"=SUM(H3:{last_col_letter}3)"
+            ws["F4"] = f"=SUM(H4:{last_col_letter}4)"
+            ws["F5"] = f"=SUM(H5:{last_col_letter}5)"
+            ws["F6"] = f"=SUM(H6:{last_col_letter}6)"
+            ws["F7"] = f"=SUM(H7:{last_col_letter}7)"
+            ws["F8"] = f"=SUM(H8:{last_col_letter}8)"
+            ws["F9"] = f"=SUM(H9:{last_col_letter}9)"
+            ws["F10"] = f"=SUM(H10:{last_col_letter}10)"
+            ws["F11"] = f"=SUM(H11:{last_col_letter}11)"
+            ws["F12"] = f"=SUM(H12:{last_col_letter}12)"
+            ws["F13"] = f"=SUM(H13:{last_col_letter}13)"
+            ws["F14"] = f"=SUM(H14:{last_col_letter}14)"
+            ws["F15"] = f"=SUM(H15:{last_col_letter}15)"
+            ws["F16"] = f"=SUM(H16:{last_col_letter}16)"
+
+            ws["E20"] = f"=SUM(H20:{last_col_letter}20)"
+            ws["E21"] = f"=SUM(H21:{last_col_letter}21)"
+            ws["E22"] = f"=SUM(H22:{last_col_letter}2)"
+
     wb.save(dest_file)
 
     if central == "GENERAL":
