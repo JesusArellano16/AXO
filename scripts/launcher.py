@@ -483,7 +483,8 @@ end tell'''
         general_sites = {
             "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9",
             "IXTLA", "CARSO", "L_ALB", "MTY", "GDL", "ETIJUA", "ECALIN",
-            "ECHIHUA", "R6OFCOR", "R7OFCOR", "R8OFCOR"
+            "ECHIHUA", "R6OFCOR", "R7OFCOR", "R8OFCOR", "CACR1", "CACR2",
+            "CACR3", "CACR4", "CACR5", "CACR6", "CACR7", "CACR8", "CACR9"
         }
 
         for nombre, sw in self.switches.items():
