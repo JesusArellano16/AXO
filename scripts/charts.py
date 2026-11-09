@@ -8,6 +8,96 @@ from openpyxl.chart import LineChart, Reference
 from openpyxl.utils import get_column_letter
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.drawing.colors import ColorChoice
+from copy import copy
+from openpyxl.styles import Alignment, Border, Side
+import re
+import json
+from pathlib import Path
+
+PATRON_CACR = re.compile(r"^CACR[1-9]$")
+
+def es_cacr(central):
+    return bool(PATRON_CACR.match(central))
+
+def contar_tabletas(central):
+    json_path = Path(__file__).parent.parent / "AXONIUS_FILES" / "GENERAL_JSON" / "ALL_GENERAL_TABLETS.json"
+    if not json_path.exists():
+        raise FileNotFoundError(json_path)
+
+    with open(json_path, "r", encoding="utf-8") as f:
+        devices = json.load(f)
+
+    if central == "GENERAL":
+        # total, contando cada activo una sola vez (igual que count_assets_simple)
+        return len({d.get("internal_axon_id") for d in devices if d.get("internal_axon_id")})
+
+    return sum(1 for d in devices if central in d.get("labels", []))
+
+
+def agregar_fila_tabletas_general():
+    central = "GENERAL"
+    fecha_hoy = dt.date.today().strftime("%Y-%m-%d")
+    ruta_reporte = os.path.abspath(os.path.join(
+        "ARCHIVOS_REPORTES", central, fecha_hoy,
+        f"Reporte_Disc_Con_Sin_Clasificacion_{fecha_hoy}.xlsx"
+    ))
+    if not os.path.exists(ruta_reporte):
+        print("No se encontró el reporte GENERAL.")
+        return
+
+    tabletas = contar_tabletas(central)
+
+    # ---------- FASE 1: insertar fila con Excel (xlwings) ----------
+    insertada = False
+    wb = xw.Book(ruta_reporte)
+    try:
+        ws = wb.sheets["Resumen"]
+        if ws.range("C15").value != "Tabletas":   # si ya existe, no insertar de nuevo
+            ws.range("15:15").insert(shift="down", copy_origin="format_from_left_or_above")
+            ws.range("C15").value = "Tabletas"
+            ws.range("F15").value = tabletas
+            ws.range("F4").formula = "=F5+F10+F13+F14+F15"
+            wb.app.calculate()
+            wb.save()
+            insertada = True
+    finally:
+        wb.close()
+
+    if not insertada:
+        return
+
+    # ---------- FASE 2: merges y formato con openpyxl ----------
+    wb = load_workbook(ruta_reporte)
+    ws = wb["Resumen"]
+
+    # 1) Unmerge de lo que contenga A4 o B5 (y lo que haya heredado la fila 15)
+    for rng in list(ws.merged_cells.ranges):
+        if "A4" in rng or "B5" in rng or rng.min_row <= 15 <= rng.max_row and rng.min_col >= 3:
+            ws.unmerge_cells(str(rng))
+
+    # 2) Formato de C14:F14 -> C15:F15 (con bordes)
+    for col in range(3, 7):
+        origen = ws.cell(row=14, column=col)
+        destino = ws.cell(row=15, column=col)
+        destino.font = copy(origen.font)
+        destino.border = copy(origen.border)
+        destino.fill = copy(origen.fill)
+        destino.number_format = origen.number_format
+        destino.protection = copy(origen.protection)
+        destino.alignment = copy(origen.alignment)
+
+    # 3) Si la fila 14 tiene merge (p. ej. C14:E14), replicarlo en la 15
+    for rng in list(ws.merged_cells.ranges):
+        if rng.min_row == 14 and rng.max_row == 14 and rng.min_col >= 3:
+            ws.merge_cells(start_row=15, start_column=rng.min_col,
+                           end_row=15, end_column=rng.max_col)
+
+    # 4) Merges nuevos
+    ws.merge_cells("A4:A17")
+    ws.merge_cells("B5:B15")
+
+    wb.save(ruta_reporte)
+    wb.close()
 
 
 def sobrescribir_registro_csv(ruta_csv, fila_nueva):
@@ -42,9 +132,9 @@ def sobrescribir_registro_csv(ruta_csv, fila_nueva):
 def data_central(central):
     ruta_base = "ARCHIVOS_REPORTES"
     current_date_and_time = str(dt.date.today())
-    if central == "GENERAL":    
+    if central == "GENERAL":
         nombre_archivo = f"Reporte_Disc_Con_Sin_Clasificacion_{current_date_and_time}.xlsx"
-    else: 
+    else:
         nombre_archivo = f"Reporte_Discovery_{central}_{current_date_and_time}.xlsx"
     ruta_completa = os.path.join(ruta_base, central, current_date_and_time, nombre_archivo)
 
@@ -54,22 +144,37 @@ def data_central(central):
 
     if not os.path.exists(ruta_graficas_dir):
         os.makedirs(ruta_graficas_dir)
+
     wb = xw.Book(ruta_completa)
+
+    # ---- NUEVO: solo CACR1..CACR9 ----
+    if es_cacr(central):
+        ws_res = wb.sheets["Resumen"]
+        if ws_res.range("C15").value != "Tabletas":   # si ya tiene la fila, no tocar
+            ws_res.range("G14").value = contar_tabletas(central)
+            ws_res.range("F4").formula = "=F5+F10+F13+F14+G14"
+    # ----------------------------------
+
     wb.app.calculate()
     wb.save()
     wb.close()
+
     if os.path.exists(ruta_completa):
         try:
             wb_origen = load_workbook(ruta_completa, data_only=True)
             if "Resumen" in wb_origen.sheetnames:
                 hoja = wb_origen["Resumen"]
+
+                # Si ya existe la fila Tabletas, lo de abajo se recorrió 1 fila
+                off = 1 if hoja["C15"].value == "Tabletas" else 0
+
                 assets = hoja["F3"].value
                 identified_dev = hoja["F4"].value
                 servers_t = hoja["F5"].value
                 servers_c = hoja["F6"].value
                 servers_noc = str(int(hoja["F7"].value))
-                unidentified_serv = hoja["F15"].value
-                unmanagged = hoja["F16"].value
+                unidentified_serv = hoja[f"F{15 + off}"].value
+                unmanagged = hoja[f"F{16 + off}"].value
                 wb_origen.close()
             else:
                 print("La hoja 'Resumen' no existe.")
@@ -80,7 +185,7 @@ def data_central(central):
 
         try:
             fecha_formateada = dt.date.today().strftime("%d/%m/%y")
-            fila_nueva = [fecha_formateada, assets, identified_dev, servers_c, servers_noc, unidentified_serv, unmanagged,servers_t]
+            fila_nueva = [fecha_formateada, assets, identified_dev, servers_c, servers_noc, unidentified_serv, unmanagged, servers_t]
             sobrescribir_registro_csv(ruta_csv, fila_nueva)
         except Exception as e:
             print(ruta_completa)
@@ -88,6 +193,86 @@ def data_central(central):
     else:
         print(f"El archivo origen no existe: {ruta_completa}")
         return False
+def agregar_fila_tabletas(central):
+    if not es_cacr(central):
+        return
+
+    fecha_hoy = dt.date.today().strftime("%Y-%m-%d")
+    ruta_reporte = os.path.join(
+        "ARCHIVOS_REPORTES", central, fecha_hoy,
+        f"Reporte_Discovery_{central}_{fecha_hoy}.xlsx"
+    )
+    if not os.path.exists(ruta_reporte):
+        print(f"No se encontró el reporte de {central}.")
+        return
+
+    # ---------- FASE 1: insertar fila con Excel (xlwings) ----------
+    wb = xw.Book(ruta_reporte)
+    try:
+        ws = wb.sheets["Resumen"]
+
+        if ws.range("C15").value == "Tabletas":
+            return  # ya fue insertada
+
+        tabletas = ws.range("G14").value
+        if tabletas is None:
+            tabletas = contar_tabletas(central)
+
+        # Inserta fila 15 copiando el formato de la fila 14
+        ws.range("15:15").insert(shift="down", copy_origin="format_from_left_or_above")
+
+        ws.range("C15").value = "Tabletas"
+        ws.range("F15").value = tabletas
+        ws.range("G14").clear_contents()
+        ws.range("F4").formula = "=F5+F10+F13+F14+F15"
+
+        wb.app.calculate()
+        wb.save()
+    finally:
+        wb.close()
+
+    # ---------- FASE 2: merges y bordes con openpyxl ----------
+    wb = load_workbook(ruta_reporte)
+    ws = wb["Resumen"]
+
+    def unmerge_si_contiene(coords):
+        for rng in list(ws.merged_cells.ranges):
+            if any(c in rng for c in coords):
+                ws.unmerge_cells(str(rng))
+
+    def set_borde(cell, **lados):
+        b = cell.border
+        cell.border = Border(
+            left=lados.get("left", b.left),
+            right=lados.get("right", b.right),
+            top=lados.get("top", b.top),
+            bottom=lados.get("bottom", b.bottom),
+        )
+
+    linea = Side(style="thin")
+
+    # 1) Unmerge de B5 y de lo que haya en C15:E15 (por si heredó merge de la fila 14)
+    unmerge_si_contiene(["B5", "B15", "C15", "D15", "E15"])
+
+    # 2) Merge B5:B15 (conserva el valor de B5)
+    ws.merge_cells("B5:B15")
+
+    # 3) Merge C15:E15, alineado a la izquierda, borde derecho
+    ws.merge_cells("C15:E15")
+    for col in ("C", "D", "E"):
+        c = ws[f"{col}15"]
+        c.alignment = Alignment(
+            horizontal="left",
+            vertical=c.alignment.vertical,
+            wrap_text=c.alignment.wrap_text,
+        )
+        set_borde(c, right=linea)        # el borde derecho lo marca E15
+
+    # 4) F15: borde izquierdo, derecho e inferior
+    set_borde(ws["F15"], left=linea, right=linea, bottom=linea)
+
+    wb.save(ruta_reporte)
+    wb.close()
 
 def agregar_hojas_graficas(central):
     fecha_hoy = dt.date.today().strftime("%Y-%m-%d")
@@ -167,6 +352,10 @@ if __name__ == '__main__':
         try:
             data_central(central.nombre)
             agregar_hojas_graficas(central.nombre)
+            if central.nombre == "GENERAL":
+                agregar_fila_tabletas_general()
+            else:
+                agregar_fila_tabletas(central.nombre)
         except Exception as e:
             print(f"Error : {e}")
     #data_central("IXTLA")

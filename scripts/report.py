@@ -8,8 +8,9 @@ from time import sleep
 import openpyxl.styles
 from openpyxl.utils import get_column_letter
 #from new_queries import new_queries
-from new_queries_NEW import new_queries
+from new_queries_NEW import new_queries, load_from_json
 import time
+import re
 import shutil
 from openpyxl.utils import quote_sheetname
 import json
@@ -20,6 +21,152 @@ name = 'Reporte_Discovery'
 origin_path = f'./src/{name}.xlsx'
 #central = 'IXTLA'
 current_date_and_time = str(dt.date.today())
+
+
+# ======================================================
+# CAC (centrales CACR1..CACR9): columna "CAC" al final de cada hoja
+# ======================================================
+CAC_CENTRAL_PATTERN = re.compile(r"CACR[1-9]")
+
+# Tokens que NO son parte del nombre del sitio y se quitan si van al INICIO del
+# label (CAC_CAC_..., MCI_CAC_..., CAC_CVT_...). Si aparece otro prefijo, agregalo aqui.
+CAC_PREFIJOS = {"CAC", "MCI", "CVT"}
+CAC_REGION_PATTERN = re.compile(r"R\d+")      # token final de region (R1, R9, ...) que tambien se quita
+
+# hoja -> (ultima columna actual, filas de encabezado (arriba, abajo), fila del filtro)
+CAC_HOJAS = {
+    'Inventario - PC':             (7,  (4, 5), 5),    # G -> H
+    'Inventario - Red':            (6,  (4, 4), 4),    # F -> G
+    'Inventario':                  (10, (4, 5), 5),    # J -> K
+    'Inventario - EOL':            (8,  (4, 5), 5),    # H -> I
+    'Inventario No Identificados': (5,  (4, 4), 4),    # E -> F
+    'Inventario Identificados':    (5,  (4, 4), 4),    # E -> F
+}
+
+
+def is_cac_central(central):
+    return bool(CAC_CENTRAL_PATTERN.fullmatch(str(central).strip()))
+
+
+def _cac_site(label):
+    original = str(label).strip()
+    tokens = [t for t in original.split("_") if t]
+    while tokens and tokens[0].upper() in CAC_PREFIJOS:
+        tokens.pop(0)
+    if tokens and CAC_REGION_PATTERN.fullmatch(tokens[-1].upper()):
+        tokens.pop()
+    site = " ".join(tokens)
+    return site if site else original
+
+
+def _cac_es_label_cac(label):
+    """True si el label hace referencia a un CAC (CAC, CVT, MCI...) en alguno de sus dos primeros tokens.
+    Descarta basura como '1'. Los prefijos validos estan en CAC_PREFIJOS."""
+    tokens = [t for t in str(label).strip().split("_") if t]
+    return any(t.upper() in CAC_PREFIJOS for t in tokens[:2])
+
+
+def cac_names(label):
+    """Lista (sin repetidos) de sitios a partir de un label o una lista de labels.
+    Solo toma los labels que hacen referencia a un CAC; el resto ('1', '1', etc.) se ignora."""
+    if label is None:
+        return []
+    items = label if isinstance(label, (list, tuple, set)) else [label]
+    names = []
+    for item in items:
+        if item is None:
+            continue
+        # el Excel intermedio guarda varios labels separados por salto de linea (tambien se acepta coma o ;)
+        for part in re.split(r"[\n,;]+", str(item)):
+            part = part.strip()
+            if not part or not _cac_es_label_cac(part):
+                continue
+            name = _cac_site(part)
+            if name not in names:
+                names.append(name)
+    return names
+
+
+def cac_from_label(label):
+    """CAC_CAC_HUEHUETOCA_R9 -> HUEHUETOCA ; CAC_CVT_MULTIPLAZA_LINDAVISTA_R4 -> MULTIPLAZA LINDAVISTA"""
+    return ", ".join(cac_names(label))
+
+
+def find_label_col(ws, header_row=1, fallback=None):
+    """Columna cuyo encabezado contiene 'connection' en un Excel intermedio."""
+    for cell in ws[header_row]:
+        if cell.value is not None and "connection" in str(cell.value).lower():
+            return cell.column
+    return fallback
+
+
+def copy_cell_style(src, tgt):
+    tgt.font = copy(src.font)
+    tgt.border = copy(src.border)
+    tgt.fill = copy(src.fill)
+    tgt.number_format = copy(src.number_format)
+    tgt.protection = copy(src.protection)
+    tgt.alignment = copy(src.alignment)
+
+
+def agregar_columna_cac(ws, hoja, last_data_row, values_by_row, width=35):
+    """
+    Agrega la columna CAC a la derecha de la ultima columna de `hoja`:
+      1) desombina A3 y vuelve a combinar el titulo A3:<columna nueva>3
+      2) copia el formato de <ultima columna>4..<ultima columna>[ultima fila] a la columna nueva
+      3) escribe el encabezado 'CAC' (y combina filas 4-5 si el encabezado es de 2 filas)
+      4) escribe los valores {fila: valor}
+      5) pone el autofiltro hasta la columna nueva
+    """
+    last_col, (top, bottom), filter_row = CAC_HOJAS[hoja]
+    new_col = last_col + 1
+    new_letter = get_column_letter(new_col)
+    last_data_row = max(last_data_row, bottom)
+
+    # 1) titulo A3: unmerge y merge de nuevo hasta la columna nueva
+    for rng in list(ws.merged_cells.ranges):
+        if rng.min_row <= 3 <= rng.max_row and rng.min_col <= 1 <= rng.max_col:
+            ws.unmerge_cells(str(rng))
+    for c in range(2, new_col + 1):
+        copy_cell_style(ws.cell(row=3, column=1), ws.cell(row=3, column=c))
+    ws.merge_cells(start_row=3, start_column=1, end_row=3, end_column=new_col)
+
+    # 2) formato de la ultima columna -> columna nueva
+    for r in range(top, last_data_row + 1):
+        copy_cell_style(ws.cell(row=r, column=last_col), ws.cell(row=r, column=new_col))
+
+    # 3) encabezado
+    ws.cell(row=top, column=new_col).value = "CAC"
+    if bottom > top:
+        ws.merge_cells(start_row=top, start_column=new_col, end_row=bottom, end_column=new_col)
+
+    # 4) valores (labels)
+    for r, v in values_by_row.items():
+        ws.cell(row=r, column=new_col).value = v
+
+    # 5) filtro y ancho
+    ws.auto_filter.ref = f"A{filter_row}:{new_letter}{filter_row}"
+    ws.column_dimensions[new_letter].width = width
+    return new_col
+
+
+def cac_hojas_identificados(central, path_rep):
+    """CAC en 'Inventario No Identificados' e 'Inventario Identificados' (despues de new_queries)."""
+    if not is_cac_central(central):
+        return
+    hojas = {
+        "Inventario No Identificados": "ALL_GENERAL_UNIDENTIFIED_SERVERS.json",
+        "Inventario Identificados": "GENERAL_VARIOUS_IDENTIFIED_DEVICES.json",
+    }
+    wb = openpyxl.load_workbook(path_rep)
+    for hoja, json_name in hojas.items():
+        # mismo JSON, mismo filtro y mismo orden que usa new_queries -> fila 5 + i
+        devices = load_from_json(json_name, central)
+        values = {5 + i: cac_from_label(d.get("specific_data.connection_label"))
+                  for i, d in enumerate(devices)}
+        agregar_columna_cac(wb[hoja], hoja, 4 + len(devices), values)
+    wb.save(path_rep)
+    wb.close()
 
 def copy_style_from_row(ws, source_row, start_row, end_row):
     for row in range(start_row, end_row + 1):
@@ -61,6 +208,33 @@ def get_strictly_unique_combinations(central):
     return counter
 
 
+def get_cac_por_combo(central):
+    """
+    CAC: para cada combinacion del EOL (misma llave que get_strictly_unique_combinations)
+    junta los sitios (CAC) donde aparece, separados por coma.
+    Retorna {combo: "SITIO1, SITIO2"} o None si el EOL_ no trae columna Connection Label.
+    """
+    path = r'./ARCHIVOS_REPORTES/'+central+ r'/'+current_date_and_time
+    des_path = path + r'/' + f'EOL_{central}_{current_date_and_time}.xlsx'
+    wb = openpyxl.load_workbook(des_path, data_only=True)
+    ws = wb.active
+
+    label_col = find_label_col(ws)
+    if label_col is None:
+        wb.close()
+        return None
+
+    sitios = {}
+    for row in ws.iter_rows(min_row=2, max_col=max(11, label_col)):
+        combo = (row[1].value, row[6].value, row[7].value, row[8].value, row[9].value, row[10].value)
+        lista = sitios.setdefault(combo, [])
+        for site in cac_names(row[label_col - 1].value):
+            if site not in lista:
+                lista.append(site)
+    wb.close()
+    return {combo: ", ".join(lista) for combo, lista in sitios.items()}
+
+
 def eol(central):
     #counter, strictly_unique_combos = get_strictly_unique_combinations(central=central)
     counter = get_strictly_unique_combinations(central=central)
@@ -80,6 +254,16 @@ def eol(central):
         ws_rep[f'H{aux+5}'].value = count
         aux += 1
     copy_style_from_row(ws=ws_rep,source_row=6,start_row=7,end_row=len(counter)+5)
+
+    # CAC: columna I con los sitios donde aparece cada combinacion (separados por coma)
+    if is_cac_central(central):
+        sitios = get_cac_por_combo(central)
+        if sitios is None:
+            print(f"[CAC][AVISO] {central}: EOL_{central}_{current_date_and_time}.xlsx no tiene columna "
+                  f"'Connection Label'; la columna CAC de 'Inventario - EOL' queda vacia.")
+            sitios = {}
+        values = {i + 6: sitios.get(combo, "") for i, combo in enumerate(counter.keys())}
+        agregar_columna_cac(ws_rep, 'Inventario - EOL', len(counter) + 5, values)
 
     temp_path = des_path_rep.replace(".xlsx", "_temp.xlsx")
     wb_rep.save(temp_path)
@@ -240,6 +424,19 @@ def pcs_Inv(central,file, sheet):
                 ws_rep[f'J{row+4}'].value = formula
 
         aux = True
+
+    # CAC: columna H (Inventario - PC) / K (Inventario) desde Connection Label del Excel intermedio
+    if is_cac_central(central):
+        label_col = find_label_col(ws)
+        if label_col is None:
+            print(f"[CAC][AVISO] {central}: {file}_{central}_{current_date_and_time}.xlsx no tiene columna "
+                  f"'Connection Label'; la columna CAC de '{sheet}' queda vacia.")
+            values = {}
+        else:
+            values = {r + 4: cac_from_label(ws.cell(row=r, column=label_col).value)
+                      for r in range(2, ws.max_row + 1)}
+        agregar_columna_cac(ws_rep, sheet, ws.max_row + 4, values)
+
     temp_path = des_path_rep.replace(".xlsx", "_temp.xlsx")
     wb_rep.save(temp_path)
     wb_rep.close()
@@ -381,6 +578,8 @@ def Report(central2):
     for row in ws.iter_rows(min_row=4, max_row=ws.max_row):
         for cell in row:
             cell.value = None
+    # CAC: columna Connection Label del NET_DEV (no se pega tal cual; se usa para la columna CAC)
+    cac_label_col = find_label_col(ws_aux) if is_cac_central(central) else None
     # Recorrer filas y columnas
     for row in ws_aux.iter_rows(min_row=1):
         for cell in row:
@@ -416,6 +615,8 @@ def Report(central2):
                     ws.cell(row=target_row, column=cell.column, value=cell.value)
 
             else:
+                if cac_label_col is not None and cell.column == cac_label_col:
+                    continue
                 ws.cell(row=target_row, column=cell.column, value=cell.value)
 
     # Determinar la última fila pegada
@@ -454,6 +655,18 @@ def Report(central2):
     for col in ws_aux.columns:
         col_letter = get_column_letter(col[0].column)
         ws.column_dimensions[col_letter].width = ws_aux.column_dimensions[col_letter].width
+
+    # CAC: columna G en 'Inventario - Red' (la G original de Connection Label se limpia arriba)
+    if is_cac_central(central):
+        if cac_label_col is None:
+            print(f"[CAC][AVISO] {central}: NET_DEV_{central}_{current_date_and_time}.xlsx no tiene columna "
+                  f"'Connection Label'; la columna CAC de 'Inventario - Red' queda vacia.")
+            values = {}
+        else:
+            values = {r + 3: cac_from_label(ws_aux.cell(row=r, column=cac_label_col).value)
+                      for r in range(2, ws_aux.max_row + 1)}
+        agregar_columna_cac(ws, 'Inventario - Red', last_row_written, values)
+
     wb.save(des_path)
 
     ws = wb[f'Resumen']
@@ -569,6 +782,7 @@ def Report(central2):
     wb.save(path_rep)
     wb.close()##################################################################################################################
     new_queries(central,full_Name)
+    cac_hojas_identificados(central, path_rep)   # CAC: No Identificados / Identificados
     done_path = f'./ARCHIVOS_REPORTES/{central}/{current_date_and_time}/done/Reporte_{central}.done'
     with open(done_path, 'w') as f:
         f.write("done")
@@ -648,4 +862,3 @@ def copy_Report(central):
     file_name = os.path.basename(path_rep)
     dest_path = os.path.join(dest_dir, file_name)
     shutil.copy2(path_rep, dest_path)
-

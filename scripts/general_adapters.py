@@ -870,6 +870,8 @@ for destino in ["AB", "AE"]:
 for fila in range(3, 17):
     ws.cell(fila, column_index_from_string("AG")).value = "-"
 
+tabletas_cac = {}   # {indice_columna: tabletas}
+
 if cacs:
     # Recalcular primero, luego leer valores
     with xw.App(visible=False) as app_cac:
@@ -886,10 +888,23 @@ if cacs:
         f = reportes_path / f"Reporte_Discovery_{cac}_{fecha_str}.xlsx"
         ws_src = load_workbook(f, data_only=True)["Resumen"]
 
-        for fila in range(3, 17):
+        # Si el CAC ya tiene la fila Tabletas (C15), todo lo de abajo viene recorrido 1 fila
+        off = 1 if ws_src["C15"].value == "Tabletas" else 0
+
+        # 3..14 igual
+        for fila in range(3, 15):
             ws.cell(fila, col).value = ws_src[f"F{fila}"].value
+
+        # CAC 16 -> 15 (IPs no identificados servidores) y CAC 17 -> 16 (no identificados no vendor)
+        ws.cell(15, col).value = ws_src[f"F{15 + off}"].value
+        ws.cell(16, col).value = ws_src[f"F{16 + off}"].value
+
+        # Vulnerabilidades (E20:E22, o E21:E23 en el CAC con Tabletas)
         for fila in range(20, 23):
-            ws.cell(fila, col).value = ws_src[f"E{fila}"].value
+            ws.cell(fila, col).value = ws_src[f"E{fila + off}"].value
+
+        # Tabletas se guarda aparte; se escribe al insertar la fila
+        tabletas_cac[col] = ws_src["F15"].value if off else 0
 for rango in ("H19:AI19", "H19:AJ19"):
     try:
         ws.unmerge_cells(rango)
@@ -1020,4 +1035,68 @@ ws_data.sheet_view.zoomScale = 110
 ws_data.sheet_view.topLeftCell = "J1"
 ws_data.sheet_view.selection[0].activeCell = "J1"
 ws_data.sheet_view.selection[0].sqref = "J1"
+wb.save(archivo_destino)
+
+# ======================================================
+# FILA TABLETAS (entre la 14 y la 15) en todo H:AJ
+# ======================================================
+ULTIMA_COL = 36   # AJ
+cols_cac_idx = {column_index_from_string(c) for c in CAC_COLS.values()}
+formula_tabletas = "=" + "+".join(f"{c}15" for c in CAC_COLS.values())
+# =J15+M15+P15+S15+V15+Y15+AB15+AE15+AG15
+
+# ---------- FASE 1: insertar fila con Excel (xlwings) ----------
+with xw.App(visible=False) as app_t:
+    app_t.display_alerts = False
+    wb_t = app_t.books.open(str(archivo_destino))
+    try:
+        ws_t = wb_t.sheets["Resumen"]
+
+        ws_t.range("15:15").insert(shift="down", copy_origin="format_from_left_or_above")
+
+        ws_t.range("C15").value = "Tabletas"
+        for col in range(8, ULTIMA_COL + 1):          # H..AJ
+            if col in cols_cac_idx and col in tabletas_cac:
+                ws_t.range((15, col)).value = tabletas_cac[col]
+            else:
+                ws_t.range((15, col)).value = "-"
+        ws_t.range("F15").formula = formula_tabletas
+
+        wb_t.app.calculate()
+        wb_t.save()
+    finally:
+        wb_t.close()
+
+# ---------- FASE 2: merges y formato con openpyxl ----------
+wb = load_workbook(archivo_destino)
+ws_res = wb["Resumen"]
+
+# 1) Unmerge de A4, B5 y de lo que la fila 15 haya heredado en A:F
+for rng in list(ws_res.merged_cells.ranges):
+    toca_a4_b5 = ("A4" in rng) or ("B5" in rng)
+    heredado = rng.min_row <= 15 <= rng.max_row and rng.min_col >= 3 and rng.max_col <= 6
+    if toca_a4_b5 or heredado:
+        ws_res.unmerge_cells(str(rng))
+
+# 2) Formato fila 14 -> fila 15 (C..AJ, con bordes)
+for col in range(3, ULTIMA_COL + 1):
+    origen = ws_res.cell(row=14, column=col)
+    destino = ws_res.cell(row=15, column=col)
+    destino.font = copy(origen.font)
+    destino.fill = copy(origen.fill)
+    destino.border = copy(origen.border)
+    destino.alignment = copy(origen.alignment)
+    destino.number_format = origen.number_format
+    destino.protection = copy(origen.protection)
+
+# 3) Replicar en la 15 los merges de la 14 (p. ej. C14:E14)
+for rng in list(ws_res.merged_cells.ranges):
+    if rng.min_row == 14 and rng.max_row == 14 and rng.min_col >= 3 and rng.max_col <= 6:
+        ws_res.merge_cells(start_row=15, start_column=rng.min_col,
+                           end_row=15, end_column=rng.max_col)
+
+# 4) Merges nuevos (igual que en GENERAL)
+ws_res.merge_cells("A4:A17")
+ws_res.merge_cells("B5:B15")
+
 wb.save(archivo_destino)

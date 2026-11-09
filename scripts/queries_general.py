@@ -72,7 +72,8 @@ def run_general_json_generation(
                "GENERAL IDENTIFIED DEVICES", 
                "GENERAL PCs", 
                "GENERAL SERVERS", 
-               "GENERAL VARIOUS IDENTIFIED DEVICES", ]
+               "GENERAL VARIOUS IDENTIFIED DEVICES", 
+               "ALL GENERAL TABLETS"]
 
     def get_with_retry(api, query_name, page_size, offset, retries=5):
         for attempt in range(retries):

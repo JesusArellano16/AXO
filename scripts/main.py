@@ -146,12 +146,15 @@ if __name__ == '__main__':
             #run_general_report(central.nombre)
             charts.data_central(central.nombre)
             charts.agregar_hojas_graficas(central.nombre)
+            if central.nombre == "GENERAL":
+                charts.agregar_fila_tabletas_general()
             copy_Report(central=central.nombre)
             #pass
         else:
             try:
                 charts.data_central(central.nombre)
                 charts.agregar_hojas_graficas(central.nombre)
+                charts.agregar_fila_tabletas(central.nombre)
                 copy_Report(central=central.nombre)
             except Exception as e:
                 print(f"Error generando gráficas: {e}")

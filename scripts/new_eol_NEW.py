@@ -80,6 +80,7 @@ def export_eol(central, f_central):
                     "specific_data.data.network_interfaces.ips_preferred",
                     "specific_data.data.network_interfaces.mac_preferred",
                     "specific_data.data.os.type_distribution_preferred",
+                    "specific_data.connection_label",
                 ],
             )
         except Exception:
@@ -116,6 +117,7 @@ def export_eol(central, f_central):
         "Tipo y distribución OS",
         "Cortex",
         "Virtual Patching",
+        "Connection Label",
     ]
     ws.append(headers)
 
@@ -135,10 +137,17 @@ def export_eol(central, f_central):
         cortex = "SI" if "paloalto_xdr_adapter" in device.get("adapters", []) else "NO"
         vpatch = "SI" if "deep_security_adapter" in device.get("adapters", []) else "NO"
 
+        # NUEVO: puede venir como lista o como string
+        label_raw = device.get("specific_data.connection_label", "")
+        if isinstance(label_raw, list):
+            label = "\n".join(str(l) for l in label_raw)
+        else:
+            label = label_raw or ""
+
         softwares = device.get("specific_data.data.installed_software", [])
 
         if not softwares:
-            ws.append([adapters, hostname, "", "", "", "", ips, macs, os_name, cortex, vpatch])
+            ws.append([adapters, hostname, "", "", "", "", ips, macs, os_name, cortex, vpatch, label])
         else:
             for sw in softwares:
                 ws.append([
@@ -152,13 +161,14 @@ def export_eol(central, f_central):
                     macs,
                     os_name,
                     cortex,
-                    vpatch
+                    vpatch,
+                    label,   # <-- NUEVO
                 ])
 
     # --------------------------------------------------
     # FORMATO (MISMO QUE LOS OTROS REPORTES)
     # --------------------------------------------------
-    wrap_columns = ["A", "C", "G", "H"]
+    wrap_columns = ["A", "C", "G", "H","L"]
 
     for col in wrap_columns:
         for cell in ws[col]:
@@ -171,7 +181,7 @@ def export_eol(central, f_central):
 
     for col, width in {
         "A": 30, "B": 30, "C": 35, "D": 20, "E": 20, "F": 20,
-        "G": 25, "H": 25, "I": 30, "J": 15, "K": 20
+        "G": 25, "H": 25, "I": 30, "J": 15, "K": 20, "L": 30,
     }.items():
         ws.column_dimensions[col].width = width
 

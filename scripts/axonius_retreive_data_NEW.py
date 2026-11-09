@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import warnings
 import urllib3
@@ -23,6 +24,14 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # FECHA GLOBAL
 # ======================================================
 current_date_and_time = str(dt.date.today())
+
+# ======================================================
+# CAC (centrales CACR1..CACR9)
+# Se agrega la columna "Connection Label" (specific_data.connection_label) como
+# ULTIMA columna de estos Excel; report.py la convierte en la columna CAC.
+# ======================================================
+CAC_CENTRAL_PATTERN = re.compile(r"CACR[1-9]")
+CAC_FILES = ("NET_DEV", "PCs", "SERVERS")
 
 # ======================================================
 # JSON OFFLINE UTILITIES
@@ -116,6 +125,10 @@ def axonius_retreive_data(
     # --------------------------------------------------
     clean_devices = []
 
+    # CAC: Connection Label como ultima columna (solo CACR1..CACR9 y solo NET_DEV / PCs / SERVERS)
+    is_cac = bool(CAC_CENTRAL_PATTERN.fullmatch(str(central))) and saved_query_name_clean in CAC_FILES
+    cac_labels = []
+
     if saved_query_name_clean == "NET_DEV":
         fields = [
             "adapters",
@@ -184,6 +197,9 @@ def axonius_retreive_data(
             else:
                 d["COMMENTS"] = ""
 
+        if is_cac:                                                                  # CAC
+            cac_labels.append(normalize_multivalue(device.get("specific_data.connection_label")))
+
         clean_devices.append(d)
 
     # --------------------------------------------------
@@ -192,6 +208,13 @@ def axonius_retreive_data(
     for d in clean_devices:
         if "COMMENTS" not in d:
             d["COMMENTS"] = ""
+
+    # CAC: se agrega DESPUES de COMMENTS para que quede como ultima columna
+    # (asi no se mueve ninguna columna que report.py ya lee: B..G)
+    if is_cac:
+        for d, label in zip(clean_devices, cac_labels):
+            d["specific_data.connection_label"] = label if label is not None else ""
+
     df = pd.DataFrame(clean_devices)
 
     headers = {
